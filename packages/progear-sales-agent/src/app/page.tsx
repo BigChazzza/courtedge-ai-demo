@@ -21,7 +21,14 @@ export default function Home() {
   };
 
   const handleSendMessage = async () => {
-    if (!message.trim() || !session?.idToken) return;
+    if (!message.trim()) return;
+
+    // Debug: Log session state
+    console.log('Session state:', {
+      hasSession: !!session,
+      hasIdToken: !!session?.idToken,
+      idTokenPrefix: session?.idToken?.substring(0, 20) + '...',
+    });
 
     const userMessage = message.trim();
     setMessage('');
@@ -30,12 +37,26 @@ export default function Home() {
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const idToken = session?.idToken;
+
+      // Debug: Log what we're sending
+      console.log('Making request to:', apiUrl);
+      console.log('Has idToken for header:', !!idToken);
+
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+
+      if (idToken) {
+        headers['Authorization'] = `Bearer ${idToken}`;
+        console.log('Authorization header set');
+      } else {
+        console.warn('No idToken available - request will be unauthenticated');
+      }
+
       const response = await fetch(`${apiUrl}/api/chat`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.idToken}`,
-        },
+        headers,
         body: JSON.stringify({ message: userMessage }),
       });
 

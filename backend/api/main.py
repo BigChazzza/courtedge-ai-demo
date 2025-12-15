@@ -101,7 +101,7 @@ async def get_user_token(authorization: Optional[str] = Header(None)) -> Optiona
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(
     request: ChatRequest,
-    authorization: Optional[str] = Header(None)
+    authorization: Optional[str] = Header(None, alias="Authorization")
 ):
     """
     Main chat endpoint.
@@ -112,6 +112,11 @@ async def chat(
     3. Route to appropriate agent(s)
     4. Return response with audit trail
     """
+    # Debug: Log what we received
+    logger.info(f"=== Chat Request Received ===")
+    logger.info(f"Authorization header present: {authorization is not None}")
+    logger.info(f"Authorization header value: {authorization[:50] + '...' if authorization else 'None'}")
+
     okta_auth = get_okta_auth()
     token_exchanges = []
     user_info = None
