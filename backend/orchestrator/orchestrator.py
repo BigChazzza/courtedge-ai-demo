@@ -3,16 +3,30 @@ Orchestrator - Coordinates multiple agents using LangGraph.
 
 This is the brain of the multi-agent system. It:
 1. Receives user messages
-2. Determines which agent(s) to invoke
+2. Determines which agent(s) to invoke (LLM-powered routing)
 3. Manages token exchange for each agent
-4. Coordinates multi-agent workflows
-5. Returns unified responses with audit trail
+4. Handles access denied scenarios gracefully
+5. Coordinates multi-agent workflows
+6. Returns unified responses with audit trail
+
+Key feature for demo: Shows which agents are accessible based on user's
+group membership, with clear success/denied visualization.
 """
 
 from typing import Dict, Any, List, Optional, TypedDict
 from langgraph.graph import StateGraph, END
+from langchain_anthropic import ChatAnthropic
+from langchain_core.messages import HumanMessage, SystemMessage
+import logging
+import json
 
-from agents import SalesAgent, InventoryAgent, PricingAgent, CustomerAgent
+from auth.multi_agent_auth import (
+    get_multi_agent_exchange,
+    AGENT_SALES, AGENT_INVENTORY, AGENT_CUSTOMER, AGENT_PRICING
+)
+from auth.agent_config import get_agent_config, DEMO_AGENTS
+
+logger = logging.getLogger(__name__)
 
 
 class WorkflowState(TypedDict):
@@ -22,11 +36,11 @@ class WorkflowState(TypedDict):
     user_info: Dict[str, Any]
     user_token: str
 
-    # Agent results
-    sales_result: Optional[Dict[str, Any]]
-    inventory_result: Optional[Dict[str, Any]]
-    pricing_result: Optional[Dict[str, Any]]
-    customer_result: Optional[Dict[str, Any]]
+    # Routing decision
+    agents_to_invoke: List[str]
+
+    # Agent results (with access status)
+    agent_results: Dict[str, Dict[str, Any]]
 
     # Tracking for demo visibility
     agent_flow: List[Dict[str, Any]]
@@ -36,30 +50,48 @@ class WorkflowState(TypedDict):
     final_response: Optional[str]
 
 
+# Agent type to keywords mapping for fallback routing
+AGENT_KEYWORDS = {
+    AGENT_SALES: ["order", "quote", "deal", "sale", "revenue", "pipeline", "opportunity"],
+    AGENT_INVENTORY: ["stock", "inventory", "product", "warehouse", "supply", "available", "in stock"],
+    AGENT_CUSTOMER: ["customer", "account", "client", "contact", "tier", "loyalty", "history"],
+    AGENT_PRICING: ["price", "discount", "margin", "cost", "profit", "bulk", "wholesale", "retail"],
+}
+
+
 class Orchestrator:
     """
     Multi-agent orchestrator using LangGraph.
 
     Routes requests to appropriate agents and coordinates
-    complex multi-agent workflows.
+    complex multi-agent workflows with proper access control.
     """
 
-    def __init__(self, user_token: str, okta_auth: Optional[Any] = None):
+    def __init__(self, user_token: str, user_info: Optional[Dict[str, Any]] = None):
         """
         Initialize the orchestrator with user context.
 
         Args:
-            user_token: User's access token
-            okta_auth: OktaAuth instance for token exchange
+            user_token: User's ID token (for token exchange)
+            user_info: Optional user info from token validation
         """
         self.user_token = user_token
-        self.okta_auth = okta_auth
+        self.user_info = user_info or {}
 
-        # Initialize agents
-        self.sales_agent = SalesAgent(user_token, okta_auth)
-        self.inventory_agent = InventoryAgent(user_token, okta_auth)
-        self.pricing_agent = PricingAgent(user_token, okta_auth)
-        self.customer_agent = CustomerAgent(user_token, okta_auth)
+        # Get multi-agent token exchange manager
+        self.token_exchange = get_multi_agent_exchange()
+
+        # Initialize router LLM (fast model for routing decisions)
+        self.router_llm = ChatAnthropic(
+            model="claude-sonnet-4-20250514",
+            temperature=0,
+        )
+
+        # Initialize response LLM (for combining results)
+        self.response_llm = ChatAnthropic(
+            model="claude-sonnet-4-20250514",
+            temperature=0.7,
+        )
 
         # Build the workflow
         self.workflow = self._build_workflow()
@@ -70,175 +102,416 @@ class Orchestrator:
 
         # Add nodes
         workflow.add_node("router", self._router_node)
-        workflow.add_node("sales", self._sales_node)
-        workflow.add_node("inventory", self._inventory_node)
-        workflow.add_node("pricing", self._pricing_node)
-        workflow.add_node("customer", self._customer_node)
-        workflow.add_node("coordinator", self._coordinator_node)
+        workflow.add_node("exchange_tokens", self._exchange_tokens_node)
+        workflow.add_node("process_agents", self._process_agents_node)
+        workflow.add_node("generate_response", self._generate_response_node)
 
-        # Set entry point
+        # Linear flow: router -> exchange -> process -> response
         workflow.set_entry_point("router")
-
-        # Add conditional edges from router
-        workflow.add_conditional_edges(
-            "router",
-            self._route_to_agent,
-            {
-                "sales": "sales",
-                "inventory": "inventory",
-                "pricing": "pricing",
-                "customer": "customer",
-                "multi": "sales",  # Start multi-agent with sales
-                "general": "coordinator",
-            }
-        )
-
-        # Agent nodes go to coordinator
-        workflow.add_edge("sales", "coordinator")
-        workflow.add_edge("inventory", "coordinator")
-        workflow.add_edge("pricing", "coordinator")
-        workflow.add_edge("customer", "coordinator")
-
-        # Coordinator ends the workflow
-        workflow.add_edge("coordinator", END)
+        workflow.add_edge("router", "exchange_tokens")
+        workflow.add_edge("exchange_tokens", "process_agents")
+        workflow.add_edge("process_agents", "generate_response")
+        workflow.add_edge("generate_response", END)
 
         return workflow.compile()
 
-    def _route_to_agent(self, state: WorkflowState) -> str:
-        """Determine which agent(s) to route to based on the message."""
-        message = state["user_message"].lower()
-
-        # Simple keyword-based routing (will be enhanced with LLM)
-        if any(word in message for word in ["order", "quote", "deal", "sale"]):
-            return "sales"
-        elif any(word in message for word in ["stock", "inventory", "product", "warehouse"]):
-            return "inventory"
-        elif any(word in message for word in ["price", "discount", "margin", "cost"]):
-            return "pricing"
-        elif any(word in message for word in ["customer", "account", "contact", "client"]):
-            return "customer"
-        elif any(word in message for word in ["create a quote", "process order"]):
-            return "multi"  # Multi-agent workflow
-        else:
-            return "general"
-
     async def _router_node(self, state: WorkflowState) -> WorkflowState:
-        """Router node - logs the routing decision."""
+        """
+        Determine which agents to invoke based on the user's question.
+
+        Uses LLM-powered routing with keyword fallback.
+        """
+        message = state["user_message"]
         state["agent_flow"].append({
             "step": "router",
-            "action": "Analyzing request",
-            "message": state["user_message"][:100]
+            "action": "Analyzing request to determine relevant agents",
+            "status": "processing"
         })
-        return state
 
-    async def _sales_node(self, state: WorkflowState) -> WorkflowState:
-        """Sales agent node."""
-        result = await self.sales_agent.process(
-            state["user_message"],
-            {"user_info": state["user_info"]}
-        )
-        state["sales_result"] = result
+        # Use LLM to determine which agents are relevant
+        try:
+            routing_prompt = f"""Analyze this user request and determine which AI agents should handle it.
+
+Available agents:
+1. SALES - For orders, quotes, deals, sales pipeline, revenue
+2. INVENTORY - For stock levels, products, warehouse, supply chain
+3. CUSTOMER - For customer info, accounts, contacts, purchase history, loyalty tiers
+4. PRICING - For prices, discounts, margins, costs, bulk pricing
+
+User request: "{message}"
+
+Return a JSON object with the agents to invoke (true/false for each):
+{{"sales": true/false, "inventory": true/false, "customer": true/false, "pricing": true/false}}
+
+Only set true for agents that are directly relevant. For complex requests that need
+multiple data sources (like "Can we fulfill an order"), set multiple to true.
+Return ONLY the JSON object, no other text."""
+
+            response = await self.router_llm.ainvoke([HumanMessage(content=routing_prompt)])
+            routing_json = json.loads(response.content)
+
+            agents = []
+            if routing_json.get("sales"):
+                agents.append(AGENT_SALES)
+            if routing_json.get("inventory"):
+                agents.append(AGENT_INVENTORY)
+            if routing_json.get("customer"):
+                agents.append(AGENT_CUSTOMER)
+            if routing_json.get("pricing"):
+                agents.append(AGENT_PRICING)
+
+            logger.info(f"LLM routing decision: {agents}")
+
+        except Exception as e:
+            logger.warning(f"LLM routing failed, using keyword fallback: {e}")
+            agents = self._keyword_routing(message)
+
+        # Default to at least one agent
+        if not agents:
+            agents = [AGENT_SALES]
+
+        state["agents_to_invoke"] = agents
         state["agent_flow"].append({
-            "step": "sales-agent",
-            "action": "Processing sales request",
-            "result": result["result"]
+            "step": "router",
+            "action": f"Selected agents: {', '.join(agents)}",
+            "status": "completed",
+            "agents": agents
         })
-        state["token_exchanges"].append(result["token_exchange"])
+
         return state
 
-    async def _inventory_node(self, state: WorkflowState) -> WorkflowState:
-        """Inventory agent node."""
-        result = await self.inventory_agent.process(
-            state["user_message"],
-            {"user_info": state["user_info"]}
-        )
-        state["inventory_result"] = result
+    def _keyword_routing(self, message: str) -> List[str]:
+        """Fallback keyword-based routing."""
+        message_lower = message.lower()
+        agents = []
+
+        for agent_type, keywords in AGENT_KEYWORDS.items():
+            if any(keyword in message_lower for keyword in keywords):
+                agents.append(agent_type)
+
+        return agents if agents else [AGENT_SALES]
+
+    async def _exchange_tokens_node(self, state: WorkflowState) -> WorkflowState:
+        """
+        Exchange tokens for all selected agents.
+
+        This is where access control happens - users may be denied
+        access to certain agents based on group membership.
+        """
+        agents_to_invoke = state["agents_to_invoke"]
+
         state["agent_flow"].append({
-            "step": "inventory-agent",
-            "action": "Processing inventory request",
-            "result": result["result"]
+            "step": "token_exchange",
+            "action": "Requesting access tokens for selected agents",
+            "status": "processing"
         })
-        state["token_exchanges"].append(result["token_exchange"])
-        return state
 
-    async def _pricing_node(self, state: WorkflowState) -> WorkflowState:
-        """Pricing agent node."""
-        result = await self.pricing_agent.process(
-            state["user_message"],
-            {"user_info": state["user_info"]}
+        # Exchange tokens for all selected agents
+        exchange_results = await self.token_exchange.exchange_for_all_agents(
+            self.user_token,
+            agents_to_invoke
         )
-        state["pricing_result"] = result
+
+        # Record token exchanges
+        for agent_type, result in exchange_results.items():
+            config = get_agent_config(agent_type) or {}
+            demo_config = DEMO_AGENTS.get(agent_type, {})
+
+            exchange_record = {
+                "agent": agent_type,
+                "agent_name": result["agent_info"]["name"],
+                "color": result["agent_info"]["color"],
+                "success": result["success"],
+                "access_denied": result.get("access_denied", False),
+                "scopes": result.get("scopes", []),
+                "demo_mode": result.get("demo_mode", False),
+            }
+
+            if result.get("access_denied"):
+                exchange_record["error"] = result.get("error", "Access denied")
+                exchange_record["status"] = "denied"
+            elif result["success"]:
+                exchange_record["status"] = "granted"
+                exchange_record["audience"] = result.get("audience")
+            else:
+                exchange_record["error"] = result.get("error", "Unknown error")
+                exchange_record["status"] = "error"
+
+            state["token_exchanges"].append(exchange_record)
+
+        # Store results for next node
+        state["agent_results"] = exchange_results
+
+        # Summary for flow
+        granted = sum(1 for r in exchange_results.values() if r["success"])
+        denied = sum(1 for r in exchange_results.values() if r.get("access_denied"))
+
         state["agent_flow"].append({
-            "step": "pricing-agent",
-            "action": "Processing pricing request",
-            "result": result["result"]
+            "step": "token_exchange",
+            "action": f"Token exchange complete: {granted} granted, {denied} denied",
+            "status": "completed",
+            "summary": {
+                "total": len(exchange_results),
+                "granted": granted,
+                "denied": denied
+            }
         })
-        state["token_exchanges"].append(result["token_exchange"])
+
         return state
 
-    async def _customer_node(self, state: WorkflowState) -> WorkflowState:
-        """Customer agent node."""
-        result = await self.customer_agent.process(
-            state["user_message"],
-            {"user_info": state["user_info"]}
-        )
-        state["customer_result"] = result
+    async def _process_agents_node(self, state: WorkflowState) -> WorkflowState:
+        """
+        Process requests through agents that have access.
+
+        Agents with denied access are skipped but noted in the response.
+        """
+        agent_results = state["agent_results"]
+
         state["agent_flow"].append({
-            "step": "customer-agent",
-            "action": "Processing customer request",
-            "result": result["result"]
+            "step": "process_agents",
+            "action": "Processing request through authorized agents",
+            "status": "processing"
         })
-        state["token_exchanges"].append(result["token_exchange"])
+
+        # For each agent with access, simulate processing
+        # In a full implementation, this would call MCP tools
+        for agent_type, exchange_result in agent_results.items():
+            if exchange_result["success"] and not exchange_result.get("access_denied"):
+                # Agent has access - process the request
+                agent_response = await self._invoke_agent(
+                    agent_type,
+                    state["user_message"],
+                    exchange_result
+                )
+                agent_results[agent_type]["response"] = agent_response
+
+                state["agent_flow"].append({
+                    "step": f"{agent_type}_agent",
+                    "action": f"Processed by {exchange_result['agent_info']['name']}",
+                    "status": "completed",
+                    "color": exchange_result["agent_info"]["color"]
+                })
+            elif exchange_result.get("access_denied"):
+                state["agent_flow"].append({
+                    "step": f"{agent_type}_agent",
+                    "action": f"ACCESS DENIED - User not authorized for {exchange_result['agent_info']['name']}",
+                    "status": "denied",
+                    "color": exchange_result["agent_info"]["color"]
+                })
+
+        state["agent_results"] = agent_results
         return state
 
-    async def _coordinator_node(self, state: WorkflowState) -> WorkflowState:
-        """Coordinator node - combines results and generates final response."""
-        # Collect all agent results
-        results = []
-        if state.get("sales_result"):
-            results.append(state["sales_result"]["result"])
-        if state.get("inventory_result"):
-            results.append(state["inventory_result"]["result"])
-        if state.get("pricing_result"):
-            results.append(state["pricing_result"]["result"])
-        if state.get("customer_result"):
-            results.append(state["customer_result"]["result"])
+    async def _invoke_agent(
+        self,
+        agent_type: str,
+        message: str,
+        exchange_result: Dict[str, Any]
+    ) -> str:
+        """
+        Invoke a specific agent to process the request.
 
-        # Generate final response
-        if results:
-            state["final_response"] = "\n".join(results)
+        In full implementation, this would:
+        1. Use the MCP token to call MCP tools
+        2. Have the agent LLM process with tool results
+        3. Return agent's response
+
+        For now, returns simulated responses based on agent type.
+        """
+        # Get agent-specific data (will be replaced with MCP calls)
+        data = self._get_demo_data(agent_type, message)
+
+        agent_name = exchange_result["agent_info"]["name"]
+        scopes = exchange_result.get("scopes", [])
+
+        return f"[{agent_name}]\n{data}\n(Scopes: {', '.join(scopes)})"
+
+    def _get_demo_data(self, agent_type: str, message: str) -> str:
+        """Get demo data for an agent based on message context."""
+        message_lower = message.lower()
+
+        if agent_type == AGENT_SALES:
+            if "order" in message_lower or "recent" in message_lower:
+                return (
+                    "Recent Orders:\n"
+                    "- ORD-2024-001: State University Athletics - $7,109.53 (shipped)\n"
+                    "- ORD-2024-002: Metro High School District - $23,796.60 (processing)\n"
+                    "- ORD-2024-003: Riverside Youth League - $3,608.95 (pending)\n"
+                    "- ORD-2024-004: City Pro Basketball Academy - $5,669.69 (shipped)\n"
+                    "Pipeline Value: $40,184.77 this week"
+                )
+            return (
+                "Sales Summary:\n"
+                "- Active orders: 5 orders totaling $40,184.77\n"
+                "- Top customer: Metro High School District ($124,500 lifetime)\n"
+                "- Quote ready for 1,500 basketballs @ 20% bulk discount"
+            )
+
+        elif agent_type == AGENT_INVENTORY:
+            if "basketball" in message_lower:
+                return (
+                    "Basketball Inventory:\n"
+                    "- Pro Game Basketball: 2,847 units - GOOD\n"
+                    "- Pro Composite: 1,523 units - GOOD\n"
+                    "- Women's Official: 1,234 units - GOOD\n"
+                    "- Youth Size 5: 3,567 units - GOOD\n"
+                    "- Youth Size 4: 2,156 units - GOOD\n"
+                    "Total basketballs: 12,219 units available"
+                )
+            return (
+                "Inventory Summary:\n"
+                "- Basketballs: 12,219 units (6 SKUs)\n"
+                "- Hoops & Backboards: 769 units (4 SKUs)\n"
+                "- Uniforms: 21,120 units (4 SKUs)\n"
+                "- Training Equipment: 4,700 units (4 SKUs)\n"
+                "Low stock alert: Pro Arena Hoop System (45 units)"
+            )
+
+        elif agent_type == AGENT_CUSTOMER:
+            if "state" in message_lower or "university" in message_lower:
+                return (
+                    "Customer: State University Athletics\n"
+                    "- Tier: Platinum\n"
+                    "- Lifetime Value: $89,500 (156 orders)\n"
+                    "- Contact: Coach Williams\n"
+                    "- Territory: West | Payment: Net 45\n"
+                    "Note: Preferred for bulk basketball orders"
+                )
+            if "platinum" in message_lower or "tier" in message_lower:
+                return (
+                    "Platinum Tier Customers:\n"
+                    "1. Metro High School District - $124,500 lifetime\n"
+                    "2. State University Athletics - $89,500 lifetime\n"
+                    "3. City Pro Basketball Academy - $67,800 lifetime\n"
+                    "Platinum benefits: 5% discount, Net 45-60 terms"
+                )
+            return (
+                "Customer Overview:\n"
+                "- Platinum: 3 accounts ($281,800 combined)\n"
+                "- Gold: 3 accounts ($63,500 combined)\n"
+                "- Silver: 2 accounts ($15,200 combined)\n"
+                "Top: Metro High School District ($124,500)"
+            )
+
+        elif agent_type == AGENT_PRICING:
+            if "basketball" in message_lower or "margin" in message_lower:
+                return (
+                    "Basketball Pricing:\n"
+                    "- Pro Game: $149.99 (cost $62, margin 58.7%)\n"
+                    "- Pro Composite: $89.99 (cost $38, margin 57.8%)\n"
+                    "- Women's Official: $129.99 (cost $55, margin 57.7%)\n"
+                    "- Youth Size 5: $34.99 (cost $14, margin 60.0%)\n"
+                    "Average basketball margin: 58.8%"
+                )
+            if "bulk" in message_lower or "discount" in message_lower:
+                return (
+                    "Bulk Discounts:\n"
+                    "- 10+ units: 5% | 50+ units: 10%\n"
+                    "- 100+ units: 15% | 500+ units: 20%\n"
+                    "Customer Tier Bonuses:\n"
+                    "- Platinum: +5% | Gold: +3%\n"
+                    "Example: 1,500 units @ Platinum = 25% total discount"
+                )
+            return (
+                "Pricing Overview:\n"
+                "- Average margin: 58.2% across all products\n"
+                "- Highest: Youth basketballs (60%)\n"
+                "- Volume discounts: 5-20% based on quantity\n"
+                "- Tier discounts: 0-5% based on customer status"
+            )
+
+        return "Data not available for this query."
+
+    async def _generate_response_node(self, state: WorkflowState) -> WorkflowState:
+        """
+        Generate a unified response combining all agent outputs.
+
+        Clearly indicates which agents contributed and which were denied.
+        """
+        agent_results = state["agent_results"]
+
+        # Collect successful responses and denied agents
+        responses = []
+        denied_agents = []
+
+        for agent_type, result in agent_results.items():
+            if result["success"] and "response" in result:
+                responses.append(result["response"])
+            elif result.get("access_denied"):
+                denied_agents.append(result["agent_info"]["name"])
+
+        # Generate combined response
+        if responses:
+            # Use LLM to create natural combined response
+            combined_data = "\n\n".join(responses)
+            synthesis_prompt = f"""Based on the following agent responses, provide a helpful, natural answer
+to the user's question: "{state['user_message']}"
+
+Agent responses:
+{combined_data}
+
+{"Note: The user was denied access to these agents: " + ", ".join(denied_agents) if denied_agents else ""}
+
+Provide a concise, helpful response that combines the relevant information.
+If some agents were denied, acknowledge what information is missing but focus on what IS available."""
+
+            try:
+                response = await self.response_llm.ainvoke([
+                    SystemMessage(content="You are a helpful AI assistant for ProGear Sporting Goods."),
+                    HumanMessage(content=synthesis_prompt)
+                ])
+                final_response = response.content
+            except Exception as e:
+                logger.error(f"Response synthesis failed: {e}")
+                final_response = combined_data
+
+        elif denied_agents:
+            final_response = (
+                f"I apologize, but you don't have access to the agents needed for this request.\n\n"
+                f"Access denied for: {', '.join(denied_agents)}\n\n"
+                f"Please contact your administrator if you need access to this information."
+            )
         else:
-            state["final_response"] = "I'm not sure how to help with that. Try asking about orders, inventory, pricing, or customers."
+            final_response = (
+                "I'm not sure how to help with that request. "
+                "Try asking about orders, inventory, pricing, or customer information."
+            )
+
+        state["final_response"] = final_response
+
+        # Add denied agents info if any
+        if denied_agents:
+            state["final_response"] += f"\n\n[Note: Limited access - denied agents: {', '.join(denied_agents)}]"
 
         state["agent_flow"].append({
-            "step": "coordinator",
-            "action": "Combining agent results",
-            "agents_used": len(results)
+            "step": "generate_response",
+            "action": "Generated combined response",
+            "status": "completed"
         })
 
         return state
 
-    async def process(self, message: str, user_info: Dict[str, Any]) -> Dict[str, Any]:
+    async def process(self, message: str) -> Dict[str, Any]:
         """
         Process a user message through the orchestrator.
 
         Args:
             message: User's message
-            user_info: Information about the user
 
         Returns:
-            Dict with response, agent flow, and token exchanges
+            Dict with:
+            - content: Final response
+            - agent_flow: Steps taken
+            - token_exchanges: Token exchange results per agent
         """
         # Initialize state
         initial_state: WorkflowState = {
             "messages": [],
             "user_message": message,
-            "user_info": user_info,
+            "user_info": self.user_info,
             "user_token": self.user_token,
-            "sales_result": None,
-            "inventory_result": None,
-            "pricing_result": None,
-            "customer_result": None,
+            "agents_to_invoke": [],
+            "agent_results": {},
             "agent_flow": [],
             "token_exchanges": [],
             "final_response": None,
