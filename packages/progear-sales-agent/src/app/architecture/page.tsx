@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown, ChevronRight, Shield, Key, Users, Server, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
+import { ChevronDown, ChevronRight, Shield, Key, Users, Server, ArrowRight, CheckCircle, XCircle, Cpu, Lock, GitBranch } from 'lucide-react';
 
 interface CollapsibleSectionProps {
   title: string;
@@ -16,10 +16,10 @@ function CollapsibleSection({ title, subtitle, icon, children, defaultOpen = fal
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="bg-white rounded-xl border-2 border-neutral-border overflow-hidden">
+    <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-white/20 shadow-lg overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition"
+        className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/50 transition"
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-okta-blue to-tech-purple flex items-center justify-center text-white">
@@ -39,53 +39,147 @@ function CollapsibleSection({ title, subtitle, icon, children, defaultOpen = fal
 
 export default function ArchitecturePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-neutral-bg to-gray-100">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
-      <header className="bg-gradient-to-r from-primary via-court-brown to-primary-light border-b-4 border-accent shadow-lg">
+      <header className="bg-black/30 backdrop-blur-md border-b border-white/10">
         <div className="px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <span className="text-5xl">🏀</span>
             <div>
               <h1 className="text-white text-2xl font-bold">CourtEdge ProGear</h1>
-              <p className="text-gray-300 text-sm">Architecture & Security Overview</p>
+              <p className="text-gray-400 text-sm">Architecture & Security Overview</p>
             </div>
           </div>
           <Link
             href="/"
-            className="px-5 py-2.5 bg-accent hover:bg-court-orange text-white rounded-lg transition font-semibold"
+            className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg transition font-semibold shadow-lg"
           >
             Back to Chat
           </Link>
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto py-8 px-6 space-y-6">
-        {/* Overview Section */}
-        <div className="bg-gradient-to-r from-okta-blue to-tech-purple rounded-2xl p-8 text-white">
+      <div className="max-w-6xl mx-auto py-8 px-6 space-y-6">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-okta-blue via-tech-purple to-okta-blue rounded-2xl p-8 text-white shadow-2xl border border-white/10">
           <h2 className="text-3xl font-bold mb-4">Okta AI Agent Governance</h2>
           <p className="text-lg text-white/90 mb-6">
-            This demo showcases how Okta secures AI agents accessing enterprise data.
-            Each agent has its own identity, credentials, and scoped access - all governed by Okta.
+            Enterprise-grade security for AI agents accessing business-critical data.
+            One AI agent identity with scoped connections to 4 protected MCP servers - all governed by Okta.
           </p>
-          <div className="grid grid-cols-4 gap-4">
-            <div className="bg-white/20 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold">4</div>
-              <div className="text-sm text-white/80">AI Agents</div>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center border border-white/10">
+              <div className="text-3xl font-bold">1</div>
+              <div className="text-sm text-white/80">AI Agent</div>
             </div>
-            <div className="bg-white/20 rounded-lg p-4 text-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center border border-white/10">
+              <div className="text-3xl font-bold">4</div>
+              <div className="text-sm text-white/80">MCP Servers</div>
+            </div>
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center border border-white/10">
               <div className="text-3xl font-bold">4</div>
               <div className="text-sm text-white/80">Auth Servers</div>
             </div>
-            <div className="bg-white/20 rounded-lg p-4 text-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center border border-white/10">
               <div className="text-3xl font-bold">3</div>
               <div className="text-sm text-white/80">User Roles</div>
             </div>
-            <div className="bg-white/20 rounded-lg p-4 text-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center border border-white/10">
               <div className="text-3xl font-bold">ID-JAG</div>
               <div className="text-sm text-white/80">Token Exchange</div>
             </div>
           </div>
         </div>
+
+        {/* End-to-End Architecture Diagram */}
+        <CollapsibleSection
+          title="End-to-End Architecture"
+          subtitle="How the system works together"
+          icon={<GitBranch className="w-5 h-5" />}
+          defaultOpen={true}
+        >
+          <div className="mt-4">
+            {/* Architecture Diagram */}
+            <div className="bg-gradient-to-b from-gray-50 to-gray-100 rounded-xl p-6 mb-6">
+              {/* User Request */}
+              <div className="text-center mb-6">
+                <div className="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg">
+                  User Request: "Can we fulfill 1500 basketballs for State University?"
+                </div>
+              </div>
+
+              {/* Arrow down */}
+              <div className="flex justify-center mb-4">
+                <ArrowRight className="w-6 h-6 text-gray-400 rotate-90" />
+              </div>
+
+              {/* LangChain Orchestrator */}
+              <div className="text-center mb-6">
+                <div className="inline-block bg-gradient-to-r from-purple-500 to-purple-600 text-white px-8 py-4 rounded-xl shadow-lg">
+                  <div className="font-bold text-lg">LangChain Orchestrator</div>
+                  <div className="text-sm text-purple-200">Routes to appropriate MCP server(s) based on query</div>
+                </div>
+              </div>
+
+              {/* Arrow down to MCP servers */}
+              <div className="flex justify-center mb-4">
+                <div className="flex items-center gap-4">
+                  <ArrowRight className="w-6 h-6 text-gray-400 rotate-90" />
+                </div>
+              </div>
+
+              {/* MCP Servers Row */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                {[
+                  { name: "Sales", color: "from-blue-500 to-blue-600", scopes: "sales:read, quote, order" },
+                  { name: "Inventory", color: "from-green-500 to-green-600", scopes: "inventory:read, write" },
+                  { name: "Customer", color: "from-purple-500 to-purple-600", scopes: "customer:read, lookup" },
+                  { name: "Pricing", color: "from-orange-500 to-orange-600", scopes: "pricing:read, margin" },
+                ].map((server, idx) => (
+                  <div key={idx} className={`bg-gradient-to-br ${server.color} text-white p-4 rounded-xl text-center shadow-lg`}>
+                    <Server className="w-6 h-6 mx-auto mb-2" />
+                    <div className="font-semibold">{server.name} MCP</div>
+                    <div className="text-xs text-white/80 mt-1">{server.scopes}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* ID-JAG Exchange Note */}
+              <div className="bg-white rounded-lg p-4 border-2 border-purple-200 text-center">
+                <div className="flex items-center justify-center gap-2 text-purple-700 font-semibold mb-2">
+                  <Lock className="w-5 h-5" />
+                  ID-JAG Token Exchange
+                </div>
+                <div className="text-sm text-gray-600">
+                  Each MCP server connection requires a scoped Bearer token obtained through Okta's ID-JAG exchange.
+                  User's group membership determines which tokens can be issued.
+                </div>
+              </div>
+            </div>
+
+            {/* Key Points */}
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                <div className="font-semibold text-blue-800">Single AI Agent Identity</div>
+                <div className="text-sm text-blue-700 mt-1">
+                  One registered Okta AI Agent with centralized governance and audit logging.
+                </div>
+              </div>
+              <div className="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                <div className="font-semibold text-purple-800">Intelligent Routing</div>
+                <div className="text-sm text-purple-700 mt-1">
+                  LangChain determines which MCP servers are needed to answer each query.
+                </div>
+              </div>
+              <div className="p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+                <div className="font-semibold text-green-800">Scoped Access Per Server</div>
+                <div className="text-sm text-green-700 mt-1">
+                  Each MCP server has its own authorization server with specific scopes.
+                </div>
+              </div>
+            </div>
+          </div>
+        </CollapsibleSection>
 
         {/* Why Okta AI Agents */}
         <CollapsibleSection
@@ -212,170 +306,233 @@ export default function ArchitecturePage() {
           </div>
         </CollapsibleSection>
 
-        {/* Multi-Agent Architecture */}
+        {/* MCP Server Security */}
         <CollapsibleSection
-          title="Multi-Agent Architecture"
-          subtitle="4 specialized agents with scoped access"
-          icon={<Server className="w-5 h-5" />}
+          title="Securing MCP Servers"
+          subtitle="Zero-trust access to AI capabilities"
+          icon={<Lock className="w-5 h-5" />}
           defaultOpen={true}
         >
-          <div className="mt-4 space-y-4">
-            {[
-              {
-                name: "Sales Agent",
-                color: "#3b82f6",
-                scopes: ["sales:read", "sales:quote", "sales:order"],
-                desc: "Handles orders, quotes, and sales pipeline",
-                access: "ProGear-Sales group"
-              },
-              {
-                name: "Inventory Agent",
-                color: "#10b981",
-                scopes: ["inventory:read", "inventory:write", "inventory:alert"],
-                desc: "Manages stock levels, products, and warehouse",
-                access: "ProGear-Sales (read) or ProGear-Warehouse (full)"
-              },
-              {
-                name: "Customer Agent",
-                color: "#8b5cf6",
-                scopes: ["customer:read", "customer:lookup", "customer:history"],
-                desc: "Accesses accounts, contacts, and purchase history",
-                access: "ProGear-Sales group only"
-              },
-              {
-                name: "Pricing Agent",
-                color: "#f59e0b",
-                scopes: ["pricing:read", "pricing:margin", "pricing:discount"],
-                desc: "Handles pricing, margins, and discounts",
-                access: "ProGear-Sales (read) or ProGear-Finance (full)"
-              },
-            ].map((agent, idx) => (
-              <div
-                key={idx}
-                className="p-4 rounded-xl border-2 border-gray-100 hover:shadow-md transition"
-              >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl"
-                    style={{ backgroundColor: agent.color }}
-                  >
-                    {agent.name.charAt(0)}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <div className="font-semibold text-gray-800">{agent.name}</div>
-                      <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                        {agent.access}
-                      </div>
+          <div className="mt-4">
+            {/* Value Proposition */}
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 mb-6 border border-purple-100">
+              <h3 className="font-bold text-gray-800 text-lg mb-3">The Challenge</h3>
+              <p className="text-gray-600 mb-4">
+                MCP servers give AI agents powerful capabilities - but without proper security, any agent could access any server.
+                How do you ensure the right agents access the right capabilities for the right users?
+              </p>
+              <h3 className="font-bold text-gray-800 text-lg mb-3">Okta's Solution</h3>
+              <p className="text-gray-600">
+                Each MCP server is protected by its own Okta Authorization Server. Agents must obtain scoped tokens
+                through the ID-JAG exchange - which validates both the agent's identity AND the user's permissions.
+              </p>
+            </div>
+
+            {/* MCP Servers */}
+            <div className="space-y-4">
+              {[
+                {
+                  name: "Sales MCP Server",
+                  color: "#3b82f6",
+                  scopes: ["sales:read", "sales:quote", "sales:order"],
+                  desc: "Quote generation, order creation, sales pipeline access",
+                  value: "Only authorized sales users can create quotes and orders"
+                },
+                {
+                  name: "Inventory MCP Server",
+                  color: "#10b981",
+                  scopes: ["inventory:read", "inventory:write", "inventory:alert"],
+                  desc: "Stock levels, product management, warehouse operations",
+                  value: "Warehouse staff can update stock; sales can only read"
+                },
+                {
+                  name: "Customer MCP Server",
+                  color: "#8b5cf6",
+                  scopes: ["customer:read", "customer:lookup", "customer:history"],
+                  desc: "Customer PII, account details, purchase history",
+                  value: "Sensitive customer data protected - sales access only"
+                },
+                {
+                  name: "Pricing MCP Server",
+                  color: "#f59e0b",
+                  scopes: ["pricing:read", "pricing:margin", "pricing:discount"],
+                  desc: "Product pricing, margin data, discount authorization",
+                  value: "Finance sees margins; sales sees prices only"
+                },
+              ].map((server, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-xl border-2 border-gray-100 hover:shadow-md transition"
+                >
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl"
+                      style={{ backgroundColor: server.color }}
+                    >
+                      <Server className="w-6 h-6" />
                     </div>
-                    <div className="text-sm text-gray-600 mt-1">{agent.desc}</div>
-                    <div className="flex flex-wrap gap-1 mt-2">
-                      {agent.scopes.map((scope, sIdx) => (
-                        <span
-                          key={sIdx}
-                          className="px-2 py-0.5 text-xs rounded-full font-mono"
-                          style={{
-                            backgroundColor: `${agent.color}20`,
-                            color: agent.color
-                          }}
-                        >
-                          {scope}
-                        </span>
-                      ))}
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="font-semibold text-gray-800">{server.name}</div>
+                        <div className="text-xs text-white px-2 py-1 rounded" style={{ backgroundColor: server.color }}>
+                          {server.value}
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-600 mt-1">{server.desc}</div>
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {server.scopes.map((scope, sIdx) => (
+                          <span
+                            key={sIdx}
+                            className="px-2 py-0.5 text-xs rounded-full font-mono"
+                            style={{
+                              backgroundColor: `${server.color}20`,
+                              color: server.color
+                            }}
+                          >
+                            {scope}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        </CollapsibleSection>
+
+        {/* LangChain Orchestration */}
+        <CollapsibleSection
+          title="LangChain Orchestration"
+          subtitle="Intelligent routing to MCP servers"
+          icon={<Cpu className="w-5 h-5" />}
+          defaultOpen={true}
+        >
+          <div className="mt-4">
+            <div className="bg-gray-50 rounded-xl p-6 mb-6">
+              <h3 className="font-bold text-gray-800 mb-4">How Routing Works</h3>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">User Query Analysis</div>
+                    <div className="text-sm text-gray-600">LangChain analyzes the natural language query to understand what data is needed.</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">MCP Server Selection</div>
+                    <div className="text-sm text-gray-600">Based on the query, the orchestrator determines which MCP servers to invoke.</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">Parallel Token Exchange</div>
+                    <div className="text-sm text-gray-600">ID-JAG tokens are exchanged for each required MCP server simultaneously.</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">4</div>
+                  <div>
+                    <div className="font-semibold text-gray-800">Response Aggregation</div>
+                    <div className="text-sm text-gray-600">Results from each MCP server are combined into a coherent response.</div>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Example Routing */}
+            <div className="bg-white rounded-xl p-6 border border-gray-200">
+              <h3 className="font-bold text-gray-800 mb-4">Example: Multi-Server Query</h3>
+              <div className="bg-blue-50 rounded-lg p-4 mb-4 border-l-4 border-blue-500">
+                <div className="text-sm text-blue-800 font-mono">
+                  "Can we fulfill 1500 basketballs for State University at a bulk discount?"
+                </div>
+              </div>
+              <div className="grid md:grid-cols-4 gap-3">
+                <div className="text-center p-3 bg-purple-50 rounded-lg">
+                  <div className="text-purple-700 font-semibold text-sm">Customer MCP</div>
+                  <div className="text-xs text-purple-600 mt-1">Look up State University</div>
+                </div>
+                <div className="text-center p-3 bg-green-50 rounded-lg">
+                  <div className="text-green-700 font-semibold text-sm">Inventory MCP</div>
+                  <div className="text-xs text-green-600 mt-1">Check basketball stock</div>
+                </div>
+                <div className="text-center p-3 bg-orange-50 rounded-lg">
+                  <div className="text-orange-700 font-semibold text-sm">Pricing MCP</div>
+                  <div className="text-xs text-orange-600 mt-1">Calculate bulk discount</div>
+                </div>
+                <div className="text-center p-3 bg-blue-50 rounded-lg">
+                  <div className="text-blue-700 font-semibold text-sm">Sales MCP</div>
+                  <div className="text-xs text-blue-600 mt-1">Generate quote</div>
+                </div>
+              </div>
+            </div>
           </div>
         </CollapsibleSection>
 
         {/* User Access Matrix */}
         <CollapsibleSection
           title="Role-Based Access Control"
-          subtitle="Who can access what"
+          subtitle="User groups determine MCP server access"
           icon={<Users className="w-5 h-5" />}
           defaultOpen={true}
         >
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-3 px-4">User</th>
-                  <th className="text-left py-3 px-4">Group</th>
-                  <th className="text-center py-3 px-4">Sales</th>
-                  <th className="text-center py-3 px-4">Inventory</th>
-                  <th className="text-center py-3 px-4">Customer</th>
-                  <th className="text-center py-3 px-4">Pricing</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 font-medium">Sarah Sales</td>
-                  <td className="py-3 px-4 text-gray-500">ProGear-Sales</td>
-                  <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-success-green inline" /></td>
-                  <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-success-green inline" /></td>
-                  <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-success-green inline" /></td>
-                  <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-success-green inline" /></td>
-                </tr>
-                <tr className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 font-medium">Mike Manager</td>
-                  <td className="py-3 px-4 text-gray-500">ProGear-Warehouse</td>
-                  <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-error-red inline" /></td>
-                  <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-success-green inline" /></td>
-                  <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-error-red inline" /></td>
-                  <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-error-red inline" /></td>
-                </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="py-3 px-4 font-medium">Frank Finance</td>
-                  <td className="py-3 px-4 text-gray-500">ProGear-Finance</td>
-                  <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-error-red inline" /></td>
-                  <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-error-red inline" /></td>
-                  <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-error-red inline" /></td>
-                  <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-success-green inline" /></td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="mt-4">
+            <div className="bg-gray-50 rounded-xl p-4 mb-4">
+              <p className="text-sm text-gray-600">
+                User's Okta group membership determines which authorization servers will issue tokens.
+                The scopes in those tokens control what operations are permitted on each MCP server.
+              </p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b-2 border-gray-200">
+                    <th className="text-left py-3 px-4">User</th>
+                    <th className="text-left py-3 px-4">Okta Group</th>
+                    <th className="text-center py-3 px-4">Sales MCP</th>
+                    <th className="text-center py-3 px-4">Inventory MCP</th>
+                    <th className="text-center py-3 px-4">Customer MCP</th>
+                    <th className="text-center py-3 px-4">Pricing MCP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-3 px-4 font-medium">Sarah Sales</td>
+                    <td className="py-3 px-4 text-gray-500">ProGear-Sales</td>
+                    <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-green-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-green-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-green-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-green-500 inline" /></td>
+                  </tr>
+                  <tr className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-3 px-4 font-medium">Mike Manager</td>
+                    <td className="py-3 px-4 text-gray-500">ProGear-Warehouse</td>
+                    <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-red-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-green-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-red-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-red-500 inline" /></td>
+                  </tr>
+                  <tr className="hover:bg-gray-50">
+                    <td className="py-3 px-4 font-medium">Frank Finance</td>
+                    <td className="py-3 px-4 text-gray-500">ProGear-Finance</td>
+                    <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-red-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-red-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><XCircle className="w-5 h-5 text-red-500 inline" /></td>
+                    <td className="py-3 px-4 text-center"><CheckCircle className="w-5 h-5 text-green-500 inline" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </CollapsibleSection>
 
-        {/* Demo Scenarios */}
-        <div className="bg-gradient-to-r from-accent to-court-orange rounded-2xl p-8 text-white">
-          <h2 className="text-2xl font-bold mb-4">Demo Scenarios</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-white/20 rounded-lg p-4">
-              <div className="font-semibold mb-2">Scenario 1: Full Access</div>
-              <div className="text-sm text-white/80">
-                Sarah (Sales) asks: "Can we fulfill 1500 baseballs for State University?"
-              </div>
-              <div className="text-sm mt-2 text-white/60">
-                All 4 agents respond with customer info, inventory, pricing, and quote.
-              </div>
-            </div>
-            <div className="bg-white/20 rounded-lg p-4">
-              <div className="font-semibold mb-2">Scenario 2: Limited Access</div>
-              <div className="text-sm text-white/80">
-                Mike (Warehouse) asks the same question.
-              </div>
-              <div className="text-sm mt-2 text-white/60">
-                Only Inventory responds. Customer, Sales, Pricing show ACCESS DENIED.
-              </div>
-            </div>
-            <div className="bg-white/20 rounded-lg p-4">
-              <div className="font-semibold mb-2">Scenario 3: Finance Only</div>
-              <div className="text-sm text-white/80">
-                Frank (Finance) asks: "What's our margin on pro basketballs?"
-              </div>
-              <div className="text-sm mt-2 text-white/60">
-                Only Pricing Agent responds. No access to other agents.
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Footer */}
-        <div className="text-center text-gray-500 text-sm py-4">
-          ProGear AI Agent Demo - Okta AI Agent Governance
+        <div className="text-center text-gray-400 text-sm py-4">
+          CourtEdge ProGear - Powered by Okta AI Agent Governance
         </div>
       </div>
     </main>
