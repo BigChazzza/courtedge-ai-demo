@@ -87,90 +87,165 @@ export default function ArchitecturePage() {
           defaultOpen={true}
         >
           <div className="mt-4">
-            {/* Architecture Diagram */}
-            <div className="bg-gradient-to-b from-gray-50 to-gray-100 rounded-xl p-6 mb-6">
-              {/* User Request */}
-              <div className="text-center mb-6">
-                <div className="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg">
-                  User Request: "Can we fulfill 1500 basketballs for State University?"
+            {/* Redesigned Architecture Flow */}
+            <div className="bg-gradient-to-b from-gray-50 to-gray-100 rounded-xl p-6">
+
+              {/* Step 1: User Logged In */}
+              <div className="mb-4">
+                <div className="flex items-center gap-2 text-xs text-purple-600 font-semibold mb-2">
+                  <span className="w-5 h-5 rounded-full bg-purple-500 flex items-center justify-center text-white text-[10px]">1</span>
+                  USER AUTHENTICATED
+                </div>
+                <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-5 py-3 rounded-xl shadow-lg">
+                  <div className="flex items-center gap-3">
+                    <Users className="w-6 h-6" />
+                    <div>
+                      <div className="font-semibold">{userName}</div>
+                      <div className="text-xs text-purple-200">Logged in via Okta OIDC • Has ID Token</div>
+                      <div className="text-xs font-mono text-purple-300 mt-1">sub: {userSub}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Arrow down */}
               <div className="flex justify-center mb-4">
-                <ArrowRight className="w-6 h-6 text-gray-400 rotate-90" />
+                <ArrowRight className="w-5 h-5 text-gray-400 rotate-90" />
               </div>
 
-              {/* LangChain + AI Agent Row */}
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-4 rounded-xl shadow-lg text-center">
-                  <Cpu className="w-6 h-6 mx-auto mb-1" />
-                  <div className="font-bold">LangChain</div>
-                  <div className="text-xs text-purple-200">Routes to MCP servers</div>
+              {/* Step 2: User Request */}
+              <div className="mb-4">
+                <div className="flex items-center gap-2 text-xs text-gray-600 font-semibold mb-2">
+                  <span className="w-5 h-5 rounded-full bg-gray-500 flex items-center justify-center text-white text-[10px]">2</span>
+                  USER REQUEST
                 </div>
-                <ArrowRight className="w-6 h-6 text-gray-400" />
-                <div className="bg-gradient-to-r from-okta-blue to-blue-600 text-white px-6 py-4 rounded-xl shadow-lg text-center border-2 border-white/30">
-                  <Bot className="w-6 h-6 mx-auto mb-1" />
-                  <div className="font-bold">ProGear Sales Agent</div>
-                  <div className="text-xs text-blue-200">Agent ID: wlp8x5q7mvH86KvFJ0g7</div>
+                <div className="bg-white border-2 border-gray-200 px-5 py-3 rounded-xl shadow-sm">
+                  <div className="text-gray-700 font-medium">"Can we fulfill 1500 basketballs for State University?"</div>
                 </div>
               </div>
 
-              {/* ID-JAG Exchange Box */}
-              <div className="bg-gradient-to-r from-okta-blue/10 to-purple-100 rounded-xl p-5 mb-6 border-2 border-okta-blue/30">
-                <div className="flex items-center justify-center gap-2 text-okta-blue font-semibold mb-3">
-                  <Lock className="w-5 h-5" />
-                  ID-JAG Token Exchange (2-Step)
-                </div>
-                <div className="flex items-center justify-center gap-3 text-sm mb-4">
-                  <div className="bg-white rounded-lg px-3 py-2 border border-gray-200">
-                    <span className="text-gray-600">Step 1:</span> User ID Token → <span className="font-mono text-purple-600">ID-JAG</span>
-                  </div>
-                  <ArrowRight className="w-4 h-4 text-gray-400" />
-                  <div className="bg-white rounded-lg px-3 py-2 border border-gray-200">
-                    <span className="text-gray-600">Step 2:</span> ID-JAG → <span className="font-mono text-green-600">MCP Access Token</span>
-                  </div>
-                </div>
-                {/* Token Contents - Live Data */}
-                <div className="bg-gray-900 rounded-lg p-4 font-mono text-sm space-y-1">
-                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-3 text-center">Final MCP Access Token Contains</div>
-                  <div><span className="text-gray-500">sub:</span>       <span className="text-purple-400">{userSub}</span> <span className="text-gray-500 text-xs italic ml-2">← {userName}</span></div>
-                  <div><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400">wlp8x5q7mvH86KvFJ0g7</span> <span className="text-gray-500 text-xs italic ml-2">← ProGear Sales Agent</span></div>
-                  <div><span className="text-gray-500">aud:</span>       <span className="text-cyan-400">api://progear-inventory</span> <span className="text-gray-500 text-xs italic ml-2">← Target MCP</span></div>
-                  <div><span className="text-gray-500">scope:</span>     <span className="text-green-400">inventory:read</span> <span className="text-gray-500 text-xs italic ml-2">← Granted by policy</span></div>
-                  <div><span className="text-gray-500">iat:</span>       <span className="text-gray-400">{Math.floor(Date.now() / 1000)}</span> <span className="text-gray-500 text-xs italic ml-2">← Issued at</span></div>
-                  <div><span className="text-gray-500">exp:</span>       <span className="text-gray-400">{Math.floor(Date.now() / 1000) + 3600}</span> <span className="text-gray-500 text-xs italic ml-2">← Expires in 1hr</span></div>
-                </div>
-              </div>
-
-              {/* Arrow down to MCP servers */}
               <div className="flex justify-center mb-4">
-                <div className="flex items-center gap-4">
-                  <ArrowRight className="w-6 h-6 text-gray-400 rotate-90" />
+                <ArrowRight className="w-5 h-5 text-gray-400 rotate-90" />
+              </div>
+
+              {/* Step 3: LangChain Orchestrator */}
+              <div className="mb-4">
+                <div className="flex items-center gap-2 text-xs text-purple-700 font-semibold mb-2">
+                  <span className="w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center text-white text-[10px]">3</span>
+                  LANGCHAIN ORCHESTRATOR
+                </div>
+                <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-5 py-4 rounded-xl shadow-lg">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Cpu className="w-6 h-6" />
+                    <div>
+                      <div className="font-semibold">Analyzes Request & Determines Required MCPs</div>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-white/20 rounded text-xs font-medium flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3 text-green-300" /> Inventory
+                    </span>
+                    <span className="px-2 py-1 bg-white/20 rounded text-xs font-medium flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3 text-green-300" /> Customer
+                    </span>
+                    <span className="px-2 py-1 bg-white/20 rounded text-xs font-medium flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3 text-green-300" /> Pricing
+                    </span>
+                    <span className="px-2 py-1 bg-white/20 rounded text-xs font-medium flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3 text-green-300" /> Sales
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* MCP Servers Row */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                {[
-                  { name: "Sales", color: "from-blue-500 to-blue-600", scopes: "sales:read, quote, order", authServer: "aus8xdftgwlTMxp3u0g7" },
-                  { name: "Inventory", color: "from-green-500 to-green-600", scopes: "inventory:read, write", authServer: "aus8xdg1oaSVfDgxa0g7" },
-                  { name: "Customer", color: "from-purple-500 to-purple-600", scopes: "customer:read, lookup", authServer: "aus8xdfti92mIRSAE0g7" },
-                  { name: "Pricing", color: "from-orange-500 to-orange-600", scopes: "pricing:read, margin", authServer: "aus8xdepyb5DHmTlq0g7" },
-                ].map((server, idx) => (
-                  <div key={idx} className={`bg-gradient-to-br ${server.color} text-white p-4 rounded-xl text-center shadow-lg`}>
-                    <Server className="w-6 h-6 mx-auto mb-2" />
-                    <div className="font-semibold">{server.name} MCP</div>
-                    <div className="text-xs text-white/80 mt-1">{server.scopes}</div>
-                  </div>
-                ))}
+              <div className="flex justify-center mb-4">
+                <ArrowRight className="w-5 h-5 text-gray-400 rotate-90" />
               </div>
 
-              {/* Clarification Note */}
-              <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-                <div className="text-sm text-yellow-800">
-                  <strong>Key Distinction:</strong> LangChain handles <em>routing logic</em> (deciding which MCP servers to call),
-                  while <strong>ProGear Sales Agent</strong> is the <em>registered Okta AI Agent identity</em> that authenticates and obtains tokens for each MCP server.
+              {/* Step 4: ProGear Sales Agent + ID-JAG Exchange */}
+              <div className="mb-4">
+                <div className="flex items-center gap-2 text-xs text-okta-blue font-semibold mb-2">
+                  <span className="w-5 h-5 rounded-full bg-okta-blue flex items-center justify-center text-white text-[10px]">4</span>
+                  PROGEAR SALES AGENT — ID-JAG TOKEN EXCHANGE
+                </div>
+                <div className="bg-gradient-to-r from-okta-blue to-blue-700 text-white rounded-xl shadow-lg overflow-hidden">
+                  {/* Agent Header */}
+                  <div className="px-5 py-3 border-b border-white/20">
+                    <div className="flex items-center gap-3">
+                      <Bot className="w-6 h-6" />
+                      <div>
+                        <div className="font-semibold">ProGear Sales Agent</div>
+                        <div className="text-xs text-blue-200">Okta AI Agent • wlp8x5q7mvH86KvFJ0g7</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Exchange Process */}
+                  <div className="px-5 py-3 bg-black/10">
+                    <div className="text-xs text-blue-200 mb-2">For each MCP selected by LangChain:</div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="px-2 py-1 bg-white/20 rounded text-xs">User ID Token</span>
+                      <ArrowRight className="w-4 h-4 text-blue-300" />
+                      <span className="px-2 py-1 bg-purple-500/50 rounded text-xs font-mono">ID-JAG</span>
+                      <ArrowRight className="w-4 h-4 text-blue-300" />
+                      <span className="px-2 py-1 bg-green-500/50 rounded text-xs font-mono">MCP Token</span>
+                    </div>
+                  </div>
+
+                  {/* MCP Tokens Obtained */}
+                  <div className="px-5 py-3 bg-black/5">
+                    <div className="text-xs text-blue-200 mb-2">Tokens obtained:</div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                      {[
+                        { name: "Inventory", color: "#10b981", scope: "read" },
+                        { name: "Customer", color: "#8b5cf6", scope: "read" },
+                        { name: "Pricing", color: "#f59e0b", scope: "discount" },
+                        { name: "Sales", color: "#3b82f6", scope: "quote" },
+                      ].map((mcp, idx) => (
+                        <div key={idx} className="flex items-center gap-1.5 px-2 py-1 bg-white/10 rounded text-xs">
+                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: mcp.color }} />
+                          <span>{mcp.name}</span>
+                          <CheckCircle className="w-3 h-3 text-green-400 ml-auto" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Token Contents - Live Data */}
+                  <div className="bg-gray-900 p-4 font-mono text-sm space-y-1">
+                    <div className="text-xs text-gray-500 uppercase tracking-wide mb-3">Example: Inventory MCP Token</div>
+                    <div><span className="text-gray-500">sub:</span>       <span className="text-purple-400">{userSub}</span> <span className="text-gray-500 text-xs italic ml-2">← {userName}</span></div>
+                    <div><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400">wlp8x5q7mvH86KvFJ0g7</span> <span className="text-gray-500 text-xs italic ml-2">← AI Agent identity</span></div>
+                    <div><span className="text-gray-500">aud:</span>       <span className="text-cyan-400">api://progear-inventory</span> <span className="text-gray-500 text-xs italic ml-2">← Target MCP</span></div>
+                    <div><span className="text-gray-500">scope:</span>     <span className="text-green-400">inventory:read</span> <span className="text-gray-500 text-xs italic ml-2">← Granted by policy</span></div>
+                    <div><span className="text-gray-500">iat:</span>       <span className="text-gray-400">{Math.floor(Date.now() / 1000)}</span> <span className="text-gray-500 text-xs italic ml-2">← Issued at</span></div>
+                    <div><span className="text-gray-500">exp:</span>       <span className="text-gray-400">{Math.floor(Date.now() / 1000) + 3600}</span> <span className="text-gray-500 text-xs italic ml-2">← Expires in 1hr</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-center mb-4">
+                <ArrowRight className="w-5 h-5 text-gray-400 rotate-90" />
+              </div>
+
+              {/* Step 5: MCP Servers Called */}
+              <div>
+                <div className="flex items-center gap-2 text-xs text-green-600 font-semibold mb-2">
+                  <span className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px]">5</span>
+                  MCP SERVERS CALLED & RESPONSE AGGREGATED
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {[
+                    { name: "Inventory", color: "from-green-500 to-green-600", task: "Check stock: 1500" },
+                    { name: "Customer", color: "from-purple-500 to-purple-600", task: "Lookup: State Univ" },
+                    { name: "Pricing", color: "from-orange-500 to-orange-600", task: "Calc bulk discount" },
+                    { name: "Sales", color: "from-blue-500 to-blue-600", task: "Generate quote" },
+                  ].map((server, idx) => (
+                    <div key={idx} className={`bg-gradient-to-br ${server.color} text-white p-3 rounded-xl text-center shadow-lg`}>
+                      <Server className="w-5 h-5 mx-auto mb-1" />
+                      <div className="font-semibold text-sm">{server.name}</div>
+                      <div className="text-[10px] text-white/80 mt-1">{server.task}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
