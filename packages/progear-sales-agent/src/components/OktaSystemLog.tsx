@@ -45,28 +45,6 @@ export default function OktaSystemLog() {
           <div><span className="text-gray-500">grantedScopes:</span>       <span className="text-gray-500">(none)</span></div>
         </div>
       </div>
-
-      {/* Value Proposition */}
-      <div className="mt-4 grid md:grid-cols-3 gap-4">
-        <div className="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
-          <div className="font-semibold text-purple-800">Complete Attribution</div>
-          <div className="text-sm text-purple-700 mt-1">
-            Every request shows both the AI agent AND the user it acted on behalf of.
-          </div>
-        </div>
-        <div className="p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
-          <div className="font-semibold text-green-800">Real-Time Visibility</div>
-          <div className="text-sm text-green-700 mt-1">
-            Okta logs capture every governance decision as it happens.
-          </div>
-        </div>
-        <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-          <div className="font-semibold text-blue-800">Policy Enforcement</div>
-          <div className="text-sm text-blue-700 mt-1">
-            See exactly when and why access was granted or denied.
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

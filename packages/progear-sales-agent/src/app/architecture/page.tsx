@@ -92,6 +92,16 @@ export default function ArchitecturePage() {
           </div>
         </div>
 
+        {/* Audit Trail - First section to highlight governance */}
+        <CollapsibleSection
+          title="Audit Trail (Okta Syslog)"
+          subtitle="Sample audit logs from Okta System Log"
+          icon={<Activity className="w-5 h-5" />}
+          defaultOpen={true}
+        >
+          <OktaSystemLog />
+        </CollapsibleSection>
+
         {/* End-to-End Architecture Diagram */}
         <CollapsibleSection
           title="End-to-End Architecture"
@@ -202,64 +212,6 @@ export default function ArchitecturePage() {
           </div>
         </CollapsibleSection>
 
-        {/* Why Okta AI Agents */}
-        <CollapsibleSection
-          title="Why Okta AI Agents?"
-          subtitle="Enterprise security for agentic AI"
-          icon={<Shield className="w-5 h-5" />}
-          defaultOpen={true}
-        >
-          <div className="grid md:grid-cols-2 gap-4 mt-4">
-            {[
-              {
-                title: "Identity-First Security",
-                desc: "Each AI agent is a registered identity in Okta, not just an app. Full visibility and control.",
-                color: "#3b82f6"
-              },
-              {
-                title: "Scoped Access",
-                desc: "Agents only get the specific scopes they need. No over-privileged service accounts.",
-                color: "#10b981"
-              },
-              {
-                title: "User Consent",
-                desc: "Agents act on behalf of users, inheriting their permissions. User must authenticate first.",
-                color: "#8b5cf6"
-              },
-              {
-                title: "Audit Trail",
-                desc: "Every token exchange is logged. Know exactly who accessed what, when, through which agent.",
-                color: "#f59e0b"
-              },
-              {
-                title: "Centralized Governance",
-                desc: "Manage all AI agents from Okta Admin Console. Revoke access instantly.",
-                color: "#ef4444"
-              },
-              {
-                title: "Short-Lived Tokens",
-                desc: "MCP tokens expire in minutes, not days. Minimal exposure window if compromised.",
-                color: "#06b6d4"
-              },
-            ].map((item, idx) => (
-              <div key={idx} className="p-4 rounded-lg border-2 border-gray-100 hover:border-gray-200 transition">
-                <div className="flex items-start gap-3">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: `${item.color}20` }}
-                  >
-                    <CheckCircle className="w-4 h-4" style={{ color: item.color }} />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-800">{item.title}</div>
-                    <div className="text-sm text-gray-600 mt-1">{item.desc}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CollapsibleSection>
-
         {/* Okta Configuration */}
         <CollapsibleSection
           title="Live Okta Configuration"
@@ -351,16 +303,6 @@ export default function ArchitecturePage() {
               </div>
             </div>
           </div>
-        </CollapsibleSection>
-
-        {/* Audit Trail */}
-        <CollapsibleSection
-          title="Audit Trail (Okta Syslog)"
-          subtitle="Sample audit logs from Okta System Log"
-          icon={<Activity className="w-5 h-5" />}
-          defaultOpen={true}
-        >
-          <OktaSystemLog />
         </CollapsibleSection>
 
         {/* Token Flow */}
