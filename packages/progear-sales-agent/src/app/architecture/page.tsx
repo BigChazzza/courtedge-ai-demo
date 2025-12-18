@@ -356,7 +356,7 @@ export default function ArchitecturePage() {
         {/* Audit Trail */}
         <CollapsibleSection
           title="Audit Trail (Okta Syslog)"
-          subtitle="Live token exchange events from Okta"
+          subtitle="Sample audit logs from Okta System Log"
           icon={<Activity className="w-5 h-5" />}
           defaultOpen={true}
         >
