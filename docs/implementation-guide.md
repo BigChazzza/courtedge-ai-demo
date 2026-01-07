@@ -404,7 +404,7 @@ This application handles user login and is linked to your AI Agent.
 
    **Sign-out redirect URIs:**
    ```
-   https://placeholder.vercel.app
+   https://placeholder.vercel.app/auth/signin
    ```
 
    **Controlled access:**
@@ -600,7 +600,6 @@ Create one authorization server per MCP API. Each represents a different domain 
    IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
    AND User is: Assigned the app and a member of: ProGear-Sales
    AND Scopes requested: sales:read, sales:quote, sales:order
-   THEN Access is: Allowed
    ```
 
 #### 5.2 Inventory MCP Authorization Server
@@ -624,7 +623,6 @@ Audience: api://progear-inventory
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
 AND User is member of: ProGear-Warehouse
 AND Scopes: inventory:read, inventory:write, inventory:alert
-THEN: Allowed
 ```
 
 **Rule 2: Sales Read Access** (Priority 2)
@@ -632,7 +630,6 @@ THEN: Allowed
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
 AND User is member of: ProGear-Sales
 AND Scopes: inventory:read
-THEN: Allowed
 ```
 
 #### 5.3 Customer MCP Authorization Server
@@ -652,7 +649,6 @@ Audience: api://progear-customer
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
 AND User is member of: ProGear-Sales
 AND Scopes: customer:read, customer:lookup, customer:history
-THEN: Allowed
 ```
 
 #### 5.4 Pricing MCP Authorization Server
@@ -674,7 +670,6 @@ Audience: api://progear-pricing
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
 AND User is member of: ProGear-Finance
 AND Scopes: pricing:read, pricing:margin, pricing:discount
-THEN: Allowed
 ```
 
 **Rule 2: Sales Read Access** (Priority 2)
@@ -682,7 +677,6 @@ THEN: Allowed
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
 AND User is member of: ProGear-Sales
 AND Scopes: pricing:read
-THEN: Allowed
 ```
 
 ### Step 6: Configure Policy Assigned Clients (CRITICAL!)
