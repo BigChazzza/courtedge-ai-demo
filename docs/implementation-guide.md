@@ -701,11 +701,11 @@ Once you have create authorization servers per MCP API, Use managed connections 
    - Click **Add Connection**
      
      | Name | Details  |  Allowed Scopes |
-   |------|-------------|---------------|
-   | `ProGear Customer MCP`  | Only allow | customer:history customer:lookup customer:read |
-   | `ProGear Pricing MCP` | Only allow   | pricing:discount pricing:margin pricing:read |
-   | `ProGear Inventory MCP` | Only allow | inventory:write inventory:alert inventory:read |
-   | `ProGear Sales MCP` | Only allow | sales:order sales:read sales:quote |
+     |------|----------|-----------------|
+     | `ProGear Customer MCP` | Only allow | customer:history customer:lookup customer:read |
+     | `ProGear Pricing MCP` | Only allow | pricing:discount pricing:margin pricing:read |
+     | `ProGear Inventory MCP` | Only allow | inventory:write inventory:alert inventory:read |
+     | `ProGear Sales MCP` | Only allow | sales:order sales:read sales:quote |
 
 ### Step 8: Record All Your IDs
 
