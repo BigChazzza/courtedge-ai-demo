@@ -396,13 +396,6 @@ This application handles user login and is linked to your AI Agent.
    - [x] **Authorization Code** (usually checked by default)
    - [x] **Refresh Token** (usually checked by default)
 
-   > **Finding Token Exchange:** This is critical but often hidden!
-   > - Look for an **"Advanced"** section or link - click to expand it
-   > - Or scroll down to find **"Token Exchange"** checkbox
-   > - If you can't find it, save the app first, then go to **General** → **Edit** and look under **Grant type** section
-
-   - [x] **Token Exchange** ← REQUIRED for ID-JAG - this enables AI Agent delegation
-
    **Sign-in redirect URIs:**
    ```
    https://placeholder.vercel.app/api/auth/callback/okta
