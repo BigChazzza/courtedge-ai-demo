@@ -901,14 +901,14 @@ Now that you have your real Vercel URL, go back to Okta and replace the placehol
    | Setting | Value |
    |---------|-------|
    | **Name** | `progear-backend` (or your preferred name) |
-   | **Region** | Oregon (US West) or closest to you |
+   | **Language** | Python 3 |
    | **Branch** | `main` |
+   | **Region** | Oregon (US West) or closest to you |
    | **Root Directory** | `backend` |
-   | **Runtime** | Python 3 |
    | **Build Command** | `pip install -r requirements.txt` |
    | **Start Command** | `uvicorn api.main:app --host 0.0.0.0 --port $PORT` |
 
-4. Choose your plan:
+5. Choose your plan:
    - **Free**: Works but has cold starts (service sleeps after 15 min inactivity)
    - **Starter ($7/mo)**: Recommended for demos - always on
 
