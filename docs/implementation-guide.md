@@ -548,15 +548,13 @@ Create three groups to demonstrate RBAC:
 
 Create one authorization server per MCP API. Each represents a different domain of your business data.
 
-> **Important: The Sales Auth Server Does Double Duty**
+> **Important: User Login via the Org Authorization Server**
 >
-> The Sales authorization server will be used for TWO purposes:
-> 1. **User Authentication** - Users log in through this auth server (the "main" auth server)
-> 2. **Sales MCP API** - Controls access to sales data
+> Users must log in through the **Org Authorization Server** (not a Custom Authorization Server).
 >
-> This is required because the ID-JAG token exchange (Step 1 of the agent flow) must happen at the same authorization server that issued the user's ID token. The Org Authorization Server does not support the token exchange grant type needed for AI Agents.
+> This is required because the Okta AI SDK always performs Step 1 of the token exchange (ID Token → ID-JAG) at the Org AS. If users log in via a Custom AS, their ID token's issuer won't match, and the token exchange will fail.
 >
-> You'll set both `OKTA_MAIN_AUTH_SERVER_ID` and `OKTA_SALES_AUTH_SERVER_ID` to the same value.
+> When configuring the frontend, set `NEXT_PUBLIC_OKTA_ISSUER` to just your Okta org URL (without an auth server ID in the path).
 
 #### 5.1 Sales MCP Authorization Server
 
@@ -584,9 +582,8 @@ Create one authorization server per MCP API. Each represents a different domain 
    aus8xdftgwlTMxp3u0g7  ← This is your Auth Server ID
    ```
 
-   Copy this ID - you'll need it for both:
-   - `OKTA_SALES_AUTH_SERVER_ID` (Sales MCP access)
-   - `OKTA_MAIN_AUTH_SERVER_ID` (User login and ID-JAG exchange)
+   Copy this ID - you'll need it for:
+   - `OKTA_SALES_AUTH_SERVER_ID` (Sales MCP access - Step 2 token exchange)
 
 6. **Add Scopes:**
    - Go to **Scopes** tab → **Add Scope**
@@ -863,7 +860,7 @@ Use this checklist to track what you've collected:
    | `NEXT_PUBLIC_API_URL` | Leave empty for now | We'll add this after Render deployment |
    | `NEXT_PUBLIC_OKTA_CLIENT_ID` | Your OIDC client ID | Starts with `0oa...` |
    | `NEXT_PUBLIC_OKTA_DOMAIN` | `https://your-org.okta.com` | Your Okta org URL |
-   | `NEXT_PUBLIC_OKTA_ISSUER` | `https://your-org.okta.com/oauth2/{SALES_AUTH_SERVER_ID}` | Include Sales auth server ID in path |
+   | `NEXT_PUBLIC_OKTA_ISSUER` | `https://your-org.okta.com` | Your Okta org URL (NO auth server ID - use Org AS) |
    | `OKTA_CLIENT_ID` | Your OIDC client ID | Same as NEXT_PUBLIC version |
    | `OKTA_CLIENT_SECRET` | Your OIDC client secret | From Okta app settings |
 
@@ -936,7 +933,7 @@ In Render, go to **Environment** and add these variables:
 | `OKTA_CLIENT_ID` | Your OIDC client ID |
 | `OKTA_AI_AGENT_ID` | Your AI Agent ID (`wlp...`) |
 | `OKTA_AI_AGENT_PRIVATE_KEY` | Your JWK private key (entire JSON on one line) |
-| `OKTA_MAIN_AUTH_SERVER_ID` | Your Sales auth server ID (same as OKTA_SALES_AUTH_SERVER_ID) |
+| `OKTA_MAIN_AUTH_SERVER_ID` | (Optional) Can be any valid auth server ID - SDK ignores this for Step 1 |
 | `OKTA_SALES_AUTH_SERVER_ID` | Your Sales auth server ID |
 | `OKTA_SALES_AUDIENCE` | `api://progear-sales` |
 | `OKTA_INVENTORY_AUTH_SERVER_ID` | Your Inventory auth server ID |
@@ -1015,7 +1012,7 @@ Expected response:
 | `OKTA_CLIENT_SECRET` | Vercel | Yes | OIDC application client secret |
 | `OKTA_AI_AGENT_ID` | Render | Yes | AI Agent entity ID (`wlp...`) |
 | `OKTA_AI_AGENT_PRIVATE_KEY` | Render | Yes | JWK private key (JSON string) |
-| `OKTA_MAIN_AUTH_SERVER_ID` | Render | Yes | Main auth server for user login (same as Sales) |
+| `OKTA_MAIN_AUTH_SERVER_ID` | Render | No | (Optional) Not used by SDK - Step 1 always uses Org AS |
 | `OKTA_SALES_AUTH_SERVER_ID` | Render | Yes | Sales MCP auth server ID |
 | `OKTA_SALES_AUDIENCE` | Render | Yes | `api://progear-sales` |
 | `OKTA_INVENTORY_AUTH_SERVER_ID` | Render | Yes | Inventory MCP auth server ID |
@@ -1029,7 +1026,7 @@ Expected response:
 | `NEXT_PUBLIC_API_URL` | Vercel | Yes | Your Render URL |
 | `NEXT_PUBLIC_OKTA_CLIENT_ID` | Vercel | Yes | OIDC client ID (for frontend) |
 | `NEXT_PUBLIC_OKTA_DOMAIN` | Vercel | Yes | Your Okta org URL |
-| `NEXT_PUBLIC_OKTA_ISSUER` | Vercel | Yes | `https://your-org.okta.com/oauth2/{SALES_AUTH_SERVER_ID}` |
+| `NEXT_PUBLIC_OKTA_ISSUER` | Vercel | Yes | `https://your-org.okta.com` (NO auth server ID - use Org AS) |
 | `CORS_ORIGINS` | Render | Yes | Your Vercel URL |
 
 ---
@@ -1203,13 +1200,13 @@ Use these talking points when presenting:
 
 ### Issuer mismatch / ID-JAG exchange failed
 
-**Cause**: `NEXT_PUBLIC_OKTA_ISSUER` and `OKTA_MAIN_AUTH_SERVER_ID` don't match, or using Org Auth Server
+**Cause**: Users logged in via a Custom Authorization Server, but the Okta AI SDK always performs Step 1 (ID Token → ID-JAG) at the Org Authorization Server.
 
 **Solution**:
-1. `NEXT_PUBLIC_OKTA_ISSUER` must include your Sales auth server ID: `https://your-org.okta.com/oauth2/{SALES_AUTH_SERVER_ID}`
-2. `OKTA_MAIN_AUTH_SERVER_ID` must be set to the same auth server ID (the `aus...` part)
-3. The Org Authorization Server (just the org URL without `/oauth2/{id}`) does NOT support ID-JAG token exchange
-4. Both values must point to the same Custom Authorization Server
+1. `NEXT_PUBLIC_OKTA_ISSUER` must be your Org AS URL WITHOUT an auth server ID: `https://your-org.okta.com`
+2. Do NOT include `/oauth2/{auth_server_id}` in the issuer - that causes users to log in via a Custom AS
+3. The ID token's issuer must match where the SDK performs the exchange (Org AS)
+4. Step 2 (ID-JAG → Access Token) correctly goes to each Custom AS - that's configured separately
 
 ---
 
@@ -1226,7 +1223,7 @@ Use this checklist to verify your deployment is complete:
 - [ ] 4 authorization servers with scopes configured
 - [ ] **Access policies include AI Agent entity (not just OIDC app)**
 - [ ] All demo users assigned to OIDC app
-- [ ] **Sales auth server ID noted for `OKTA_MAIN_AUTH_SERVER_ID` and `NEXT_PUBLIC_OKTA_ISSUER`**
+- [ ] **`NEXT_PUBLIC_OKTA_ISSUER` set to Org AS URL (no auth server ID)**
 
 ### Vercel Deployment
 - [ ] Project imported from GitHub
