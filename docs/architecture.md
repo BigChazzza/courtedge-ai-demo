@@ -317,4 +317,4 @@ Every token exchange is logged in Okta:
 
 - [Implementation Guide](./implementation-guide.md) - Step-by-step deployment instructions
 - [Okta AI Agent Documentation](https://developer.okta.com/docs/guides/ai-agent-governance/) - Official Okta docs
-- [RFC 8693: Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) - The underlying standard
+- [IETF ID-JAG Specification](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) - Identity Assertion JWT Authorization Grant draft
