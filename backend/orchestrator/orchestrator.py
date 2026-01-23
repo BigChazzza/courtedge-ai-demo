@@ -52,11 +52,28 @@ class WorkflowState(TypedDict):
 
 
 # Agent type to keywords mapping for fallback routing
+# NOTE: These must include both read AND write operation keywords for proper routing
 AGENT_KEYWORDS = {
-    AGENT_SALES: ["order", "quote", "deal", "sale", "revenue", "pipeline", "opportunity"],
-    AGENT_INVENTORY: ["stock", "inventory", "product", "warehouse", "supply", "available", "in stock"],
-    AGENT_CUSTOMER: ["customer", "account", "client", "contact", "tier", "loyalty", "history"],
-    AGENT_PRICING: ["price", "discount", "margin", "cost", "profit", "bulk", "wholesale", "retail"],
+    AGENT_SALES: [
+        "order", "quote", "deal", "sale", "revenue", "pipeline", "opportunity",
+        "proposal", "estimate", "fulfill", "create order", "place order",
+        "ship", "deliver"
+    ],
+    AGENT_INVENTORY: [
+        "stock", "inventory", "product", "warehouse", "supply", "available", "in stock",
+        "add", "update", "increase", "decrease", "adjust", "restock", "replenish",
+        "reduce", "remove", "alert", "notify", "reorder", "low stock",
+        "basketball", "tennis", "racket", "uniform", "equipment"
+    ],
+    AGENT_CUSTOMER: [
+        "customer", "account", "client", "contact", "tier", "loyalty", "history",
+        "lookup", "find", "search", "purchased", "transactions"
+    ],
+    AGENT_PRICING: [
+        "price", "discount", "margin", "cost", "profit", "bulk", "wholesale", "retail",
+        "markup", "profitability", "volume", "special price",
+        "reduce", "cut", "lower", "mark down", "mark up"
+    ],
 }
 
 # Scope definitions for each MCP - maps operation type to required scope
