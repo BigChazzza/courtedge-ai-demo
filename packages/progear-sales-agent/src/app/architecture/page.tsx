@@ -127,11 +127,11 @@ export default function ArchitecturePage() {
                 <ArrowRight className="w-5 h-5 text-gray-400 rotate-90" />
               </div>
 
-              {/* Step 3: LangChain Orchestrator */}
+              {/* Step 3: LangGraph Orchestrator */}
               <div className="mb-4">
                 <div className="flex items-center gap-2 text-xs text-purple-700 font-semibold mb-2">
                   <span className="w-5 h-5 rounded-full bg-purple-600 flex items-center justify-center text-white text-[10px]">3</span>
-                  LANGCHAIN ORCHESTRATOR
+                  LANGGRAPH ORCHESTRATOR
                   <span className="text-[10px] text-gray-400 font-normal ml-2">(routing only — no security boundary)</span>
                 </div>
                 <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-5 py-4 rounded-xl shadow-lg relative overflow-hidden">
@@ -145,7 +145,7 @@ export default function ArchitecturePage() {
                       </div>
                       <div>
                         <div className="font-semibold">Analyzes Request & Determines Required MCPs</div>
-                        <div className="text-xs text-purple-300 mt-0.5">LangChain decides what's needed → Okta decides what's allowed</div>
+                        <div className="text-xs text-purple-300 mt-0.5">LangGraph decides what's needed → Okta decides what's allowed</div>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -192,7 +192,7 @@ export default function ArchitecturePage() {
 
                   {/* Exchange Process */}
                   <div className="px-5 py-4 bg-black/10">
-                    <div className="text-sm text-blue-200 mb-3">For each MCP selected by LangChain, Okta evaluates access:</div>
+                    <div className="text-sm text-blue-200 mb-3">For each MCP selected by LangGraph, Okta evaluates access:</div>
                     <div className="flex items-center gap-3 text-base flex-wrap">
                       <span className="px-3 py-1.5 bg-white/20 rounded text-sm font-medium">User ID Token</span>
                       <ArrowRight className="w-5 h-5 text-blue-300" />
@@ -431,9 +431,9 @@ export default function ArchitecturePage() {
           </div>
         </CollapsibleSection>
 
-        {/* LangChain Orchestration */}
+        {/* LangGraph Orchestration */}
         <CollapsibleSection
-          title="LangChain Orchestration"
+          title="LangGraph Orchestration"
           subtitle="LangGraph workflow with intent-based scope detection"
           icon={<Cpu className="w-5 h-5" />}
           defaultOpen={false}

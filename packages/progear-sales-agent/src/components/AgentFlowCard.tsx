@@ -32,7 +32,7 @@ const agentIcons: Record<string, string> = {
 // Determine which technology handles each step
 function getTechBadge(step: string): { label: string; color: string; bg: string } | null {
   if (step === 'router' || step.includes('routing')) {
-    return { label: 'LangChain', color: '#854d0e', bg: '#fef3c7' }; // Yellow/amber for LangChain
+    return { label: 'LangGraph', color: '#854d0e', bg: '#fef3c7' }; // Yellow/amber for LangGraph
   }
   if (step.includes('token') || step.includes('exchange')) {
     return { label: 'Okta', color: '#1e40af', bg: '#dbeafe' }; // Blue for Okta
@@ -100,7 +100,7 @@ export default function AgentFlowCard({ steps, isLoading }: Props) {
               d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
           <span>Agent Flow</span>
-          <span className="text-white/60 text-sm font-normal">— LangChain + Claude</span>
+          <span className="text-white/60 text-sm font-normal">— LangGraph + Claude</span>
         </h3>
       </div>
 
