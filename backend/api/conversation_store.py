@@ -122,6 +122,13 @@ class ConversationStore:
             del self._conversations[session_id]
             logger.info(f"Cleared conversation session: {session_id}")
 
+    def clear_all(self) -> int:
+        """Clear all conversation sessions. Returns count of cleared sessions."""
+        count = len(self._conversations)
+        self._conversations.clear()
+        logger.info(f"Cleared all {count} conversation sessions")
+        return count
+
     def _cleanup_expired(self) -> None:
         """Remove expired sessions."""
         now = datetime.utcnow()

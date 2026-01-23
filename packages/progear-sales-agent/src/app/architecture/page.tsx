@@ -199,7 +199,7 @@ export default function ArchitecturePage() {
                       <span className="px-3 py-1.5 bg-purple-500/50 rounded text-sm font-mono font-medium">ID-JAG</span>
                       <ArrowRight className="w-5 h-5 text-blue-300" />
                       <span className="px-3 py-1.5 bg-green-500/50 rounded text-sm font-mono font-medium flex items-center gap-1">
-                        <Shield className="w-4 h-4" /> MCP Token
+                        <Shield className="w-4 h-4" /> MCP Access Token
                       </span>
                     </div>
                   </div>
@@ -208,7 +208,7 @@ export default function ArchitecturePage() {
                   <div className="bg-gray-900 p-5 font-mono space-y-2">
                     <div className="text-sm text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2">
                       <Shield className="w-4 h-4 text-green-400" />
-                      Example: Inventory MCP Token (Granted)
+                      Example: Inventory MCP Access Token (Granted)
                     </div>
                     <div className="text-base"><span className="text-gray-500">sub:</span>       <span className="text-purple-400 font-semibold">{userSub}</span> <span className="text-gray-400 text-sm italic ml-3">← {userName}</span></div>
                     <div className="text-base"><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400 font-semibold">wlp8x5q7mvH86KvFJ0g7</span> <span className="text-gray-400 text-sm italic ml-3">← AI Agent identity</span></div>
@@ -240,7 +240,7 @@ export default function ArchitecturePage() {
                       <div className="text-gray-400 text-xs mb-2">→ Request to MCP</div>
                       <div className="text-green-400">GET /api/inventory/stock?product=basketball&qty=1500</div>
                       <div className="text-blue-300 mt-1">Authorization: Bearer <span className="text-yellow-300">eyJhbGciOiJSUzI1...</span></div>
-                      <div className="text-gray-500 text-xs mt-2 italic">↑ MCP token from Step 4 (contains sub, actor.sub, scope)</div>
+                      <div className="text-gray-500 text-xs mt-2 italic">↑ MCP Access Token from Step 4 (contains sub, actor.sub, scope)</div>
                     </div>
 
                     {/* MCP Validation */}
@@ -431,6 +431,145 @@ export default function ArchitecturePage() {
           </div>
         </CollapsibleSection>
 
+        {/* Token Comparison - Role-Based Access */}
+        <CollapsibleSection
+          title="Token Comparison: Role-Based Access"
+          subtitle="Same AI Agent, different user permissions"
+          icon={<Key className="w-5 h-5" />}
+          defaultOpen={true}
+        >
+          <div className="mt-4">
+            {/* Explanation */}
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 mb-6 border border-purple-100">
+              <p className="text-gray-700 text-sm">
+                <strong>Key insight:</strong> The same AI Agent (wlp...) receives different scopes based on which user is logged in.
+                Okta policies evaluate the <em>user's group membership</em> to determine what the agent can do on their behalf.
+              </p>
+            </div>
+
+            {/* Side-by-side comparison */}
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* Sarah's Token */}
+              <div className="bg-white rounded-xl border-2 border-purple-200 overflow-hidden">
+                <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    <div>
+                      <div className="font-semibold">Sarah Sales</div>
+                      <div className="text-xs text-purple-200">Sales Representative</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Groups</div>
+                  <div className="flex gap-1 mb-4">
+                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">ProGear-Sales</span>
+                  </div>
+
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">MCP Access Token Claims</div>
+                  <div className="bg-gray-900 rounded-lg p-3 font-mono text-xs space-y-1.5">
+                    <div><span className="text-gray-500">sub:</span> <span className="text-purple-400">sarah.sales@progear.demo</span></div>
+                    <div><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400">wlp8x5q7mvH86KvFJ0g7</span></div>
+                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://progear-inventory</span></div>
+                  </div>
+
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-2">Granted Scopes</div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
+                      <span className="text-sm font-mono text-green-700">inventory:read</span>
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    </div>
+                    <div className="flex items-center justify-between p-2 bg-red-50 rounded border border-red-200">
+                      <span className="text-sm font-mono text-red-400">inventory:write</span>
+                      <XCircle className="w-4 h-4 text-red-400" />
+                    </div>
+                    <div className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
+                      <span className="text-sm font-mono text-green-700">pricing:read</span>
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    </div>
+                    <div className="flex items-center justify-between p-2 bg-red-50 rounded border border-red-200">
+                      <span className="text-sm font-mono text-red-400">pricing:margin</span>
+                      <XCircle className="w-4 h-4 text-red-400" />
+                    </div>
+                  </div>
+
+                  <div className="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                    <div className="text-xs text-purple-700 font-medium">Read-only access</div>
+                    <div className="text-xs text-purple-600 mt-1">Can view data but cannot modify inventory or see margins</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mike's Token */}
+              <div className="bg-white rounded-xl border-2 border-green-200 overflow-hidden">
+                <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    <div>
+                      <div className="font-semibold">Mike Manager</div>
+                      <div className="text-xs text-green-200">Sales Manager</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Groups</div>
+                  <div className="flex gap-1 mb-4">
+                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">ProGear-Sales</span>
+                    <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs">ProGear-Managers</span>
+                  </div>
+
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">MCP Access Token Claims</div>
+                  <div className="bg-gray-900 rounded-lg p-3 font-mono text-xs space-y-1.5">
+                    <div><span className="text-gray-500">sub:</span> <span className="text-green-400">mike.manager@progear.demo</span></div>
+                    <div><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400">wlp8x5q7mvH86KvFJ0g7</span></div>
+                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://progear-inventory</span></div>
+                  </div>
+
+                  <div className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-2">Granted Scopes</div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
+                      <span className="text-sm font-mono text-green-700">inventory:read</span>
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    </div>
+                    <div className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
+                      <span className="text-sm font-mono text-green-700">inventory:write</span>
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    </div>
+                    <div className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
+                      <span className="text-sm font-mono text-green-700">pricing:read</span>
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    </div>
+                    <div className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
+                      <span className="text-sm font-mono text-green-700">pricing:margin</span>
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    </div>
+                  </div>
+
+                  <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                    <div className="text-xs text-green-700 font-medium">Full read/write access</div>
+                    <div className="text-xs text-green-600 mt-1">Can modify inventory and view profit margins</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Key takeaway */}
+            <div className="mt-6 bg-okta-blue/10 rounded-xl p-4 border border-okta-blue/30">
+              <div className="flex items-start gap-3">
+                <Shield className="w-5 h-5 text-okta-blue mt-0.5" />
+                <div>
+                  <div className="font-semibold text-gray-800">Same AI Agent • Different Permissions</div>
+                  <div className="text-sm text-gray-600 mt-1">
+                    Notice <code className="bg-gray-100 px-1 rounded text-xs">actor.sub</code> is identical in both tokens —
+                    it's the same AI agent. But the <em>granted scopes</em> differ based on the user's group membership.
+                    This is Okta's governance in action.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CollapsibleSection>
+
         {/* LangGraph Orchestration */}
         <CollapsibleSection
           title="LangGraph Orchestration"
@@ -613,7 +752,7 @@ export default function ArchitecturePage() {
                   { step: 1, label: "User Login", desc: "Okta OIDC", color: "#3b82f6" },
                   { step: 2, label: "ID Token", desc: "User Identity", color: "#10b981" },
                   { step: 3, label: "ID-JAG Exchange", desc: "Agent + User", color: "#8b5cf6" },
-                  { step: 4, label: "MCP Token", desc: "Scoped Access", color: "#f59e0b" },
+                  { step: 4, label: "Access Token", desc: "MCP Scoped", color: "#f59e0b" },
                   { step: 5, label: "API Access", desc: "Authorized", color: "#22c55e" },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center">
@@ -649,16 +788,16 @@ export default function ArchitecturePage() {
                 </div>
               </div>
               <div className="p-4 bg-orange-50 rounded-lg border-l-4 border-orange-500">
-                <div className="font-semibold text-orange-800">Step 4: MCP Token Issuance</div>
+                <div className="font-semibold text-orange-800">Step 4: MCP Access Token Issuance</div>
                 <div className="text-sm text-orange-700 mt-1">
-                  ID-JAG is exchanged for authorization server token with specific scopes.
+                  ID-JAG is exchanged for an access token scoped to the specific MCP.
                   Access policies determine what scopes are granted based on user groups.
                 </div>
               </div>
               <div className="p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
                 <div className="font-semibold text-green-800">Step 5: Authorized API Access</div>
                 <div className="text-sm text-green-700 mt-1">
-                  Agent uses MCP token to call APIs. Token contains: user sub, agent sub, granted scopes.
+                  Agent uses MCP access token to call APIs. Token contains: user sub, agent sub, granted scopes.
                 </div>
               </div>
             </div>

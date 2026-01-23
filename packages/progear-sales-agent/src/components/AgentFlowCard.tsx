@@ -72,7 +72,7 @@ function shortenAction(step: string, action: string): string {
   // Individual agents
   if (action.includes('Processed by')) {
     const match = action.match(/Processed by (.+)/);
-    return match ? `Via ${match[1].replace('ProGear ', '').replace(' Agent', '')}` : action;
+    return match ? `Via ${match[1].replace('ProGear ', '').replace(' Agent', '').replace(' MCP', '')}` : action;
   }
 
   // Generate response

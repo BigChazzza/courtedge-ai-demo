@@ -23,6 +23,7 @@ from auth.okta_auth import get_okta_auth
 from auth.agent_config import get_all_agent_configs, DEMO_AGENTS
 from orchestrator.orchestrator import Orchestrator
 from api.conversation_store import conversation_store
+from data.demo_store import demo_store
 
 # Load environment variables
 load_dotenv()
@@ -239,7 +240,7 @@ async def agent_status():
             # Use demo config
             demo = DEMO_AGENTS.get(agent_type, {})
             agents.append({
-                "name": demo.get("name", f"{agent_type.title()} Agent"),
+                "name": demo.get("name", f"{agent_type.title()} MCP"),
                 "type": agent_type,
                 "description": "Demo mode",
                 "color": demo.get("color", "#888"),
@@ -275,39 +276,80 @@ async def okta_config():
 
 @app.get("/api/agents/config")
 async def agent_config():
-    """Get agent configuration for UI display."""
+    """Get MCP configuration for UI display."""
     return {
         "agents": [
             {
                 "type": "sales",
-                "name": "ProGear Sales Agent",
+                "name": "Sales MCP",
                 "description": "Orders, quotes, and sales pipeline",
                 "color": "#3b82f6",
                 "icon": "ShoppingCart",
             },
             {
                 "type": "inventory",
-                "name": "ProGear Inventory Agent",
+                "name": "Inventory MCP",
                 "description": "Stock levels, products, and warehouse",
                 "color": "#10b981",
                 "icon": "Package",
             },
             {
                 "type": "customer",
-                "name": "ProGear Customer Agent",
+                "name": "Customer MCP",
                 "description": "Accounts, contacts, and purchase history",
                 "color": "#8b5cf6",
                 "icon": "Users",
             },
             {
                 "type": "pricing",
-                "name": "ProGear Pricing Agent",
+                "name": "Pricing MCP",
                 "description": "Pricing, margins, and discounts",
                 "color": "#f59e0b",
                 "icon": "DollarSign",
             },
         ]
     }
+
+
+# --- Demo Reset Endpoint ---
+
+@app.post("/api/demo/reset")
+async def reset_demo():
+    """
+    Reset all demo data to initial state.
+
+    This resets:
+    - Inventory quantities
+    - Pricing data
+    - Customer data
+    - Conversation history
+
+    Useful for demos to start fresh.
+    """
+    try:
+        # Reset data store
+        demo_store.reset_to_initial()
+
+        # Clear all conversation sessions
+        conversation_store.clear_all()
+
+        # Get summary for confirmation
+        inv_summary = demo_store.get_inventory_summary()
+        cust_summary = demo_store.get_customer_summary()
+
+        return {
+            "success": True,
+            "message": "Demo data reset to initial state",
+            "summary": {
+                "products": inv_summary['total_products'],
+                "total_items": inv_summary['total_items'],
+                "customers": cust_summary['total_customers'],
+                "low_stock_alerts": inv_summary['low_stock_count']
+            }
+        }
+    except Exception as e:
+        logger.error(f"Demo reset failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Reset failed: {str(e)}")
 
 
 # --- Okta System Logs Endpoint (for governance demo) ---
