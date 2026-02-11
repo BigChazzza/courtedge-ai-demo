@@ -16,6 +16,11 @@ export interface ThemeConfig {
     accent: string;
     accentLight: string;
   };
+  background: {
+    type: 'gradient' | 'image';
+    value: string; // Gradient CSS or image URL
+    overlay: string; // Overlay color with opacity
+  };
   logo: string;
   emoji: string;
   companyName: string;
@@ -35,6 +40,11 @@ export const themes: Record<ThemeType, ThemeConfig> = {
       secondary: '#0ea5e9',    // Light blue
       accent: '#6B4423',       // Chocolate brown
       accentLight: '#FFD700',  // Gold
+    },
+    background: {
+      type: 'image',
+      value: '/images/Wallpaper.png',
+      overlay: 'rgba(74, 44, 42, 0.7)', // Chocolate dark overlay
     },
     logo: '/images/logo.png',
     emoji: '🍫',
@@ -61,6 +71,11 @@ export const themes: Record<ThemeType, ThemeConfig> = {
       accent: '#6366f1',       // Indigo
       accentLight: '#8b5cf6',  // Purple
     },
+    background: {
+      type: 'gradient',
+      value: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #1e3a8a 100%)',
+      overlay: 'rgba(30, 58, 138, 0.6)', // Deep blue overlay
+    },
     logo: '/images/logo.png',
     emoji: '💻',
     companyName: 'TechPro Solutions',
@@ -85,6 +100,11 @@ export const themes: Record<ThemeType, ThemeConfig> = {
       secondary: '#0ea5e9',    // Light blue
       accent: '#059669',       // Emerald green
       accentLight: '#10b981',  // Light green
+    },
+    background: {
+      type: 'gradient',
+      value: 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 30%, #10b981 70%, #059669 100%)',
+      overlay: 'rgba(5, 150, 105, 0.5)', // Emerald overlay
     },
     logo: '/images/logo.png',
     emoji: '✈️',

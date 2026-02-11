@@ -200,8 +200,25 @@ export default function Home() {
   // Show loading screen while checking auth status
   if (isLoadingAuth || status === 'unauthenticated') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary via-primary-light to-chocolate-primary">
-        <div className="flex flex-col items-center space-y-4">
+      <div
+        className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      >
+        {currentTheme.background.type === 'image' ? (
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${currentTheme.background.value})` }}
+          />
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{ background: currentTheme.background.value }}
+          />
+        )}
+        <div
+          className="absolute inset-0"
+          style={{ backgroundColor: currentTheme.background.overlay }}
+        ></div>
+        <div className="relative z-10 flex flex-col items-center space-y-4">
           <span className="text-6xl animate-bounce">{currentTheme.emoji}</span>
           <div className="text-white text-xl font-display">Loading {currentTheme.companyName}...</div>
         </div>
@@ -212,12 +229,18 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-neutral-bg to-primary flex flex-col">
       {/* Header */}
-      <header className="bg-gradient-to-r from-primary via-chocolate-primary to-primary-light border-b-4 border-candy-gold shadow-lg relative overflow-hidden">
-        {/* Chocolate pattern */}
+      <header
+        className="border-b-4 shadow-lg relative overflow-hidden"
+        style={{
+          background: `linear-gradient(to right, ${currentTheme.colors.primary}, ${currentTheme.colors.accent}, ${currentTheme.colors.primary})`,
+          borderColor: currentTheme.colors.secondary,
+        }}
+      >
+        {/* Theme pattern */}
         <div className="absolute inset-0 opacity-5">
           <svg className="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
-            <line x1="50" y1="0" x2="50" y2="30" stroke="#FFD700" strokeWidth="0.5"/>
-            <circle cx="50" cy="15" r="8" fill="none" stroke="#E91E63" strokeWidth="0.3"/>
+            <line x1="50" y1="0" x2="50" y2="30" stroke="currentColor" strokeWidth="0.5"/>
+            <circle cx="50" cy="15" r="8" fill="none" stroke="currentColor" strokeWidth="0.3"/>
           </svg>
         </div>
 

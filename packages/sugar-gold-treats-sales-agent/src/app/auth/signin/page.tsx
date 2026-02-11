@@ -18,14 +18,24 @@ function SignInContent() {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Wallpaper Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/images/Wallpaper.png)' }}
-      />
+      {/* Theme-Specific Background */}
+      {currentTheme.background.type === 'image' ? (
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${currentTheme.background.value})` }}
+        />
+      ) : (
+        <div
+          className="absolute inset-0"
+          style={{ background: currentTheme.background.value }}
+        />
+      )}
 
-      {/* Tinted Overlay */}
-      <div className="absolute inset-0 bg-chocolate-dark/70"></div>
+      {/* Theme-Specific Overlay */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: currentTheme.background.overlay }}
+      ></div>
 
       {/* Theme Selector - Top Right */}
       <div className="absolute top-6 right-6 z-20">
@@ -150,12 +160,11 @@ export default function SignIn() {
       <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/Wallpaper.png)' }}
+          style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #4A2C2A 100%)' }}
         />
-        <div className="absolute inset-0 bg-chocolate-dark/70"></div>
         <div className="relative z-10 flex flex-col items-center space-y-4">
           <span className="text-6xl animate-bounce">🍫</span>
-          <div className="text-white text-xl font-display">Loading Sugar & Gold Treats...</div>
+          <div className="text-white text-xl font-display">Loading...</div>
         </div>
       </div>
     }>
