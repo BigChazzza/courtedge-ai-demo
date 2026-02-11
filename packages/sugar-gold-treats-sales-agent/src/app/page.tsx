@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AgentFlowCard from '@/components/AgentFlowCard';
 import TokenExchangeCard from '@/components/TokenExchangeCard';
+import ThemeSelector from '@/components/ThemeSelector';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface Message {
   id: string;
@@ -33,6 +35,7 @@ const SESSION_ID_STORAGE_KEY = 'sugar-gold-treats-session-id';
 export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const { currentTheme } = useTheme();
   const [message, setMessage] = useState('');
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -206,8 +209,8 @@ export default function Home() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary via-primary-light to-chocolate-primary">
         <div className="flex flex-col items-center space-y-4">
-          <span className="text-6xl animate-bounce">🍫</span>
-          <div className="text-white text-xl font-display">Loading Sugar & Gold Treats...</div>
+          <span className="text-6xl animate-bounce">{currentTheme.emoji}</span>
+          <div className="text-white text-xl font-display">Loading {currentTheme.companyName}...</div>
         </div>
       </div>
     );
@@ -228,11 +231,7 @@ export default function Home() {
         <div className="px-6 py-4 flex justify-between items-center relative z-10">
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <img
-                src="/images/logo.png"
-                alt="Sugar & Gold Treats Logo"
-                className="w-12 h-12 object-contain"
-              />
+              <span className="text-5xl">{currentTheme.emoji}</span>
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-okta-blue rounded-full border-2 border-white flex items-center justify-center">
                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -240,17 +239,18 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <h1 className="text-white text-2xl font-bold">Sugar & Gold Treats</h1>
-              <p className="text-gray-300 text-sm">AI-Powered Artisanal Chocolate Sales</p>
+              <h1 className="text-white text-2xl font-bold">{currentTheme.companyName}</h1>
+              <p className="text-gray-300 text-sm">{currentTheme.tagline}</p>
             </div>
           </div>
 
           <div className="flex items-center space-x-3">
+            <ThemeSelector />
             <div className="flex items-center gap-3">
               <span className="text-gray-200 text-sm">{session?.user?.email}</span>
               <button
                 onClick={handleSignOut}
-                className="px-5 py-2.5 bg-white/10 hover:bg-accent/30 text-white rounded-lg transition border border-white/20 hover:border-accent/50 flex items-center space-x-2"
+                className="px-5 py-2.5 bg-white/10 hover:bg-okta-blue/30 text-white rounded-lg transition border border-white/20 hover:border-okta-blue/50 flex items-center space-x-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -272,11 +272,11 @@ export default function Home() {
               <div className="text-center py-8 max-w-2xl mx-auto">
                 <div className="inline-block mb-4 relative">
                   <div className="absolute inset-0 bg-okta-blue/20 rounded-full blur-2xl animate-pulse"></div>
-                  <span className="text-6xl relative z-10">🍫</span>
+                  <span className="text-6xl relative z-10">{currentTheme.emoji}</span>
                 </div>
                 <h2 className="text-2xl font-bold text-blue-900 mb-2">Welcome, {session?.user?.name || 'Team Member'}!</h2>
                 <p className="text-blue-800 mb-6">
-                  Your AI-powered artisanal chocolate sales assistant is ready. Ask about orders, inventory, pricing, or customers.
+                  Your AI-powered {currentTheme.industry.toLowerCase()} sales assistant is ready. Ask about orders, inventory, pricing, or customers.
                 </p>
 
                 {/* Example Questions */}
@@ -315,7 +315,7 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     ) : (
-                      <span className="text-xl">🍫</span>
+                      <span className="text-xl">{currentTheme.emoji}</span>
                     )}
                   </div>
 
@@ -339,7 +339,7 @@ export default function Home() {
               <div className="flex justify-start">
                 <div className="flex items-start space-x-3">
                   <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-primary to-chocolate-primary rounded-lg flex items-center justify-center">
-                    <span className="text-xl animate-bounce">🍫</span>
+                    <span className="text-xl animate-bounce">{currentTheme.emoji}</span>
                   </div>
                   <div className="bg-white border-2 border-candy-pink/30 rounded-xl p-4 shadow-md">
                     <div className="flex items-center space-x-3">
@@ -371,7 +371,7 @@ export default function Home() {
                   disabled={isLoading}
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-30">
-                  🍫
+                  {currentTheme.emoji}
                 </div>
               </div>
               <button

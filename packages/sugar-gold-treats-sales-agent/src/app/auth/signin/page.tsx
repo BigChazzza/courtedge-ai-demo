@@ -3,11 +3,14 @@
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
+import ThemeSelector from '@/components/ThemeSelector';
 
 function SignInContent() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get('callbackUrl') || '/';
   const error = searchParams?.get('error');
+  const { currentTheme } = useTheme();
 
   const handleSignIn = () => {
     signIn('okta', { callbackUrl });
@@ -24,22 +27,23 @@ function SignInContent() {
       {/* Tinted Overlay */}
       <div className="absolute inset-0 bg-chocolate-dark/70"></div>
 
-      <div className="relative z-10 bg-gradient-to-br from-white/95 to-white/90 p-10 rounded-2xl shadow-2xl max-w-md w-full border-2 border-candy-gold/30 backdrop-blur-sm">
-        {/* Chocolate Logo */}
+      {/* Theme Selector - Top Right */}
+      <div className="absolute top-6 right-6 z-20">
+        <ThemeSelector />
+      </div>
+
+      <div className="relative z-10 bg-gradient-to-br from-white/95 to-white/90 p-10 rounded-2xl shadow-2xl max-w-md w-full border-2 border-okta-blue/30 backdrop-blur-sm">
+        {/* Company Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4 relative">
-            <div className="absolute inset-0 bg-candy-gold/20 blur-xl animate-pulse"></div>
-            <img
-              src="/images/logo.png"
-              alt="Sugar & Gold Treats Logo"
-              className="w-32 h-32 relative z-10 object-contain"
-            />
+            <div className="absolute inset-0 bg-okta-blue/20 blur-xl animate-pulse"></div>
+            <span className="text-7xl relative z-10">{currentTheme.emoji}</span>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-candy-gold to-candy-pink bg-clip-text text-transparent mb-2">
-            Sugar & Gold Treats
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-okta-blue to-okta-blue-light bg-clip-text text-transparent mb-2">
+            {currentTheme.companyName}
           </h1>
           <p className="text-gray-600 font-display text-lg">
-            Artisanal Chocolate Sales Intelligence
+            {currentTheme.tagline}
           </p>
         </div>
 
