@@ -18,14 +18,7 @@ interface Message {
   tokenExchanges?: any[];
 }
 
-const exampleQuestions = [
-  { text: "Can we fulfill 2000 chocolate bars for Sweet Delights Retail?", icon: "🍫" },
-  { text: "What dark chocolate bars do we have in stock?", icon: "🍫" },
-  { text: "Look up Chocolate Dreams Boutique's account", icon: "👥" },
-  { text: "What's our margin on artisanal truffles?", icon: "💰" },
-  { text: "Show me recent bulk chocolate orders", icon: "📦" },
-  { text: "Which customers have Platinum tier?", icon: "⭐" },
-];
+// Example questions are now loaded dynamically from theme
 
 const CHAT_STORAGE_KEY = 'sugar-gold-treats-chat-messages';
 const AGENT_FLOW_STORAGE_KEY = 'sugar-gold-treats-agent-flow';
@@ -281,7 +274,7 @@ export default function Home() {
 
                 {/* Example Questions */}
                 <div className="grid grid-cols-2 gap-3 text-left">
-                  {exampleQuestions.map((question, idx) => (
+                  {currentTheme.exampleQuestions.map((question, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleSendMessage(question.text)}

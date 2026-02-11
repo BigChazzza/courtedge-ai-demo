@@ -1,0 +1,148 @@
+{
+  "inventory": {
+    "LT-PRO-001": {
+      "name": "Enterprise Laptop Pro 15",
+      "sku": "LT-PRO-001",
+      "category": "Laptops",
+      "quantity": 245,
+      "status": "good",
+      "reorder_point": 50
+    },
+    "LT-BUS-001": {
+      "name": "Business Ultrabook 14",
+      "sku": "LT-BUS-001",
+      "category": "Laptops",
+      "quantity": 389,
+      "status": "good",
+      "reorder_point": 75
+    },
+    "DT-WKS-001": {
+      "name": "Workstation Desktop Elite",
+      "sku": "DT-WKS-001",
+      "category": "Desktops",
+      "quantity": 156,
+      "status": "good",
+      "reorder_point": 30
+    },
+    "MN-4K-001": {
+      "name": "4K Monitor 27 inch",
+      "sku": "MN-4K-001",
+      "category": "Monitors",
+      "quantity": 523,
+      "status": "good",
+      "reorder_point": 100
+    },
+    "SW-OFF-001": {
+      "name": "Office Suite Enterprise License",
+      "sku": "SW-OFF-001",
+      "category": "Software Licenses",
+      "quantity": 2847,
+      "status": "good",
+      "reorder_point": 500
+    },
+    "SW-SEC-001": {
+      "name": "Security Software Pro",
+      "sku": "SW-SEC-001",
+      "category": "Software Licenses",
+      "quantity": 1523,
+      "status": "good",
+      "reorder_point": 300
+    },
+    "NW-RTR-001": {
+      "name": "Enterprise Router Pro",
+      "sku": "NW-RTR-001",
+      "category": "Network Equipment",
+      "quantity": 89,
+      "status": "low",
+      "reorder_point": 100
+    },
+    "NW-SWT-001": {
+      "name": "24-Port Gigabit Switch",
+      "sku": "NW-SWT-001",
+      "category": "Network Equipment",
+      "quantity": 178,
+      "status": "good",
+      "reorder_point": 50
+    },
+    "SRV-RAK-001": {
+      "name": "Rack Server Dual Xeon",
+      "sku": "SRV-RAK-001",
+      "category": "Servers",
+      "quantity": 45,
+      "status": "low",
+      "reorder_point": 50
+    },
+    "STR-NAS-001": {
+      "name": "Network Storage 24TB",
+      "sku": "STR-NAS-001",
+      "category": "Storage",
+      "quantity": 67,
+      "status": "good",
+      "reorder_point": 20
+    }
+  },
+  "pricing": {
+    "LT-PRO-001": { "price": 1899.99, "cost": 950.00, "margin": 50.0 },
+    "LT-BUS-001": { "price": 1299.99, "cost": 650.00, "margin": 50.0 },
+    "DT-WKS-001": { "price": 2499.99, "cost": 1250.00, "margin": 50.0 },
+    "MN-4K-001": { "price": 499.99, "cost": 250.00, "margin": 50.0 },
+    "SW-OFF-001": { "price": 149.99, "cost": 75.00, "margin": 50.0 },
+    "SW-SEC-001": { "price": 89.99, "cost": 45.00, "margin": 50.0 },
+    "NW-RTR-001": { "price": 899.99, "cost": 450.00, "margin": 50.0 },
+    "NW-SWT-001": { "price": 599.99, "cost": 300.00, "margin": 50.0 },
+    "SRV-RAK-001": { "price": 5499.99, "cost": 2750.00, "margin": 50.0 },
+    "STR-NAS-001": { "price": 3299.99, "cost": 1650.00, "margin": 50.0 }
+  },
+  "customers": {
+    "CUST-001": {
+      "id": "CUST-001",
+      "name": "Global Finance Corp",
+      "contact": "Sarah Johnson",
+      "email": "sjohnson@globalfinance.com",
+      "tier": "Platinum",
+      "total_spent": 485000,
+      "location": "New York, NY"
+    },
+    "CUST-002": {
+      "id": "CUST-002",
+      "name": "Healthcare Systems Inc",
+      "contact": "Michael Chen",
+      "email": "mchen@healthsystems.com",
+      "tier": "Platinum",
+      "total_spent": 392000,
+      "location": "Boston, MA"
+    },
+    "CUST-003": {
+      "id": "CUST-003",
+      "name": "Manufacturing Solutions LLC",
+      "contact": "David Brown",
+      "email": "dbrown@mfgsolutions.com",
+      "tier": "Gold",
+      "total_spent": 178000,
+      "location": "Detroit, MI"
+    },
+    "CUST-004": {
+      "id": "CUST-004",
+      "name": "Education District 5",
+      "contact": "Jennifer Martinez",
+      "email": "jmartinez@district5.edu",
+      "tier": "Gold",
+      "total_spent": 145000,
+      "location": "Chicago, IL"
+    }
+  },
+  "discounts": {
+    "tier_discounts": {
+      "Platinum": 5,
+      "Gold": 3,
+      "Silver": 1,
+      "Bronze": 0
+    },
+    "volume_discounts": {
+      "10": 5,
+      "50": 10,
+      "100": 15,
+      "500": 20
+    }
+  }
+}

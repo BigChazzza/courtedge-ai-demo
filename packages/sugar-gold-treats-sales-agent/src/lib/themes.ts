@@ -1,6 +1,11 @@
 // Theme configurations for demo platform
 export type ThemeType = 'chocolate' | 'tech' | 'travel';
 
+export interface ExampleQuestion {
+  text: string;
+  icon: string;
+}
+
 export interface ThemeConfig {
   id: ThemeType;
   name: string;
@@ -16,6 +21,8 @@ export interface ThemeConfig {
   companyName: string;
   industry: string;
   tagline: string;
+  groupPrefix: string; // For Okta group names
+  exampleQuestions: ExampleQuestion[];
 }
 
 export const themes: Record<ThemeType, ThemeConfig> = {
@@ -34,6 +41,15 @@ export const themes: Record<ThemeType, ThemeConfig> = {
     companyName: 'Sugar & Gold Treats',
     industry: 'Confectionery',
     tagline: 'AI-Powered Artisanal Chocolate Sales',
+    groupPrefix: 'Sugar & Gold Treats',
+    exampleQuestions: [
+      { text: "Can we fulfill 2000 chocolate bars for Sweet Delights Retail?", icon: "🍫" },
+      { text: "What dark chocolate bars do we have in stock?", icon: "🍫" },
+      { text: "Look up Chocolate Dreams Boutique's account", icon: "👥" },
+      { text: "What's our margin on artisanal truffles?", icon: "💰" },
+      { text: "Show me recent bulk chocolate orders", icon: "📦" },
+      { text: "Which customers have Platinum tier?", icon: "⭐" },
+    ],
   },
   tech: {
     id: 'tech',
@@ -50,6 +66,15 @@ export const themes: Record<ThemeType, ThemeConfig> = {
     companyName: 'TechPro Solutions',
     industry: 'Technology',
     tagline: 'AI-Powered Enterprise Technology Sales',
+    groupPrefix: 'TechPro',
+    exampleQuestions: [
+      { text: "Can we fulfill 50 Enterprise Laptops for Global Finance Corp?", icon: "💻" },
+      { text: "What network equipment do we have in stock?", icon: "🖧" },
+      { text: "Look up Healthcare Systems Inc's account", icon: "👥" },
+      { text: "What's our margin on software licenses?", icon: "💰" },
+      { text: "Show me recent server orders", icon: "📦" },
+      { text: "Which tech customers have Platinum tier?", icon: "⭐" },
+    ],
   },
   travel: {
     id: 'travel',
@@ -66,6 +91,15 @@ export const themes: Record<ThemeType, ThemeConfig> = {
     companyName: 'Wanderlust Travel Co',
     industry: 'Travel & Tourism',
     tagline: 'AI-Powered Travel Planning & Booking',
+    groupPrefix: 'Wanderlust',
+    exampleQuestions: [
+      { text: "Can we book 20 Caribbean Paradise packages for Corporate Travel?", icon: "✈️" },
+      { text: "What cruise packages do we have available?", icon: "🚢" },
+      { text: "Look up Executive Journeys Inc's account", icon: "👥" },
+      { text: "What's our margin on luxury hotel nights?", icon: "💰" },
+      { text: "Show me recent vacation package bookings", icon: "📦" },
+      { text: "Which travel clients have Platinum tier?", icon: "⭐" },
+    ],
   },
 };
 

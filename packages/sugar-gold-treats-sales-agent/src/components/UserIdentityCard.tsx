@@ -1,6 +1,7 @@
 'use client';
 
 import { User, Shield, Users, Mail } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface UserInfo {
   email?: string;
@@ -13,26 +14,30 @@ interface Props {
   user: UserInfo | null;
 }
 
-// Map groups to their display info
-const groupInfo: Record<string, { name: string; color: string; access: string[] }> = {
-  'Sugar & Gold Treats-Sales': {
-    name: 'Sales',
-    color: '#00BCD4',      // Cyan
-    access: ['Sales', 'Inventory (read)', 'Customer', 'Pricing (read)']
-  },
-  'Sugar & Gold Treats-Warehouse': {
-    name: 'Warehouse',
-    color: '#7CFF00',      // Lime
-    access: ['Inventory']
-  },
-  'Sugar & Gold Treats-Finance': {
-    name: 'Finance',
-    color: '#FFD700',      // Gold
-    access: ['Pricing']
-  },
-};
+// Generate group info dynamically based on theme
+function getGroupInfo(groupPrefix: string) {
+  return {
+    [`${groupPrefix}-Sales`]: {
+      name: 'Sales',
+      color: '#00BCD4',      // Cyan
+      access: ['Sales', 'Inventory (read)', 'Customer', 'Pricing (read)']
+    },
+    [`${groupPrefix}-Warehouse`]: {
+      name: 'Warehouse',
+      color: '#7CFF00',      // Lime
+      access: ['Inventory']
+    },
+    [`${groupPrefix}-Finance`]: {
+      name: 'Finance',
+      color: '#FFD700',      // Gold
+      access: ['Pricing']
+    },
+  };
+}
 
 export default function UserIdentityCard({ user }: Props) {
+  const { currentTheme } = useTheme();
+  const groupInfo = getGroupInfo(currentTheme.groupPrefix);
   if (!user || !user.email || user.email === 'anonymous') {
     return (
       <div className="bg-white rounded-xl border-2 border-neutral-border shadow-sm overflow-hidden">
@@ -109,7 +114,7 @@ export default function UserIdentityCard({ user }: Props) {
               })
             ) : (
               <div className="text-sm text-gray-400 italic">
-                No Sugar & Gold Treats groups assigned
+                No {currentTheme.companyName} groups assigned
               </div>
             )}
           </div>
