@@ -228,7 +228,11 @@ export default function Home() {
         <div className="px-6 py-4 flex justify-between items-center relative z-10">
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <span className="text-5xl">🍫</span>
+              <img
+                src="/images/logo.png"
+                alt="Sugar & Gold Treats Logo"
+                className="w-12 h-12 object-contain"
+              />
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-okta-blue rounded-full border-2 border-white flex items-center justify-center">
                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -267,11 +271,11 @@ export default function Home() {
             {chatMessages.length === 0 && (
               <div className="text-center py-8 max-w-2xl mx-auto">
                 <div className="inline-block mb-4 relative">
-                  <div className="absolute inset-0 bg-candy-gold/20 rounded-full blur-2xl animate-pulse"></div>
+                  <div className="absolute inset-0 bg-okta-blue/20 rounded-full blur-2xl animate-pulse"></div>
                   <span className="text-6xl relative z-10">🍫</span>
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">Welcome, {session?.user?.name || 'Team Member'}!</h2>
-                <p className="text-gray-300 mb-6">
+                <h2 className="text-2xl font-bold text-blue-900 mb-2">Welcome, {session?.user?.name || 'Team Member'}!</h2>
+                <p className="text-blue-800 mb-6">
                   Your AI-powered artisanal chocolate sales assistant is ready. Ask about orders, inventory, pricing, or customers.
                 </p>
 
@@ -281,9 +285,9 @@ export default function Home() {
                     <button
                       key={idx}
                       onClick={() => handleSendMessage(question.text)}
-                      className="group p-4 bg-white/95 backdrop-blur-sm border-2 border-candy-gold/20 hover:border-candy-gold hover:shadow-xl rounded-xl transition-all text-left flex items-start space-x-3"
+                      className="group p-4 bg-white/95 backdrop-blur-sm border-2 border-okta-blue/20 hover:border-okta-blue hover:shadow-xl rounded-xl transition-all text-left flex items-start space-x-3"
                     >
-                      <div className="w-8 h-8 bg-gradient-to-br from-candy-gold/20 to-candy-pink/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:from-candy-gold group-hover:to-candy-pink transition-all">
+                      <div className="w-8 h-8 bg-gradient-to-br from-okta-blue/20 to-okta-blue-light/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:from-okta-blue group-hover:to-okta-blue-light transition-all">
                         <span className="text-lg group-hover:scale-110 transition-transform">{question.icon}</span>
                       </div>
                       <span className="text-sm text-gray-700 group-hover:text-primary font-medium leading-relaxed">
@@ -355,7 +359,7 @@ export default function Home() {
           </div>
 
           {/* Input Area */}
-          <div className="border-t-4 border-candy-gold bg-gradient-to-r from-white via-candy-gold/5 to-white px-6 py-4 shadow-2xl">
+          <div className="border-t-4 border-okta-blue bg-gradient-to-r from-white via-okta-blue/5 to-white px-6 py-4 shadow-2xl">
             <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex space-x-3 max-w-4xl mx-auto">
               <div className="flex-1 relative">
                 <input
@@ -363,7 +367,7 @@ export default function Home() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Ask about orders, inventory, pricing, or customers..."
-                  className="w-full px-5 py-3 border-2 border-neutral-border rounded-xl focus:outline-none focus:border-candy-gold focus:ring-2 focus:ring-candy-gold/20 transition text-gray-700 placeholder-gray-400"
+                  className="w-full px-5 py-3 border-2 border-neutral-border rounded-xl focus:outline-none focus:border-okta-blue focus:ring-2 focus:ring-okta-blue/20 transition text-gray-700 placeholder-gray-400"
                   disabled={isLoading}
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-30">
@@ -373,7 +377,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={isLoading || !message.trim()}
-                className="px-6 py-3 bg-gradient-to-r from-candy-gold to-candy-orange hover:from-candy-orange hover:to-candy-gold text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg hover:shadow-xl flex items-center space-x-2 border-b-4 border-chocolate-primary/50"
+                className="px-6 py-3 bg-gradient-to-r from-okta-blue to-okta-blue-light hover:from-okta-blue-light hover:to-okta-blue text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg hover:shadow-xl flex items-center space-x-2 border-b-4 border-blue-800/50"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -385,8 +389,8 @@ export default function Home() {
         </div>
 
         {/* Right Pane - Security Dashboard */}
-        <div className="w-96 bg-gradient-to-b from-gray-50 to-white border-l-4 border-candy-gold/30 overflow-y-auto p-4 space-y-4">
-          <div className="text-center pb-4 border-b-2 border-candy-gold/20">
+        <div className="w-96 bg-gradient-to-b from-gray-50 to-white border-l-4 border-okta-blue/30 overflow-y-auto p-4 space-y-4">
+          <div className="text-center pb-4 border-b-2 border-okta-blue/20">
             <h2 className="text-lg font-bold text-gray-800 flex items-center justify-center gap-2">
               <svg className="w-5 h-5 text-okta-blue" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
