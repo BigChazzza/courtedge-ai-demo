@@ -1,4 +1,4 @@
-# ProGear Sales AI - Okta AI Agent Governance Demo
+# Sugar & Gold Treats Sales AI - Okta AI Agent Governance Demo
 
 > **Enterprise AI Agent security demonstration** showcasing Okta AI Agent Governance with Cross App Access (XAA), ID-JAG token exchange, and role-based access control.
 
@@ -35,8 +35,8 @@ This demo implements **Scenario 2** from our [four scenarios framework](docs/okt
 
 ### Live Demo
 
-- **Frontend**: [progear-sales-agent.vercel.app](https://progear-sales-agent.vercel.app)
-- **Backend API**: [courtedge-progear-backend.onrender.com](https://courtedge-progear-backend.onrender.com)
+- **Frontend**: [sugar-gold-treats-sales-agent.vercel.app](https://sugar-gold-treats-sales-agent.vercel.app)
+- **Backend API**: [courtedge-sugar-gold-treats-backend.onrender.com](https://courtedge-sugar-gold-treats-backend.onrender.com)
 
 ### 📚 Documentation
 
@@ -53,7 +53,7 @@ This demo implements **Scenario 2** from our [four scenarios framework](docs/okt
 ┌───────────────────────────────────────────────────────────────┐
 │                         User Browser                          │
 │  ┌─────────────────────────────────────────────────────────┐  │
-│  │  ProGear Sales Agent (Next.js 14 + React)               │  │
+│  │  Sugar & Gold Treats Sales Agent (Next.js 14 + React)               │  │
 │  │  - Chat interface with AI agent                         │  │
 │  │  - Real-time token exchange visualization               │  │
 │  │  - Agent flow tracking                                  │  │
@@ -86,7 +86,7 @@ This demo implements **Scenario 2** from our [four scenarios framework](docs/okt
 ## Key Components
 
 ### 1. Frontend (Next.js 14)
-- **Location**: `packages/progear-sales-agent/`
+- **Location**: `packages/sugar-gold-treats-sales-agent/`
 - **Auth**: NextAuth.js with Okta OIDC provider
 - **Features**: Chat interface, token exchange visualization, architecture overview
 
@@ -101,10 +101,10 @@ Each MCP server has its own Okta Authorization Server:
 
 | MCP Server | Audience | Scopes |
 |------------|----------|--------|
-| Sales | `api://progear-sales` | `sales:read`, `sales:quote`, `sales:order` |
-| Inventory | `api://progear-inventory` | `inventory:read`, `inventory:write`, `inventory:alert` |
-| Customer | `api://progear-customer` | `customer:read`, `customer:lookup`, `customer:history` |
-| Pricing | `api://progear-pricing` | `pricing:read`, `pricing:margin`, `pricing:discount` |
+| Sales | `api://sugar-gold-treats-sales` | `sales:read`, `sales:quote`, `sales:order` |
+| Inventory | `api://sugar-gold-treats-inventory` | `inventory:read`, `inventory:write`, `inventory:alert` |
+| Customer | `api://sugar-gold-treats-customer` | `customer:read`, `customer:lookup`, `customer:history` |
+| Pricing | `api://sugar-gold-treats-pricing` | `pricing:read`, `pricing:margin`, `pricing:discount` |
 
 ### 4. Okta AI Agent Governance
 - **Workload Principal (`wlp`)**: AI agent identity in Okta Universal Directory - first-class identity like users
@@ -119,9 +119,9 @@ Three user groups with different access levels:
 
 | Group | Sales MCP | Inventory MCP | Customer MCP | Pricing MCP |
 |-------|-----------|---------------|--------------|-------------|
-| **ProGear-Sales** | Full access | Read only | Full access | Full access |
-| **ProGear-Warehouse** | No access | Full access | No access | No access |
-| **ProGear-Finance** | No access | No access | No access | Full access |
+| **Sugar & Gold Treats-Sales** | Full access | Read only | Full access | Full access |
+| **Sugar & Gold Treats-Warehouse** | No access | Full access | No access | No access |
+| **Sugar & Gold Treats-Finance** | No access | No access | No access | Full access |
 
 ## Token Exchange Flow (ID-JAG)
 
@@ -152,7 +152,7 @@ Want to deploy this demo with your own Okta org? Follow the **[Implementation Gu
 |----------|----------|-------------|
 | **[Security & Governance Guide](docs/okta-security-value.md)** | Security teams, architects | The four scenarios framework, XAA/ID-JAG concepts, MCP adoption, governance model |
 | **[Implementation Guide](docs/implementation-guide.md)** | Developers, DevOps | Complete deployment walkthrough for Vercel + Render with Okta configuration |
-| **[Live Architecture Page](https://progear-sales-agent.vercel.app/architecture)** | Everyone | Interactive visualization of the token exchange flow in the running demo |
+| **[Live Architecture Page](https://sugar-gold-treats-sales-agent.vercel.app/architecture)** | Everyone | Interactive visualization of the token exchange flow in the running demo |
 
 ## Technology Stack
 
@@ -197,7 +197,7 @@ courtedge-ai-demo/
 │   └── orchestrator/
 │       └── orchestrator.py      # LangGraph workflow
 ├── packages/
-│   └── progear-sales-agent/     # Next.js frontend
+│   └── sugar-gold-treats-sales-agent/     # Next.js frontend
 │       ├── src/app/
 │       │   ├── page.tsx         # Chat interface
 │       │   └── architecture/    # Architecture page

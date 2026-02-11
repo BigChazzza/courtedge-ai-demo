@@ -15,19 +15,19 @@ interface Props {
 
 // Map groups to their display info
 const groupInfo: Record<string, { name: string; color: string; access: string[] }> = {
-  'ProGear-Sales': {
+  'Sugar & Gold Treats-Sales': {
     name: 'Sales',
-    color: '#3b82f6',
+    color: '#00BCD4',      // Cyan
     access: ['Sales', 'Inventory (read)', 'Customer', 'Pricing (read)']
   },
-  'ProGear-Warehouse': {
+  'Sugar & Gold Treats-Warehouse': {
     name: 'Warehouse',
-    color: '#10b981',
+    color: '#7CFF00',      // Lime
     access: ['Inventory']
   },
-  'ProGear-Finance': {
+  'Sugar & Gold Treats-Finance': {
     name: 'Finance',
-    color: '#f59e0b',
+    color: '#FFD700',      // Gold
     access: ['Pricing']
   },
 };
@@ -109,7 +109,7 @@ export default function UserIdentityCard({ user }: Props) {
               })
             ) : (
               <div className="text-sm text-gray-400 italic">
-                No ProGear groups assigned
+                No Sugar & Gold Treats groups assigned
               </div>
             )}
           </div>

@@ -1,18 +1,18 @@
 {
-  "name": "progear-sales-ai",
+  "name": "sugar-gold-treats-sales-ai",
   "version": "1.0.0",
-  "description": "ProGear Sales AI - Okta AI Agent Security Demo",
+  "description": "Sugar & Gold Treats Sales AI - Okta AI Agent Security Demo",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=packages/progear-sales-agent",
-    "build": "npm run build --workspace=packages/progear-sales-agent && npm run build --workspace=packages/progear-sales-mcp-server",
-    "start": "npm run start --workspace=packages/progear-sales-agent",
-    "build:mcp": "npm run build --workspace=packages/progear-sales-mcp-server"
+    "dev": "npm run dev --workspace=packages/sugar-gold-treats-sales-agent",
+    "build": "npm run build --workspace=packages/sugar-gold-treats-sales-agent && npm run build --workspace=packages/sugar-gold-treats-sales-mcp-server",
+    "start": "npm run start --workspace=packages/sugar-gold-treats-sales-agent",
+    "build:mcp": "npm run build --workspace=packages/sugar-gold-treats-sales-mcp-server"
   },
-  "keywords": ["okta", "oauth", "sales", "ai", "mcp", "ai-agent", "progear"],
+  "keywords": ["okta", "oauth", "sales", "ai", "mcp", "ai-agent", "sugar-gold-treats"],
   "author": "Okta",
   "license": "MIT"
 }

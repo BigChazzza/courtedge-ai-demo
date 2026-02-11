@@ -1,7 +1,5 @@
 {
-  "name": "sugar-gold-treats-agent",
-  "description": "Sugar & Gold Treats AI Sales Agent",
-  "keywords": ["candy", "chocolate", "sales-agent", "ai"],
+  "name": "sugar-gold-treats-sales-agent",
   "version": "0.1.0",
   "private": true,
   "scripts": {

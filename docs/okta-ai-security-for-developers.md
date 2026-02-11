@@ -117,7 +117,7 @@ Traditional OAuth 2.0 token exchange (RFC 8693) between applications. This is wh
 {
   "sub": "0oa8x5nsjp8aDUpB70g7",
   "scp": ["inventory:read"],
-  "aud": "api://progear-inventory"
+  "aud": "api://sugar-gold-treats-inventory"
 }
 ```
 
@@ -192,12 +192,12 @@ Cross App Access (XAA) using the Identity Assertion JWT Authorization Grant (ID-
 
 ```json
 {
-  "sub": "sarah.sales@progear-demo.com",
+  "sub": "sarah.sales@sugar-gold-treats-demo.com",
   "act": {
     "sub": "wlp8x5q7mvH86KvFJ0g7"
   },
   "scp": ["inventory:read"],
-  "aud": "api://progear-inventory"
+  "aud": "api://sugar-gold-treats-inventory"
 }
 ```
 
@@ -211,18 +211,18 @@ Cross App Access (XAA) using the Identity Assertion JWT Authorization Grant (ID-
   "actor": {
     "id": "wlp8x5q7mvH86KvFJ0g7",
     "type": "AI Agent",
-    "displayName": "ProGear Sales Agent"
+    "displayName": "Sugar & Gold Treats Sales Agent"
   },
   "target": [
     {
       "id": "00u8x5nsjp8aDUpB70g7",
       "type": "User",
       "displayName": "Sarah Sales",
-      "alternateId": "sarah.sales@progear-demo.com"
+      "alternateId": "sarah.sales@sugar-gold-treats-demo.com"
     },
     {
       "type": "AuthorizationServer",
-      "displayName": "ProGear Inventory MCP"
+      "displayName": "Sugar & Gold Treats Inventory MCP"
     }
   ]
 }
@@ -230,7 +230,7 @@ Cross App Access (XAA) using the Identity Assertion JWT Authorization Grant (ID-
 
 **What You Know:** Everything.
 - **WHO:** Sarah Sales
-- **WHAT:** ProGear Sales Agent accessed Inventory API
+- **WHAT:** Sugar & Gold Treats Sales Agent accessed Inventory API
 - **WHEN:** Timestamp in log
 - **WHY:** Policy allowed it (or denied it with reason)
 
@@ -247,10 +247,10 @@ Cross App Access (XAA) using the Identity Assertion JWT Authorization Grant (ID-
 ### What This Demo Proves
 
 This demo implements Scenario 2 with four internal authorization servers:
-- ProGear Sales API (`api://progear-sales`)
-- ProGear Inventory API (`api://progear-inventory`)
-- ProGear Customer API (`api://progear-customer`)
-- ProGear Pricing API (`api://progear-pricing`)
+- Sugar & Gold Treats Sales API (`api://sugar-gold-treats-sales`)
+- Sugar & Gold Treats Inventory API (`api://sugar-gold-treats-inventory`)
+- Sugar & Gold Treats Customer API (`api://sugar-gold-treats-customer`)
+- Sugar & Gold Treats Pricing API (`api://sugar-gold-treats-pricing`)
 
 **This works today. No external dependencies. No waiting for anyone.**
 
@@ -261,7 +261,7 @@ This demo implements Scenario 2 with four internal authorization servers:
 │  Applications → AI Agents                                           │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│  ProGear Sales Agent                                                │
+│  Sugar & Gold Treats Sales Agent                                                │
 │  ID: wlp8x5q7mvH86KvFJ0g7                                           │
 │  Owner: john.admin@company.com                                      │
 │  Status: ● Active                                                   │
@@ -521,17 +521,17 @@ Your internal architecture (how many LangGraph nodes, which tools, what routing 
 │                                                                   │
 │   USERS (People)                GROUPS                            │
 │   ┌────────────────┐            ┌─────────────────────┐           │
-│   │ sarah.sales    │            │ ProGear-Sales       │           │
-│   │ mike.manager   │            │ ProGear-Warehouse   │           │
-│   │ frank.finance  │            │ ProGear-Finance     │           │
+│   │ sarah.sales    │            │ Sugar & Gold Treats-Sales       │           │
+│   │ mike.manager   │            │ Sugar & Gold Treats-Warehouse   │           │
+│   │ frank.finance  │            │ Sugar & Gold Treats-Finance     │           │
 │   └────────────────┘            └─────────────────────┘           │
 │                                                                   │
 │   AI AGENTS (Workload Principals)       ← First-class identity    │
 │   ┌─────────────────────────────────────────────────────┐         │
-│   │ ProGear Sales Agent (wlp8x5q7mvH86KvFJ0g7)          │         │
+│   │ Sugar & Gold Treats Sales Agent (wlp8x5q7mvH86KvFJ0g7)          │         │
 │   │   • Owner: admin@company.com                        │         │
 │   │   • Credentials: RS256 key pair                     │         │
-│   │   • Linked Apps: ProGear Sales Agent App            │         │
+│   │   • Linked Apps: Sugar & Gold Treats Sales Agent App            │         │
 │   │   • Status: ACTIVE                                  │         │
 │   └─────────────────────────────────────────────────────┘         │
 │                                                                   │
@@ -571,19 +571,19 @@ When Sarah Sales asks the AI agent to check inventory:
   "actor": {
     "id": "wlp8x5q7mvH86KvFJ0g7",
     "type": "AI Agent",
-    "displayName": "ProGear Sales Agent"
+    "displayName": "Sugar & Gold Treats Sales Agent"
   },
   "target": [
     {
       "id": "00u8x5nsjp8aDUpB70g7",
       "type": "User",
       "displayName": "Sarah Sales",
-      "alternateId": "sarah.sales@progear-demo.com"
+      "alternateId": "sarah.sales@sugar-gold-treats-demo.com"
     },
     {
       "id": "aus8xdg1oaSVfDgxa0g7",
       "type": "AuthorizationServer",
-      "displayName": "ProGear Inventory MCP"
+      "displayName": "Sugar & Gold Treats Inventory MCP"
     }
   ],
   "debugContext": {
@@ -597,10 +597,10 @@ When Sarah Sales asks the AI agent to check inventory:
 
 | Field | Value | Security Insight |
 |-------|-------|------------------|
-| `actor.displayName` | "ProGear Sales Agent" | **WHICH AI** performed this action |
+| `actor.displayName` | "Sugar & Gold Treats Sales Agent" | **WHICH AI** performed this action |
 | `actor.id` | `wlp8x5q7mvH86KvFJ0g7` | Unique, trackable agent ID |
 | `target[0].displayName` | "Sarah Sales" | **WHICH USER** the agent acted for |
-| `target[1].displayName` | "ProGear Inventory MCP" | **WHICH API** was accessed |
+| `target[1].displayName` | "Sugar & Gold Treats Inventory MCP" | **WHICH API** was accessed |
 | `grantedScopes` | "inventory:read" | **WHAT PERMISSIONS** were granted |
 | `outcome.result` | "SUCCESS" | Access was allowed |
 | `published` | Timestamp | **WHEN** this happened |
@@ -621,24 +621,24 @@ When Mike Manager (warehouse team) tries to access customer data:
   "actor": {
     "id": "wlp8x5q7mvH86KvFJ0g7",
     "type": "AI Agent",
-    "displayName": "ProGear Sales Agent"
+    "displayName": "Sugar & Gold Treats Sales Agent"
   },
   "target": [
     {
       "id": "00u8x5abc123def456",
       "type": "User",
       "displayName": "Mike Manager",
-      "alternateId": "mike.manager@progear-demo.com"
+      "alternateId": "mike.manager@sugar-gold-treats-demo.com"
     },
     {
       "id": "aus8xdfti92mIRSAE0g7",
       "type": "AuthorizationServer",
-      "displayName": "ProGear Customer MCP"
+      "displayName": "Sugar & Gold Treats Customer MCP"
     }
   ],
   "debugContext": {
     "requestedScopes": "customer:read customer:lookup",
-    "denialReason": "User not in required group: ProGear-Sales"
+    "denialReason": "User not in required group: Sugar & Gold Treats-Sales"
   }
 }
 ```
@@ -653,7 +653,7 @@ When Mike Manager (warehouse team) tries to access customer data:
 
 **User Profile:**
 - Name: Sarah Sales
-- Group: `ProGear-Sales`
+- Group: `Sugar & Gold Treats-Sales`
 - Role: Sales Representative
 
 **What She Can Access:**
@@ -675,7 +675,7 @@ When Mike Manager (warehouse team) tries to access customer data:
 
 **User Profile:**
 - Name: Mike Manager
-- Groups: `ProGear-Sales`, `ProGear-Managers`
+- Groups: `Sugar & Gold Treats-Sales`, `Sugar & Gold Treats-Managers`
 - Role: Sales Manager
 
 **What He Can Access:**
@@ -687,7 +687,7 @@ When Mike Manager (warehouse team) tries to access customer data:
 | Customer MCP | Full | `customer:read`, `customer:lookup`, `customer:history` |
 | Pricing MCP | **Full** | `pricing:read`, `pricing:margin`, `pricing:discount` |
 
-**Key Difference:** Mike's membership in `ProGear-Managers` grants him write access to inventory and visibility into profit margins.
+**Key Difference:** Mike's membership in `Sugar & Gold Treats-Managers` grants him write access to inventory and visibility into profit margins.
 
 **Audit Trail:** 4 successful token exchanges, all with full scopes - demonstrating elevated access for managers.
 
@@ -757,4 +757,4 @@ When Mike Manager (warehouse team) tries to access customer data:
 
 ---
 
-*This document accompanies the ProGear Sales AI demo showcasing Okta AI Agent Governance with Cross App Access (XAA).*
+*This document accompanies the Sugar & Gold Treats Sales AI demo showcasing Okta AI Agent Governance with Cross App Access (XAA).*

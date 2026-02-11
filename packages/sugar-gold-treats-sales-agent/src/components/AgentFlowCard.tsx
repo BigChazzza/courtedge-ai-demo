@@ -16,10 +16,10 @@ interface Props {
 }
 
 const agentColors: Record<string, string> = {
-  sales: '#3b82f6',
-  inventory: '#10b981',
-  customer: '#8b5cf6',
-  pricing: '#f59e0b',
+  sales: '#00BCD4',      // Cyan
+  inventory: '#7CFF00',  // Lime
+  customer: '#E91E63',   // Pink
+  pricing: '#FFD700',    // Gold
 };
 
 const agentIcons: Record<string, string> = {
@@ -72,7 +72,7 @@ function shortenAction(step: string, action: string): string {
   // Individual agents
   if (action.includes('Processed by')) {
     const match = action.match(/Processed by (.+)/);
-    return match ? `Via ${match[1].replace('ProGear ', '').replace(' Agent', '').replace(' MCP', '')}` : action;
+    return match ? `Via ${match[1].replace('Sugar & Gold Treats ', '').replace(' Agent', '').replace(' MCP', '')}` : action;
   }
 
   // Generate response

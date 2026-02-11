@@ -43,7 +43,7 @@ Imagine your marketing manager asks an AI assistant: "Show me our top 10 custome
 - The AI checks with Okta: "Jennifer from Marketing wants customer revenue data"
 - Okta verifies: "Is Jennifer allowed to see this? Is this AI agent approved?"
 - Access is granted (or denied), and everything is logged with full details
-- You know exactly: Jennifer asked, ProGear AI answered, customer data was accessed, at 2:34 PM
+- You know exactly: Jennifer asked, Sugar & Gold Treats AI answered, customer data was accessed, at 2:34 PM
 
 ---
 
@@ -85,10 +85,10 @@ When an AI agent accesses your data without governance, it's like someone walkin
 With Okta, every AI agent has a visible ID badge, and there's a security guard (Okta) checking every entry:
 
 **What the security system records:**
-- **Visitor:** ProGear Sales AI Agent (Badge #WLP-8X5Q7)
+- **Visitor:** Sugar & Gold Treats Sales AI Agent (Badge #WLP-8X5Q7)
 - **Sent by:** Sarah Johnson, Sales Representative
 - **Destination:** Floor 2 (Inventory Data)
-- **Purpose:** Check basketball stock levels
+- **Purpose:** Check chocolate stock levels
 - **Authorization:** Approved - Sarah has inventory access
 - **Time in:** 2:34:17 PM
 - **Time out:** 2:34:19 PM
@@ -120,7 +120,7 @@ When your compliance team, security officer, or board asks about AI security, yo
 
 **Example from the demo:**
 - Sarah Sales asks: "What's our revenue this quarter?"
-- The log shows: `User: sarah.sales@progear-demo.com requested sales:read access`
+- The log shows: `User: sarah.sales@sugar-gold-treats-demo.com requested sales:read access`
 - You know exactly who made the request
 
 ### Question 2: WHAT AI system performed the action?
@@ -129,13 +129,13 @@ When your compliance team, security officer, or board asks about AI security, yo
 
 | Without Governance | With Okta |
 |-------------------|-----------|
-| "One of our AI systems" | "ProGear Sales Agent (ID: wlp8x5q7mv)" |
+| "One of our AI systems" | "Sugar & Gold Treats Sales Agent (ID: wlp8x5q7mv)" |
 | "We have several, not sure which" | "This specific agent, owned by John Admin" |
 | "They all use the same credentials" | "Each agent has its own trackable identity" |
 
 **Example from the demo:**
 - The AI agent has a unique ID: `wlp8x5q7mvH86KvFJ0g7`
-- It has a name: "ProGear Sales Agent"
+- It has a name: "Sugar & Gold Treats Sales Agent"
 - It has an owner: The person responsible for it
 - Every action is tied to this specific identity
 
@@ -161,13 +161,13 @@ When your compliance team, security officer, or board asks about AI security, yo
 | Without Governance | With Okta |
 |-------------------|-----------|
 | "It had the right credentials" | "Policy 'Sales Team Pricing Access' allowed it" |
-| "Not sure what rules apply" | "User was in ProGear-Sales group, which grants pricing:read" |
+| "Not sure what rules apply" | "User was in Sugar & Gold Treats-Sales group, which grants pricing:read" |
 | "We'd need to review code" | "Here's the exact policy that matched" |
 
 **Example from the demo:**
 - Mike from Warehouse asks about pricing margins
 - Okta checks: "Is Mike in a group that allows pricing access?"
-- Answer: No - ProGear-Warehouse group doesn't have pricing permissions
+- Answer: No - Sugar & Gold Treats-Warehouse group doesn't have pricing permissions
 - Log shows: `Access DENIED - Reason: User not in required group`
 - You know exactly why it was blocked
 
@@ -197,7 +197,7 @@ Let's follow a real scenario step by step to see how AI agent governance works i
 
 **8:30 AM - Sarah logs in**
 
-Sarah Johnson is a sales representative at ProGear Sports. She opens her browser and goes to the company portal.
+Sarah Johnson is a sales representative at Sugar & Gold Treats Sports. She opens her browser and goes to the company portal.
 
 1. She clicks "Sign in with Okta"
 2. She enters her email and password (or uses her phone for passwordless login)
@@ -213,14 +213,14 @@ Sarah Johnson is a sales representative at ProGear Sports. She opens her browser
 
 **10:15 AM - A customer question**
 
-Sarah is on a call with a big customer who asks: "Do you have Pro Game Basketballs in stock? We need 500 units."
+Sarah is on a call with a big customer who asks: "Do you have Pro Game chocolates in stock? We need 500 units."
 
-Sarah types into the AI assistant: "Check stock levels for Pro Game Basketballs"
+Sarah types into the AI assistant: "Check stock levels for Pro Game chocolates"
 
 **What happens next (in about 2 seconds):**
 
 **Step 1: The AI receives Sarah's question**
-- The AI sees: "Sarah wants to know about basketball inventory"
+- The AI sees: "Sarah wants to know about chocolate inventory"
 - The AI has Sarah's digital pass that proves she's logged in
 
 **Step 2: The AI asks Okta for permission**
@@ -231,21 +231,21 @@ Sarah types into the AI assistant: "Check stock levels for Pro Game Basketballs"
   - What it needs: "inventory:read" permission
 
 **Step 3: Okta checks the rules**
-- Okta looks up Sarah: "She's in the ProGear-Sales group"
-- Okta checks the policy: "ProGear-Sales members can read inventory"
-- Okta verifies the AI agent: "This is the approved ProGear Sales Agent"
+- Okta looks up Sarah: "She's in the Sugar & Gold Treats-Sales group"
+- Okta checks the policy: "Sugar & Gold Treats-Sales members can read inventory"
+- Okta verifies the AI agent: "This is the approved Sugar & Gold Treats Sales Agent"
 - Decision: **APPROVED**
 
 **Step 4: Okta issues a temporary access pass**
 - Okta creates a special pass just for this request
-- The pass says: "Sarah Sales (via ProGear AI Agent) can read inventory data"
+- The pass says: "Sarah Sales (via Sugar & Gold Treats AI Agent) can read inventory data"
 - The pass expires in minutes, not hours or days
 - Everything is logged
 
 **Step 5: The AI gets the inventory data**
 - Using the temporary pass, the AI checks the inventory system
-- It finds: "Pro Game Basketball - 8,500 units in stock"
-- It responds to Sarah: "We have 8,500 Pro Game Basketballs in stock. Plenty to fulfill a 500-unit order!"
+- It finds: "Pro Game chocolate - 8,500 units in stock"
+- It responds to Sarah: "We have 8,500 Pro Game chocolates in stock. Plenty to fulfill a 500-unit order!"
 
 **Step 6: Sarah helps her customer**
 - Total time elapsed: about 2 seconds
@@ -259,15 +259,15 @@ Sarah types into the AI assistant: "Check stock levels for Pro Game Basketballs"
 
 Mike is the warehouse manager. He's great at his job but doesn't need access to customer financial data.
 
-Mike types into the AI assistant: "Show me the profit margins on our basketball products"
+Mike types into the AI assistant: "Show me the profit margins on our chocolate products"
 
 **What happens:**
 
 **Step 1-2:** Same as before - the AI gets Mike's request and asks Okta for permission
 
 **Step 3: Okta checks the rules**
-- Okta looks up Mike: "He's in the ProGear-Warehouse group"
-- Okta checks the policy: "ProGear-Warehouse members can access inventory, but NOT pricing"
+- Okta looks up Mike: "He's in the Sugar & Gold Treats-Warehouse group"
+- Okta checks the policy: "Sugar & Gold Treats-Warehouse members can access inventory, but NOT pricing"
 - Decision: **DENIED**
 
 **Step 4: The AI responds appropriately**
@@ -294,18 +294,18 @@ At the end of the day, an administrator could pull up the logs and see:
 ```
 Today's AI Agent Activity Summary:
 
-Sarah Sales (ProGear-Sales)
-├── 10:15 AM - Inventory access GRANTED - "Check basketball stock"
+Sarah Sales (Sugar & Gold Treats-Sales)
+├── 10:15 AM - Inventory access GRANTED - "Check chocolate stock"
 ├── 11:42 AM - Customer access GRANTED - "Look up Acme Corp order history"
-├── 2:15 PM - Pricing access GRANTED - "What's our margin on Pro Game Basketball?"
+├── 2:15 PM - Pricing access GRANTED - "What's our margin on Pro Game chocolate?"
 └── 4:30 PM - Sales access GRANTED - "Show my pipeline for this quarter"
 
-Mike Manager (ProGear-Warehouse)
+Mike Manager (Sugar & Gold Treats-Warehouse)
 ├── 9:00 AM - Inventory access GRANTED - "Low stock alerts"
 ├── 2:30 PM - Pricing access DENIED - "Show profit margins" (not in allowed group)
-└── 3:45 PM - Inventory access GRANTED - "Update basketball count to 8,000"
+└── 3:45 PM - Inventory access GRANTED - "Update chocolate count to 8,000"
 
-Frank Finance (ProGear-Finance)
+Frank Finance (Sugar & Gold Treats-Finance)
 ├── 10:00 AM - Pricing access GRANTED - "Q4 margin analysis"
 └── 1:30 PM - Customer access DENIED - "Show customer list" (not in allowed group)
 ```
@@ -375,7 +375,7 @@ In Okta and industry standards, this is called an **Identity Assertion** - the A
 Every time the AI accesses data, the system records two identities:
 
 1. **The User** (WHO asked): Sarah Sales
-2. **The Agent** (WHAT acted): ProGear Sales AI
+2. **The Agent** (WHAT acted): Sugar & Gold Treats Sales AI
 
 This is why the audit logs are so powerful. You're not just seeing "data was accessed" - you're seeing "Sarah asked the AI to access this data."
 
@@ -407,7 +407,7 @@ Not all AI implementations are created equal. There are four different approache
 
 ### Approach 2: Okta-Managed Security (This Demo)
 
-**What it is:** Okta manages both the AI agent identity and the access rules. This is what the ProGear demo shows.
+**What it is:** Okta manages both the AI agent identity and the access rules. This is what the Sugar & Gold Treats demo shows.
 
 **The analogy:** A professional security company manages your building. Every visitor is checked, logged, and tracked.
 
@@ -488,7 +488,7 @@ In Okta, AI agents aren't just applications with passwords. They're first-class 
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  AI Agent: ProGear Sales Agent                                  │
+│  AI Agent: Sugar & Gold Treats Sales Agent                                  │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  Status:        ● Active                                        │
@@ -555,8 +555,8 @@ Every interaction is logged with full context. Here's what a real log entry look
 ```
 What happened:     AI agent requested access and was approved
 When:              December 15, 2024 at 2:23:47 PM
-AI Agent:          ProGear Sales Agent (wlp8x5q7mvH86KvFJ0g7)
-Acting for:        Sarah Sales (sarah.sales@progear-demo.com)
+AI Agent:          Sugar & Gold Treats Sales Agent (wlp8x5q7mvH86KvFJ0g7)
+Acting for:        Sarah Sales (sarah.sales@sugar-gold-treats-demo.com)
 Accessed:          Inventory API
 Permission:        inventory:read
 Result:            GRANTED
@@ -566,12 +566,12 @@ Result:            GRANTED
 ```
 What happened:     AI agent requested access and was denied
 When:              December 15, 2024 at 2:30:12 PM
-AI Agent:          ProGear Sales Agent (wlp8x5q7mvH86KvFJ0g7)
-Acting for:        Mike Manager (mike.manager@progear-demo.com)
+AI Agent:          Sugar & Gold Treats Sales Agent (wlp8x5q7mvH86KvFJ0g7)
+Acting for:        Mike Manager (mike.manager@sugar-gold-treats-demo.com)
 Attempted:         Pricing API
 Permission:        pricing:read
 Result:            DENIED
-Reason:            User not in required group (needs ProGear-Sales)
+Reason:            User not in required group (needs Sugar & Gold Treats-Sales)
 ```
 
 **What you can do with these logs:**
@@ -589,16 +589,16 @@ Reason:            User not in required group (needs ProGear-Sales)
 **Meet Sarah Sales**
 - Job: Sales Representative
 - Team: Sales Department
-- Okta Group: ProGear-Sales
+- Okta Group: Sugar & Gold Treats-Sales
 
 **What Sarah can do with the AI:**
 
 | Sarah asks... | AI checks... | Result |
 |--------------|--------------|--------|
 | "What's in our sales pipeline?" | Sales access? Yes (Sales team) | Shows pipeline data |
-| "How many basketballs in stock?" | Inventory access? Yes (Sales can read) | Shows 8,500 units |
+| "How many chocolates in stock?" | Inventory access? Yes (Sales can read) | Shows 8,500 units |
 | "Look up Acme Corp's purchase history" | Customer access? Yes (Sales team) | Shows order history |
-| "What's our margin on Pro Game Basketball?" | Pricing access? Yes (Sales team) | Shows 42% margin |
+| "What's our margin on Pro Game chocolate?" | Pricing access? Yes (Sales team) | Shows 42% margin |
 
 **Sarah's experience:**
 - She doesn't notice any security checks
@@ -617,14 +617,14 @@ Reason:            User not in required group (needs ProGear-Sales)
 **Meet Mike Manager**
 - Job: Warehouse Manager
 - Team: Warehouse Operations
-- Okta Group: ProGear-Warehouse
+- Okta Group: Sugar & Gold Treats-Warehouse
 
 **What Mike can do with the AI:**
 
 | Mike asks... | AI checks... | Result |
 |--------------|--------------|--------|
 | "What products are low on stock?" | Inventory access? Yes (Warehouse team) | Shows low stock alerts |
-| "Update basketball count to 9,000" | Inventory write? Yes (Warehouse team) | Updates the count |
+| "Update chocolate count to 9,000" | Inventory write? Yes (Warehouse team) | Updates the count |
 | "Show me customer contact info" | Customer access? No (Warehouse doesn't need this) | Politely declined |
 | "What's our profit margin on shoes?" | Pricing access? No (Warehouse doesn't need this) | Politely declined |
 
@@ -648,7 +648,7 @@ Reason:            User not in required group (needs ProGear-Sales)
 **Meet Frank Finance**
 - Job: Financial Analyst
 - Team: Finance Department
-- Okta Group: ProGear-Finance
+- Okta Group: Sugar & Gold Treats-Finance
 
 **What Frank can do with the AI:**
 
@@ -678,7 +678,7 @@ Reason:            User not in required group (needs ProGear-Sales)
 ```
 Friday, December 15
 
-Mike Manager (ProGear-Warehouse):
+Mike Manager (Sugar & Gold Treats-Warehouse):
   3:00 PM - pricing:read - DENIED - "Show profit margins"
   3:02 PM - pricing:read - DENIED - "What's our markup?"
   3:05 PM - customer:read - DENIED - "Show customer list"
@@ -705,12 +705,12 @@ Mike Manager (ProGear-Warehouse):
 **The sequence of events:**
 
 1. **9:00 PM - Alert received**
-   - Monitoring system flags: "ProGear Sales Agent - 500 requests in last 5 minutes"
+   - Monitoring system flags: "Sugar & Gold Treats Sales Agent - 500 requests in last 5 minutes"
    - Normal average: 50 requests per hour
 
 2. **9:02 PM - Security officer investigates**
    - Logs into Okta Admin Console from phone
-   - Goes to Applications → AI Agents → ProGear Sales Agent
+   - Goes to Applications → AI Agents → Sugar & Gold Treats Sales Agent
    - Sees the unusual activity
 
 3. **9:03 PM - Agent deactivated**
@@ -911,7 +911,7 @@ The ecosystem is growing, and MCP's adoption of this approach is accelerating it
 
 ### "Can we try this before committing?"
 
-Yes! The ProGear demo lets you:
+Yes! The Sugar & Gold Treats demo lets you:
 - Log in as different users (Sarah, Mike, Frank)
 - Ask questions and see what's allowed or denied
 - Watch the security panel show the decisions in real-time
@@ -945,7 +945,7 @@ With Okta, they are.
 
 ## See It In Action
 
-The ProGear demo shows this working in real-time:
+The Sugar & Gold Treats demo shows this working in real-time:
 
 1. **Log in as different users**
    - Sarah Sales: Full access to all four data domains
@@ -979,4 +979,4 @@ Reading about security is one thing. Watching it work is another.
 
 ---
 
-*This guide accompanies the ProGear AI Agent demo showcasing Okta AI Agent Governance. The concepts apply to any organization implementing AI agents that access sensitive data.*
+*This guide accompanies the Sugar & Gold Treats AI Agent demo showcasing Okta AI Agent Governance. The concepts apply to any organization implementing AI agents that access sensitive data.*

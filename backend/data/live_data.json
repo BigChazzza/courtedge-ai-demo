@@ -1,718 +1,557 @@
 {
   "inventory": {
-    "BB-PRO-001": {
-      "name": "Pro Game Basketball",
-      "sku": "BB-PRO-001",
-      "category": "Basketballs",
+    "CB-DRK72-001": {
+      "name": "Dark Chocolate 72% Single Origin",
+      "sku": "CB-DRK72-001",
+      "category": "Chocolate Bars",
       "quantity": 2847,
       "status": "good",
       "reorder_point": 500
     },
-    "BB-COMP-001": {
-      "name": "Pro Composite Basketball",
-      "sku": "BB-COMP-001",
-      "category": "Basketballs",
+    "CB-MIL-001": {
+      "name": "Milk Chocolate Classic Bar",
+      "sku": "CB-MIL-001",
+      "category": "Chocolate Bars",
+      "quantity": 3421,
+      "status": "good",
+      "reorder_point": 600
+    },
+    "CB-RUB-001": {
+      "name": "Ruby Chocolate Premium Bar",
+      "sku": "CB-RUB-001",
+      "category": "Chocolate Bars",
       "quantity": 1523,
       "status": "good",
       "reorder_point": 300
     },
-    "BB-WOM-001": {
-      "name": "Women's Official Basketball",
-      "sku": "BB-WOM-001",
-      "category": "Basketballs",
-      "quantity": 1234,
-      "status": "good",
-      "reorder_point": 250
-    },
-    "BB-YTH5-001": {
-      "name": "Youth Size 5 Basketball",
-      "sku": "BB-YTH5-001",
-      "category": "Basketballs",
-      "quantity": 3567,
-      "status": "good",
-      "reorder_point": 500
-    },
-    "BB-YTH4-001": {
-      "name": "Youth Size 4 Basketball",
-      "sku": "BB-YTH4-001",
-      "category": "Basketballs",
+    "CB-HAZ-001": {
+      "name": "Whole Hazelnut Milk Bar",
+      "sku": "CB-HAZ-001",
+      "category": "Chocolate Bars",
       "quantity": 2156,
       "status": "good",
       "reorder_point": 400
     },
-    "BB-IND-001": {
-      "name": "Indoor Premium Basketball",
-      "sku": "BB-IND-001",
-      "category": "Basketballs",
-      "quantity": 892,
+    "CB-ALM-001": {
+      "name": "Almond Crunch Dark Bar",
+      "sku": "CB-ALM-001",
+      "category": "Chocolate Bars",
+      "quantity": 1892,
       "status": "good",
-      "reorder_point": 200
+      "reorder_point": 350
     },
-    "BB-OUT-001": {
-      "name": "Outdoor Rubber Basketball",
-      "sku": "BB-OUT-001",
-      "category": "Basketballs",
-      "quantity": 4521,
-      "status": "good",
-      "reorder_point": 600
-    },
-    "BB-TRN-001": {
-      "name": "Training Heavy Basketball",
-      "sku": "BB-TRN-001",
-      "category": "Basketballs",
-      "quantity": 645,
-      "status": "good",
-      "reorder_point": 150
-    },
-    "HP-ARENA-001": {
-      "name": "Pro Arena Hoop System",
-      "sku": "HP-ARENA-001",
-      "category": "Hoops & Backboards",
-      "quantity": 45,
-      "status": "low",
-      "reorder_point": 50
-    },
-    "HP-PORT-001": {
-      "name": "Portable Hoop System",
-      "sku": "HP-PORT-001",
-      "category": "Hoops & Backboards",
-      "quantity": 234,
-      "status": "good",
-      "reorder_point": 75
-    },
-    "HP-WALL-001": {
-      "name": "Wall-Mount Hoop",
-      "sku": "HP-WALL-001",
-      "category": "Hoops & Backboards",
-      "quantity": 567,
-      "status": "good",
-      "reorder_point": 100
-    },
-    "HP-YTH-001": {
-      "name": "Youth Adjustable Hoop",
-      "sku": "HP-YTH-001",
-      "category": "Hoops & Backboards",
-      "quantity": 823,
-      "status": "good",
-      "reorder_point": 150
-    },
-    "HP-RIM-001": {
-      "name": "Breakaway Rim Pro",
-      "sku": "HP-RIM-001",
-      "category": "Hoops & Backboards",
-      "quantity": 412,
-      "status": "good",
-      "reorder_point": 100
-    },
-    "HP-BACK-001": {
-      "name": "Replacement Backboard 72\"",
-      "sku": "HP-BACK-001",
-      "category": "Hoops & Backboards",
-      "quantity": 89,
-      "status": "low",
-      "reorder_point": 100
-    },
-    "NT-PRO-001": {
-      "name": "Pro Competition Net (White)",
-      "sku": "NT-PRO-001",
-      "category": "Nets & Accessories",
-      "quantity": 2340,
-      "status": "good",
-      "reorder_point": 400
-    },
-    "NT-CHN-001": {
-      "name": "Heavy Duty Chain Net",
-      "sku": "NT-CHN-001",
-      "category": "Nets & Accessories",
-      "quantity": 1123,
-      "status": "good",
-      "reorder_point": 200
-    },
-    "NT-AWP-001": {
-      "name": "Anti-Whip Net Pro",
-      "sku": "NT-AWP-001",
-      "category": "Nets & Accessories",
-      "quantity": 1567,
-      "status": "good",
-      "reorder_point": 300
-    },
-    "AC-PMP-001": {
-      "name": "Ball Pump Pro",
-      "sku": "AC-PMP-001",
-      "category": "Nets & Accessories",
-      "quantity": 3421,
-      "status": "good",
-      "reorder_point": 500
-    },
-    "AC-BAG-001": {
-      "name": "Ball Bag (holds 10)",
-      "sku": "AC-BAG-001",
-      "category": "Nets & Accessories",
-      "quantity": 892,
-      "status": "good",
-      "reorder_point": 150
-    },
-    "AC-RCK-001": {
-      "name": "Ball Rack (holds 16)",
-      "sku": "AC-RCK-001",
-      "category": "Nets & Accessories",
-      "quantity": 234,
-      "status": "good",
-      "reorder_point": 50
-    },
-    "UNI-JRS-001": {
-      "name": "Pro Game Jersey",
-      "sku": "UNI-JRS-001",
-      "category": "Uniforms & Apparel",
-      "quantity": 4521,
-      "status": "good",
-      "reorder_point": 800
-    },
-    "UNI-SHT-001": {
-      "name": "Pro Game Shorts",
-      "sku": "UNI-SHT-001",
-      "category": "Uniforms & Apparel",
-      "quantity": 4234,
-      "status": "good",
-      "reorder_point": 800
-    },
-    "UNI-REV-001": {
-      "name": "Reversible Practice Jersey",
-      "sku": "UNI-REV-001",
-      "category": "Uniforms & Apparel",
-      "quantity": 3892,
-      "status": "good",
-      "reorder_point": 600
-    },
-    "UNI-WRM-001": {
-      "name": "Warm-Up Jacket",
-      "sku": "UNI-WRM-001",
-      "category": "Uniforms & Apparel",
+    "CB-ORG-001": {
+      "name": "Orange Infused Dark Bar",
+      "sku": "CB-ORG-001",
+      "category": "Chocolate Bars",
       "quantity": 1234,
       "status": "good",
       "reorder_point": 250
     },
-    "UNI-WRP-001": {
-      "name": "Warm-Up Pants",
-      "sku": "UNI-WRP-001",
-      "category": "Uniforms & Apparel",
-      "quantity": 1456,
+    "CB-MIN-001": {
+      "name": "Mint Dark Chocolate Bar",
+      "sku": "CB-MIN-001",
+      "category": "Chocolate Bars",
+      "quantity": 2341,
       "status": "good",
-      "reorder_point": 300
+      "reorder_point": 450
     },
-    "UNI-SHO-001": {
-      "name": "Shooting Shirt",
-      "sku": "UNI-SHO-001",
-      "category": "Uniforms & Apparel",
-      "quantity": 2123,
+    "CB-SAL-001": {
+      "name": "Sea Salt & Caramel Bar",
+      "sku": "CB-SAL-001",
+      "category": "Chocolate Bars",
+      "quantity": 3567,
       "status": "good",
-      "reorder_point": 400
+      "reorder_point": 650
     },
-    "UNI-HOD-001": {
-      "name": "Team Hoodie",
-      "sku": "UNI-HOD-001",
-      "category": "Uniforms & Apparel",
-      "quantity": 1678,
-      "status": "good",
-      "reorder_point": 300
-    },
-    "UNI-PRS-001": {
-      "name": "Practice Shorts",
-      "sku": "UNI-PRS-001",
-      "category": "Uniforms & Apparel",
-      "quantity": 5234,
-      "status": "good",
-      "reorder_point": 800
-    },
-    "TR-CON-001": {
-      "name": "Agility Cones (set of 20)",
-      "sku": "TR-CON-001",
-      "category": "Training Equipment",
-      "quantity": 1234,
-      "status": "good",
-      "reorder_point": 200
-    },
-    "TR-LAD-001": {
-      "name": "Agility Ladder",
-      "sku": "TR-LAD-001",
-      "category": "Training Equipment",
+    "TR-DRK-001": {
+      "name": "Dark Chocolate Ganache Truffle Box",
+      "sku": "TR-DRK-001",
+      "category": "Artisanal Truffles",
       "quantity": 892,
       "status": "good",
       "reorder_point": 150
     },
-    "TR-GOG-001": {
-      "name": "Dribble Goggles",
-      "sku": "TR-GOG-001",
-      "category": "Training Equipment",
-      "quantity": 2341,
-      "status": "good",
-      "reorder_point": 400
-    },
-    "TR-RES-001": {
-      "name": "Resistance Bands Set",
-      "sku": "TR-RES-001",
-      "category": "Training Equipment",
-      "quantity": 1567,
-      "status": "good",
-      "reorder_point": 300
-    },
-    "TR-ARC-001": {
-      "name": "Shot Arc Trainer",
-      "sku": "TR-ARC-001",
-      "category": "Training Equipment",
-      "quantity": 423,
+    "TR-CHA-001": {
+      "name": "Champagne Truffle Collection",
+      "sku": "TR-CHA-001",
+      "category": "Artisanal Truffles",
+      "quantity": 645,
       "status": "good",
       "reorder_point": 100
     },
-    "TR-SLD-001": {
-      "name": "Defensive Slide Trainer",
-      "sku": "TR-SLD-001",
-      "category": "Training Equipment",
-      "quantity": 67,
-      "status": "low",
-      "reorder_point": 75
-    },
-    "FW-PRO-001": {
-      "name": "Pro Court Basketball Shoe",
-      "sku": "FW-PRO-001",
-      "category": "Footwear",
-      "quantity": 1892,
-      "status": "good",
-      "reorder_point": 300
-    },
-    "FW-YTH-001": {
-      "name": "Youth Basketball Shoe",
-      "sku": "FW-YTH-001",
-      "category": "Footwear",
-      "quantity": 2341,
-      "status": "good",
-      "reorder_point": 400
-    },
-    "FW-TRN-001": {
-      "name": "Training Shoe",
-      "sku": "FW-TRN-001",
-      "category": "Footwear",
+    "TR-ESP-001": {
+      "name": "Espresso Truffle Set",
+      "sku": "TR-ESP-001",
+      "category": "Artisanal Truffles",
       "quantity": 1123,
       "status": "good",
       "reorder_point": 200
     },
-    "FW-REF-001": {
-      "name": "Referee Shoe",
-      "sku": "FW-REF-001",
-      "category": "Footwear",
+    "TR-RAS-001": {
+      "name": "Raspberry Cream Truffles",
+      "sku": "TR-RAS-001",
+      "category": "Artisanal Truffles",
+      "quantity": 823,
+      "status": "good",
+      "reorder_point": 150
+    },
+    "TR-HAZ-001": {
+      "name": "Hazelnut Praline Truffles",
+      "sku": "TR-HAZ-001",
+      "category": "Artisanal Truffles",
+      "quantity": 1456,
+      "status": "good",
+      "reorder_point": 250
+    },
+    "TR-AST-001": {
+      "name": "Assorted Truffle Gift Box",
+      "sku": "TR-AST-001",
+      "category": "Artisanal Truffles",
+      "quantity": 2123,
+      "status": "good",
+      "reorder_point": 400
+    },
+    "GC-PRE-001": {
+      "name": "Premium Chocolate Collection 24pc",
+      "sku": "GC-PRE-001",
+      "category": "Gift Collections",
+      "quantity": 567,
+      "status": "good",
+      "reorder_point": 100
+    },
+    "GC-SEA-001": {
+      "name": "Seasonal Selection Box",
+      "sku": "GC-SEA-001",
+      "category": "Gift Collections",
+      "quantity": 892,
+      "status": "good",
+      "reorder_point": 150
+    },
+    "GC-CLS-001": {
+      "name": "Classic Assortment 12pc",
+      "sku": "GC-CLS-001",
+      "category": "Gift Collections",
+      "quantity": 1678,
+      "status": "good",
+      "reorder_point": 300
+    },
+    "GC-LUX-001": {
+      "name": "Luxury Tasting Set",
+      "sku": "GC-LUX-001",
+      "category": "Gift Collections",
+      "quantity": 423,
+      "status": "good",
+      "reorder_point": 75
+    },
+    "GC-BUL-001": {
+      "name": "Bulk Corporate Box 100pc",
+      "sku": "GC-BUL-001",
+      "category": "Gift Collections",
       "quantity": 234,
+      "status": "low",
+      "reorder_point": 50
+    },
+    "GC-SMP-001": {
+      "name": "Chocolate Sampler Set",
+      "sku": "GC-SMP-001",
+      "category": "Gift Collections",
+      "quantity": 1234,
+      "status": "good",
+      "reorder_point": 250
+    },
+    "SP-HAZ-001": {
+      "name": "Hazelnut Chocolate Spread Premium",
+      "sku": "SP-HAZ-001",
+      "category": "Chocolate Spreads & Toppings",
+      "quantity": 2340,
+      "status": "good",
+      "reorder_point": 400
+    },
+    "SP-CAR-001": {
+      "name": "Salted Caramel Sauce",
+      "sku": "SP-CAR-001",
+      "category": "Chocolate Spreads & Toppings",
+      "quantity": 3421,
+      "status": "good",
+      "reorder_point": 600
+    },
+    "SP-NUT-001": {
+      "name": "Dark Chocolate Nut Butter",
+      "sku": "SP-NUT-001",
+      "category": "Chocolate Spreads & Toppings",
+      "quantity": 1567,
+      "status": "good",
+      "reorder_point": 300
+    },
+    "SP-FUD-001": {
+      "name": "Chocolate Fudge Sauce",
+      "sku": "SP-FUD-001",
+      "category": "Chocolate Spreads & Toppings",
+      "quantity": 2156,
+      "status": "good",
+      "reorder_point": 400
+    },
+    "SP-DRZ-001": {
+      "name": "Chocolate Drizzle Syrup",
+      "sku": "SP-DRZ-001",
+      "category": "Chocolate Spreads & Toppings",
+      "quantity": 4521,
+      "status": "good",
+      "reorder_point": 800
+    },
+    "MC-TSH-001": {
+      "name": "Sugar & Gold Treats T-Shirt",
+      "sku": "MC-TSH-001",
+      "category": "Branded Merchandise",
+      "quantity": 892,
+      "status": "good",
+      "reorder_point": 150
+    },
+    "MC-MUG-001": {
+      "name": "Chocolate Lovers Ceramic Mug",
+      "sku": "MC-MUG-001",
+      "category": "Branded Merchandise",
+      "quantity": 1345,
+      "status": "good",
+      "reorder_point": 250
+    },
+    "MC-BAG-001": {
+      "name": "Branded Tote Bag",
+      "sku": "MC-BAG-001",
+      "category": "Branded Merchandise",
+      "quantity": 2341,
+      "status": "good",
+      "reorder_point": 400
+    },
+    "MC-APR-001": {
+      "name": "Chef's Apron with Logo",
+      "sku": "MC-APR-001",
+      "category": "Branded Merchandise",
+      "quantity": 567,
+      "status": "good",
+      "reorder_point": 100
+    },
+    "MC-HOD-001": {
+      "name": "Chocolate Lover Hoodie",
+      "sku": "MC-HOD-001",
+      "category": "Branded Merchandise",
+      "quantity": 1123,
+      "status": "good",
+      "reorder_point": 200
+    },
+    "MC-CAP-001": {
+      "name": "Baseball Cap with Logo",
+      "sku": "MC-CAP-001",
+      "category": "Branded Merchandise",
+      "quantity": 1678,
+      "status": "good",
+      "reorder_point": 300
+    },
+    "CG-EXE-001": {
+      "name": "Executive Gift Box Premium",
+      "sku": "CG-EXE-001",
+      "category": "Corporate Gifts",
+      "quantity": 312,
       "status": "good",
       "reorder_point": 50
+    },
+    "CG-EVT-001": {
+      "name": "Event Favor Boxes (Set of 50)",
+      "sku": "CG-EVT-001",
+      "category": "Corporate Gifts",
+      "quantity": 156,
+      "status": "good",
+      "reorder_point": 30
+    },
+    "CG-BRD-001": {
+      "name": "Branded Corporate Set",
+      "sku": "CG-BRD-001",
+      "category": "Corporate Gifts",
+      "quantity": 423,
+      "status": "good",
+      "reorder_point": 75
+    },
+    "CG-HOL-001": {
+      "name": "Holiday Collection Corporate",
+      "sku": "CG-HOL-001",
+      "category": "Corporate Gifts",
+      "quantity": 67,
+      "status": "low",
+      "reorder_point": 100
+    },
+    "CG-WEL-001": {
+      "name": "Welcome Gift Assortment",
+      "sku": "CG-WEL-001",
+      "category": "Corporate Gifts",
+      "quantity": 789,
+      "status": "good",
+      "reorder_point": 150
+    },
+    "CG-THK-001": {
+      "name": "Thank You Gift Box",
+      "sku": "CG-THK-001",
+      "category": "Corporate Gifts",
+      "quantity": 1234,
+      "status": "good",
+      "reorder_point": 250
     }
   },
   "pricing": {
-    "BB-PRO-001": {
-      "price": 149.99,
-      "cost": 62.0,
-      "margin": 58.7
-    },
-    "BB-COMP-001": {
-      "price": 89.99,
-      "cost": 38.0,
-      "margin": 57.8
-    },
-    "BB-WOM-001": {
-      "price": 129.99,
-      "cost": 55.0,
-      "margin": 57.7
-    },
-    "BB-YTH5-001": {
-      "price": 34.99,
-      "cost": 14.0,
-      "margin": 60.0
-    },
-    "BB-YTH4-001": {
-      "price": 29.99,
-      "cost": 12.0,
-      "margin": 60.0
-    },
-    "BB-IND-001": {
-      "price": 169.99,
-      "cost": 72.0,
-      "margin": 57.6
-    },
-    "BB-OUT-001": {
-      "price": 24.99,
-      "cost": 9.0,
-      "margin": 64.0
-    },
-    "BB-TRN-001": {
-      "price": 59.99,
-      "cost": 25.0,
-      "margin": 58.3
-    },
-    "HP-ARENA-001": {
-      "price": 1299.99,
-      "cost": 650.0,
-      "margin": 50.0
-    },
-    "HP-PORT-001": {
-      "price": 449.99,
-      "cost": 180.0,
-      "margin": 60.0
-    },
-    "HP-WALL-001": {
-      "price": 299.99,
-      "cost": 120.0,
-      "margin": 60.0
-    },
-    "HP-YTH-001": {
-      "price": 199.99,
-      "cost": 75.0,
-      "margin": 62.5
-    },
-    "HP-RIM-001": {
-      "price": 189.99,
-      "cost": 70.0,
-      "margin": 63.2
-    },
-    "HP-BACK-001": {
-      "price": 599.99,
-      "cost": 280.0,
-      "margin": 53.3
-    },
-    "NT-PRO-001": {
-      "price": 24.99,
-      "cost": 8.0,
-      "margin": 68.0
-    },
-    "NT-CHN-001": {
-      "price": 34.99,
-      "cost": 12.0,
-      "margin": 65.7
-    },
-    "NT-AWP-001": {
-      "price": 29.99,
-      "cost": 10.0,
-      "margin": 66.7
-    },
-    "AC-PMP-001": {
-      "price": 19.99,
-      "cost": 6.0,
-      "margin": 70.0
-    },
-    "AC-BAG-001": {
-      "price": 44.99,
-      "cost": 15.0,
-      "margin": 66.7
-    },
-    "AC-RCK-001": {
-      "price": 129.99,
-      "cost": 48.0,
-      "margin": 63.1
-    },
-    "UNI-JRS-001": {
-      "price": 54.99,
-      "cost": 18.0,
-      "margin": 67.3
-    },
-    "UNI-SHT-001": {
-      "price": 39.99,
-      "cost": 14.0,
-      "margin": 65.0
-    },
-    "UNI-REV-001": {
-      "price": 34.99,
-      "cost": 12.0,
-      "margin": 65.7
-    },
-    "UNI-WRM-001": {
-      "price": 79.99,
-      "cost": 32.0,
-      "margin": 60.0
-    },
-    "UNI-WRP-001": {
-      "price": 59.99,
-      "cost": 24.0,
-      "margin": 60.0
-    },
-    "UNI-SHO-001": {
-      "price": 44.99,
-      "cost": 16.0,
-      "margin": 64.4
-    },
-    "UNI-HOD-001": {
-      "price": 64.99,
-      "cost": 26.0,
-      "margin": 60.0
-    },
-    "UNI-PRS-001": {
-      "price": 29.99,
-      "cost": 10.0,
-      "margin": 66.7
-    },
-    "TR-CON-001": {
-      "price": 24.99,
-      "cost": 8.0,
-      "margin": 68.0
-    },
-    "TR-LAD-001": {
-      "price": 34.99,
-      "cost": 12.0,
-      "margin": 65.7
-    },
-    "TR-GOG-001": {
-      "price": 19.99,
-      "cost": 6.0,
-      "margin": 70.0
-    },
-    "TR-RES-001": {
-      "price": 29.99,
-      "cost": 10.0,
-      "margin": 66.7
-    },
-    "TR-ARC-001": {
-      "price": 89.99,
-      "cost": 35.0,
-      "margin": 61.1
-    },
-    "TR-SLD-001": {
-      "price": 149.99,
-      "cost": 58.0,
-      "margin": 61.3
-    },
-    "FW-PRO-001": {
-      "price": 159.99,
-      "cost": 65.0,
-      "margin": 59.4
-    },
-    "FW-YTH-001": {
-      "price": 79.99,
-      "cost": 32.0,
-      "margin": 60.0
-    },
-    "FW-TRN-001": {
-      "price": 119.99,
-      "cost": 48.0,
-      "margin": 60.0
-    },
-    "FW-REF-001": {
-      "price": 89.99,
-      "cost": 36.0,
-      "margin": 60.0
-    }
+    "CB-DRK72-001": { "price": 18.99, "cost": 7.60, "margin": 60.0 },
+    "CB-MIL-001": { "price": 12.99, "cost": 5.20, "margin": 60.0 },
+    "CB-RUB-001": { "price": 16.99, "cost": 7.00, "margin": 58.8 },
+    "CB-HAZ-001": { "price": 14.99, "cost": 6.00, "margin": 60.0 },
+    "CB-ALM-001": { "price": 13.99, "cost": 5.60, "margin": 60.0 },
+    "CB-ORG-001": { "price": 15.99, "cost": 6.40, "margin": 60.0 },
+    "CB-MIN-001": { "price": 14.99, "cost": 6.00, "margin": 60.0 },
+    "CB-SAL-001": { "price": 15.99, "cost": 6.40, "margin": 60.0 },
+    "TR-DRK-001": { "price": 34.99, "cost": 14.00, "margin": 60.0 },
+    "TR-CHA-001": { "price": 44.99, "cost": 18.00, "margin": 60.0 },
+    "TR-ESP-001": { "price": 32.99, "cost": 13.20, "margin": 60.0 },
+    "TR-RAS-001": { "price": 36.99, "cost": 14.80, "margin": 60.0 },
+    "TR-HAZ-001": { "price": 38.99, "cost": 15.60, "margin": 60.0 },
+    "TR-AST-001": { "price": 42.99, "cost": 17.20, "margin": 60.0 },
+    "GC-PRE-001": { "price": 89.99, "cost": 36.00, "margin": 60.0 },
+    "GC-SEA-001": { "price": 54.99, "cost": 22.00, "margin": 60.0 },
+    "GC-CLS-001": { "price": 39.99, "cost": 16.00, "margin": 60.0 },
+    "GC-LUX-001": { "price": 129.99, "cost": 52.00, "margin": 60.0 },
+    "GC-BUL-001": { "price": 299.99, "cost": 120.00, "margin": 60.0 },
+    "GC-SMP-001": { "price": 49.99, "cost": 20.00, "margin": 60.0 },
+    "SP-HAZ-001": { "price": 9.99, "cost": 4.00, "margin": 60.0 },
+    "SP-CAR-001": { "price": 8.99, "cost": 3.60, "margin": 60.0 },
+    "SP-NUT-001": { "price": 11.99, "cost": 4.80, "margin": 60.0 },
+    "SP-FUD-001": { "price": 7.99, "cost": 3.20, "margin": 60.0 },
+    "SP-DRZ-001": { "price": 6.99, "cost": 2.80, "margin": 60.0 },
+    "MC-TSH-001": { "price": 24.99, "cost": 10.00, "margin": 60.0 },
+    "MC-MUG-001": { "price": 14.99, "cost": 6.00, "margin": 60.0 },
+    "MC-BAG-001": { "price": 12.99, "cost": 5.20, "margin": 60.0 },
+    "MC-APR-001": { "price": 29.99, "cost": 12.00, "margin": 60.0 },
+    "MC-HOD-001": { "price": 39.99, "cost": 16.00, "margin": 60.0 },
+    "MC-CAP-001": { "price": 19.99, "cost": 8.00, "margin": 60.0 },
+    "CG-EXE-001": { "price": 149.99, "cost": 60.00, "margin": 60.0 },
+    "CG-EVT-001": { "price": 199.99, "cost": 80.00, "margin": 60.0 },
+    "CG-BRD-001": { "price": 124.99, "cost": 50.00, "margin": 60.0 },
+    "CG-HOL-001": { "price": 179.99, "cost": 72.00, "margin": 60.0 },
+    "CG-WEL-001": { "price": 64.99, "cost": 26.00, "margin": 60.0 },
+    "CG-THK-001": { "price": 54.99, "cost": 22.00, "margin": 60.0 }
   },
   "customers": {
     "CUST-001": {
       "id": "CUST-001",
-      "name": "State University Athletics",
-      "contact": "John Anderson",
-      "email": "janderson@stateuniv.edu",
-      "tier": "Platinum",
-      "total_spent": 124500,
-      "location": "Columbus, OH"
-    },
-    "CUST-002": {
-      "id": "CUST-002",
-      "name": "Metro High School District",
-      "contact": "Maria Santos",
-      "email": "msantos@metrohsd.edu",
-      "tier": "Platinum",
-      "total_spent": 118200,
-      "location": "Chicago, IL"
-    },
-    "CUST-003": {
-      "id": "CUST-003",
-      "name": "Pacific Coast Sports League",
-      "contact": "David Chen",
-      "email": "dchen@pcsl.org",
+      "name": "Sweet Delights Retail",
+      "contact": "Jennifer Martinez",
+      "email": "buyer@sweetdelights.com",
       "tier": "Platinum",
       "total_spent": 142800,
       "location": "Los Angeles, CA"
     },
+    "CUST-002": {
+      "id": "CUST-002",
+      "name": "Chocolate Dreams Boutique",
+      "contact": "Michael Chen",
+      "email": "orders@chocolatedreams.com",
+      "tier": "Platinum",
+      "total_spent": 124500,
+      "location": "New York, NY"
+    },
+    "CUST-003": {
+      "id": "CUST-003",
+      "name": "Gourmet Gift Emporium",
+      "contact": "Sarah Thompson",
+      "email": "sarah@gourmetgifts.com",
+      "tier": "Platinum",
+      "total_spent": 118200,
+      "location": "Chicago, IL"
+    },
     "CUST-004": {
       "id": "CUST-004",
-      "name": "Elite Basketball Academy",
-      "contact": "Sarah Mitchell",
-      "email": "smitchell@eliteba.com",
+      "name": "Corporate Treats & Co",
+      "contact": "David Anderson",
+      "email": "david@corporatetreats.com",
       "tier": "Platinum",
       "total_spent": 98500,
-      "location": "Atlanta, GA"
+      "location": "Boston, MA"
     },
     "CUST-005": {
       "id": "CUST-005",
-      "name": "Riverside Community College",
-      "contact": "James Wilson",
-      "email": "jwilson@riversidecc.edu",
+      "name": "The Chocolate Gallery",
+      "contact": "Emily Parker",
+      "email": "emily@chocolategallery.com",
       "tier": "Gold",
-      "total_spent": 67400,
-      "location": "Phoenix, AZ"
+      "total_spent": 78900,
+      "location": "San Francisco, CA"
     },
     "CUST-006": {
       "id": "CUST-006",
-      "name": "Downtown Recreation Center",
-      "contact": "Lisa Park",
-      "email": "lpark@downtownrec.org",
+      "name": "Artisan Confections Store",
+      "contact": "Robert Wilson",
+      "email": "robert@artisanconfections.com",
       "tier": "Gold",
-      "total_spent": 45200,
+      "total_spent": 67400,
       "location": "Seattle, WA"
     },
     "CUST-007": {
       "id": "CUST-007",
-      "name": "Eastside Youth League",
-      "contact": "Michael Brown",
-      "email": "mbrown@eastsideyl.org",
+      "name": "Luxury Sweets Retailer",
+      "contact": "Lisa Brown",
+      "email": "lisa@luxurysweets.com",
       "tier": "Gold",
       "total_spent": 52800,
-      "location": "Boston, MA"
+      "location": "Miami, FL"
     },
     "CUST-008": {
       "id": "CUST-008",
-      "name": "Champions Training Facility",
-      "contact": "Robert Taylor",
-      "email": "rtaylor@champstf.com",
+      "name": "Hotel Concierge Services",
+      "contact": "James Taylor",
+      "email": "james@hotelconcierge.com",
       "tier": "Gold",
-      "total_spent": 78900,
-      "location": "Dallas, TX"
+      "total_spent": 45200,
+      "location": "Las Vegas, NV"
     },
     "CUST-009": {
       "id": "CUST-009",
-      "name": "Valley High School",
-      "contact": "Jennifer Lee",
-      "email": "jlee@valleyhs.edu",
+      "name": "Wedding Planners Guild",
+      "contact": "Amanda Lee",
+      "email": "amanda@weddingplanners.com",
+      "tier": "Gold",
+      "total_spent": 41200,
+      "location": "Austin, TX"
+    },
+    "CUST-010": {
+      "id": "CUST-010",
+      "name": "Restaurant Supply Partners",
+      "contact": "William Garcia",
+      "email": "william@restaurantsupply.com",
       "tier": "Gold",
       "total_spent": 38600,
       "location": "Denver, CO"
     },
-    "CUST-010": {
-      "id": "CUST-010",
-      "name": "Northside Sports Club",
-      "contact": "William Garcia",
-      "email": "wgarcia@northsidesc.com",
-      "tier": "Gold",
-      "total_spent": 41200,
-      "location": "Miami, FL"
-    },
     "CUST-011": {
       "id": "CUST-011",
-      "name": "Lincoln Middle School",
-      "contact": "Amanda Johnson",
-      "email": "ajohnson@lincolnms.edu",
+      "name": "Boutique Chocolate Shop",
+      "contact": "Rachel Johnson",
+      "email": "rachel@boutiquechocolate.com",
       "tier": "Silver",
-      "total_spent": 18400,
+      "total_spent": 22100,
       "location": "Portland, OR"
     },
     "CUST-012": {
       "id": "CUST-012",
-      "name": "Sunset Recreation League",
+      "name": "Gourmet Market Downtown",
       "contact": "Kevin Martinez",
-      "email": "kmartinez@sunsetrl.org",
+      "email": "kevin@gourmetmarket.com",
       "tier": "Silver",
-      "total_spent": 12600,
+      "total_spent": 19500,
       "location": "San Diego, CA"
     },
     "CUST-013": {
       "id": "CUST-013",
-      "name": "Community Youth Center",
-      "contact": "Rachel Thompson",
-      "email": "rthompson@cyc.org",
+      "name": "Sweet Occasions Bakery",
+      "contact": "Michelle Davis",
+      "email": "michelle@sweetoccasions.com",
       "tier": "Silver",
-      "total_spent": 15800,
+      "total_spent": 18400,
       "location": "Houston, TX"
     },
     "CUST-014": {
       "id": "CUST-014",
-      "name": "Lakeside Gym",
-      "contact": "Daniel White",
-      "email": "dwhite@lakesidegym.com",
+      "name": "The Candy Shoppe",
+      "contact": "Christopher White",
+      "email": "chris@candyshoppe.com",
       "tier": "Silver",
-      "total_spent": 8900,
-      "location": "Minneapolis, MN"
+      "total_spent": 16700,
+      "location": "Philadelphia, PA"
     },
     "CUST-015": {
       "id": "CUST-015",
-      "name": "East County YMCA",
-      "contact": "Michelle Davis",
-      "email": "mdavis@ecymca.org",
+      "name": "Deluxe Desserts Cafe",
+      "contact": "Stephanie Moore",
+      "email": "stephanie@deluxedesserts.com",
       "tier": "Silver",
-      "total_spent": 22100,
-      "location": "Philadelphia, PA"
+      "total_spent": 15800,
+      "location": "Nashville, TN"
     },
     "CUST-016": {
       "id": "CUST-016",
-      "name": "Hoops Academy Jr",
-      "contact": "Christopher Lee",
-      "email": "clee@hoopsacademyjr.com",
+      "name": "Confectionery Delights",
+      "contact": "Daniel Robinson",
+      "email": "daniel@confectionerydelights.com",
       "tier": "Silver",
-      "total_spent": 19500,
-      "location": "Detroit, MI"
+      "total_spent": 12600,
+      "location": "Minneapolis, MN"
     },
     "CUST-017": {
       "id": "CUST-017",
-      "name": "Parks & Rec Department",
-      "contact": "Stephanie Moore",
-      "email": "smoore@cityparks.gov",
+      "name": "Premium Treats Store",
+      "contact": "Laura Anderson",
+      "email": "laura@premiumtreats.com",
       "tier": "Silver",
       "total_spent": 11200,
-      "location": "Nashville, TN"
+      "location": "Detroit, MI"
     },
     "CUST-018": {
       "id": "CUST-018",
-      "name": "St. Mary's Catholic School",
-      "contact": "Thomas Anderson",
-      "email": "tanderson@stmarys.edu",
+      "name": "The Sweet Spot Cafe",
+      "contact": "Thomas Jackson",
+      "email": "thomas@sweetspo cafe.com",
       "tier": "Silver",
-      "total_spent": 16700,
+      "total_spent": 8900,
       "location": "St. Louis, MO"
     },
     "CUST-019": {
       "id": "CUST-019",
-      "name": "Corner Store Sports",
-      "contact": "Brian Jackson",
-      "email": "bjackson@cornerstoresports.com",
+      "name": "Corner Store Sweets",
+      "contact": "Nancy Williams",
+      "email": "nancy@cornerstoresweets.com",
       "tier": "Bronze",
-      "total_spent": 3200,
-      "location": "Austin, TX"
+      "total_spent": 4800,
+      "location": "Raleigh, NC"
     },
     "CUST-020": {
       "id": "CUST-020",
-      "name": "Local Hoops Club",
-      "contact": "Nancy Williams",
-      "email": "nwilliams@localhoops.org",
-      "tier": "Bronze",
-      "total_spent": 2800,
-      "location": "Raleigh, NC"
-    },
-    "CUST-021": {
-      "id": "CUST-021",
-      "name": "Neighborhood Gym",
-      "contact": "Paul Robinson",
-      "email": "probinson@neighborhoodgym.com",
+      "name": "Local Chocolate Co",
+      "contact": "Brian Thompson",
+      "email": "brian@localchocolate.com",
       "tier": "Bronze",
       "total_spent": 4100,
       "location": "Cleveland, OH"
     },
+    "CUST-021": {
+      "id": "CUST-021",
+      "name": "Neighborhood Treats",
+      "contact": "Paul Robinson",
+      "email": "paul@neighborhoodtreats.com",
+      "tier": "Bronze",
+      "total_spent": 3200,
+      "location": "Oklahoma City, OK"
+    },
     "CUST-022": {
       "id": "CUST-022",
-      "name": "First Baptist Church League",
+      "name": "Community Confections",
       "contact": "Linda Martinez",
-      "email": "lmartinez@fbcleague.org",
+      "email": "linda@communityconfections.com",
       "tier": "Bronze",
-      "total_spent": 1900,
-      "location": "Oklahoma City, OK"
+      "total_spent": 2800,
+      "location": "Sacramento, CA"
     },
     "CUST-023": {
       "id": "CUST-023",
-      "name": "Sunset Elementary PTA",
-      "contact": "Mark Thompson",
-      "email": "mthompson@sunsetpta.org",
+      "name": "Family Sweets Shop",
+      "contact": "Mark Brown",
+      "email": "mark@familysweets.com",
       "tier": "Bronze",
       "total_spent": 2400,
-      "location": "Sacramento, CA"
+      "location": "Indianapolis, IN"
     },
     "CUST-024": {
       "id": "CUST-024",
-      "name": "Joe's Sporting Goods",
-      "contact": "Joseph Brown",
-      "email": "jbrown@joessports.com",
+      "name": "Main Street Chocolates",
+      "contact": "Joseph Green",
+      "email": "joseph@mainstreetchocolates.com",
       "tier": "Bronze",
-      "total_spent": 4800,
-      "location": "Indianapolis, IN"
+      "total_spent": 1900,
+      "location": "Kansas City, MO"
     }
   },
   "discounts": {

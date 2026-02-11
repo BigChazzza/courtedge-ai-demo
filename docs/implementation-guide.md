@@ -1,4 +1,4 @@
-# Implementation Guide: ProGear Sales AI with Okta AI Agent Governance
+# Implementation Guide: Sugar & Gold Treats Sales AI with Okta AI Agent Governance
 
 > Complete step-by-step guide to deploying this demo in your own environment
 
@@ -41,7 +41,7 @@ If you want to clone this repository, deploy it to Vercel and Render, and config
 
 ### What You'll Deploy
 
-A basketball equipment sales AI assistant with:
+A chocolate equipment sales AI assistant with:
 - **4 AI Agents**: Sales, Inventory, Customer, and Pricing
 - **3 Demo Users**: Each with different access levels
 - **Role-Based Access Control**: Users only see data they're authorized to access
@@ -197,7 +197,7 @@ When a user sends a message:
 ### What Vercel Hosts in This Demo
 
 ```
-packages/progear-sales-agent/
+packages/sugar-gold-treats-sales-agent/
 ├── app/                    # Next.js pages and API routes
 │   ├── api/auth/           # NextAuth.js Okta integration
 │   ├── api/chat/           # Proxy to backend
@@ -387,7 +387,7 @@ This application handles user login and is linked to your AI Agent.
 
    **General Settings:**
    ```
-   App integration name: ProGear Sales Agent App
+   App integration name: Sugar & Gold Treats Sales Agent App
    ```
 
    **Grant Types:**
@@ -449,9 +449,9 @@ Create three groups to demonstrate RBAC:
 
    | Group Name | Description |
    |------------|-------------|
-   | `ProGear-Sales` | Sales team - full agent access |
-   | `ProGear-Warehouse` | Warehouse team - inventory only |
-   | `ProGear-Finance` | Finance team - pricing only |
+   | `Sugar & Gold Treats-Sales` | Sales team - full agent access |
+   | `Sugar & Gold Treats-Warehouse` | Warehouse team - inventory only |
+   | `Sugar & Gold Treats-Finance` | Finance team - pricing only |
 
 3. **Assign users to groups:**
 
@@ -459,9 +459,9 @@ Create three groups to demonstrate RBAC:
 
    | User | Group | Access Level |
    |------|-------|--------------|
-   | Sarah Sales | `ProGear-Sales` | Full access to all 4 agents |
-   | Mike Manager | `ProGear-Warehouse` | Inventory agent only |
-   | Frank Finance | `ProGear-Finance` | Pricing agent only |
+   | Sarah Sales | `Sugar & Gold Treats-Sales` | Full access to all 4 agents |
+   | Mike Manager | `Sugar & Gold Treats-Warehouse` | Inventory agent only |
+   | Frank Finance | `Sugar & Gold Treats-Finance` | Pricing agent only |
 
    > **Verification:** Click on each user in **Directory** → **People** and check the **Groups** tab to confirm they're in the correct group.
 
@@ -473,8 +473,8 @@ Create three groups to demonstrate RBAC:
 3. Provide following details and register the Agent:
 
    ```
-   Name: ProGear Sales Agent
-   Description: Multi-agent sales assistant for ProGear sporting goods
+   Name: Sugar & Gold Treats Sales Agent
+   Description: Multi-agent sales assistant for Sugar & Gold Treats sporting goods
    ```
   When prompted to assign Owners, select the currently logged in Okta admin or any other user you have as the owner and save.
   
@@ -563,8 +563,8 @@ Create one authorization server per MCP API. Each represents a different domain 
 3. Configure:
 
    ```
-   Name: ProGear Sales MCP
-   Audience: api://progear-sales
+   Name: Sugar & Gold Treats Sales MCP
+   Audience: api://sugar-gold-treats-sales
    Description: Authorization for Sales MCP API
    ```
 
@@ -601,7 +601,7 @@ Create one authorization server per MCP API. Each represents a different domain 
    ```
    Name: Sales Agent Policy
    Description: Controls access to Sales MCP
-   Assign to: ProGear Sales Agent and ProGear Sales Agent App
+   Assign to: Sugar & Gold Treats Sales Agent and Sugar & Gold Treats Sales Agent App
    ```
 
 8. **Add Policy Rule:**
@@ -610,7 +610,7 @@ Create one authorization server per MCP API. Each represents a different domain 
    ```
    Rule Name: Sales Group Access
    IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
-   AND User is: Assigned the app and a member of: ProGear-Sales
+   AND User is: Assigned the app and a member of: Sugar & Gold Treats-Sales
    AND Scopes requested: sales:read, sales:quote, sales:order
    ```
 
@@ -619,8 +619,8 @@ Create one authorization server per MCP API. Each represents a different domain 
 Repeat the process:
 
 ```
-Name: ProGear Inventory MCP
-Audience: api://progear-inventory
+Name: Sugar & Gold Treats Inventory MCP
+Audience: api://sugar-gold-treats-inventory
 Description: Authorization for Sales Inventory API
 ```
 
@@ -633,7 +633,7 @@ Description: Authorization for Sales Inventory API
    ```
    Name: Inventory Agent Policy
    Description: Controls access to Inventory MCP
-   Assign to: ProGear Sales Agent and ProGear Sales Agent App
+   Assign to: Sugar & Gold Treats Sales Agent and Sugar & Gold Treats Sales Agent App
    ```
 
 **Policy Rules (add TWO rules):**
@@ -641,22 +641,22 @@ Description: Authorization for Sales Inventory API
 **Rule 1: Warehouse Full Access** (Priority 1)
 ```
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
-AND User is member of: ProGear-Warehouse
+AND User is member of: Sugar & Gold Treats-Warehouse
 AND Scopes: inventory:read, inventory:write, inventory:alert
 ```
 
 **Rule 2: Sales Read Access** (Priority 2)
 ```
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
-AND User is member of: ProGear-Sales
+AND User is member of: Sugar & Gold Treats-Sales
 AND Scopes: inventory:read
 ```
 
 #### 5.3 Customer MCP Authorization Server
 
 ```
-Name: ProGear Customer MCP
-Audience: api://progear-customer
+Name: Sugar & Gold Treats Customer MCP
+Audience: api://sugar-gold-treats-customer
 Description: Authorization for Sales Customer API
 ```
 
@@ -669,22 +669,22 @@ Description: Authorization for Sales Customer API
    ```
    Name: Customer Agent Policy
    Description: Controls access to Customer MCP
-   Assign to: ProGear Sales Agent and ProGear Sales Agent App
+   Assign to: Sugar & Gold Treats Sales Agent and Sugar & Gold Treats Sales Agent App
    ```
 
 **Policy Rule:**
 ```
 Rule Name: Customer Group Access
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
-AND User is member of: ProGear-Sales
+AND User is member of: Sugar & Gold Treats-Sales
 AND Scopes: customer:read, customer:lookup, customer:history
 ```
 
 #### 5.4 Pricing MCP Authorization Server
 
 ```
-Name: ProGear Pricing MCP
-Audience: api://progear-pricing
+Name: Sugar & Gold Treats Pricing MCP
+Audience: api://sugar-gold-treats-pricing
 Description: Authorization for Sales Pricing API
 ```
 
@@ -697,7 +697,7 @@ Description: Authorization for Sales Pricing API
    ```
    Name: Pricing Agent Policy
    Description: Controls access to Pricing MCP
-   Assign to: ProGear Sales Agent and ProGear Sales Agent App
+   Assign to: Sugar & Gold Treats Sales Agent and Sugar & Gold Treats Sales Agent App
    ```
 
 **Policy Rules (add TWO rules):**
@@ -705,14 +705,14 @@ Description: Authorization for Sales Pricing API
 **Rule 1: Finance Full Access** (Priority 1)
 ```
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
-AND User is member of: ProGear-Finance
+AND User is member of: Sugar & Gold Treats-Finance
 AND Scopes: pricing:read, pricing:margin, pricing:discount
 ```
 
 **Rule 2: Sales Read Access** (Priority 2)
 ```
 IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
-AND User is member of: ProGear-Sales
+AND User is member of: Sugar & Gold Treats-Sales
 AND Scopes: pricing:read
 ```
 
@@ -724,7 +724,7 @@ For each Authorization Server, you must add the AI Agent to the policy's "Assign
 
 1. Go to **Security** → **API** → **[Your Auth Server]** → **Access Policies** → **[Your Policy]**
 2. Click **Edit** on the policy
-3. In **Assigned clients**, add the following **Clients** (`ProGear Sales Agent` and `ProGear Sales Agent App`)
+3. In **Assigned clients**, add the following **Clients** (`Sugar & Gold Treats Sales Agent` and `Sugar & Gold Treats Sales Agent App`)
 
 Repeat for all 4 authorization servers.
 
@@ -736,10 +736,10 @@ Once you have create authorization servers per MCP API, Use managed connections 
      
      | Name | Details  |  Allowed Scopes |
      |------|----------|-----------------|
-     | `ProGear Customer MCP` | Only allow | customer:history customer:lookup customer:read |
-     | `ProGear Pricing MCP` | Only allow | pricing:discount pricing:margin pricing:read |
-     | `ProGear Inventory MCP` | Only allow | inventory:write inventory:alert inventory:read |
-     | `ProGear Sales MCP` | Only allow | sales:order sales:read sales:quote |
+     | `Sugar & Gold Treats Customer MCP` | Only allow | customer:history customer:lookup customer:read |
+     | `Sugar & Gold Treats Pricing MCP` | Only allow | pricing:discount pricing:margin pricing:read |
+     | `Sugar & Gold Treats Inventory MCP` | Only allow | inventory:write inventory:alert inventory:read |
+     | `Sugar & Gold Treats Sales MCP` | Only allow | sales:order sales:read sales:quote |
 
 ### Step 8: Record All Your IDs
 
@@ -761,18 +761,18 @@ Use this checklist to track what you've collected:
 │  □ OKTA_CLIENT_ID                                                     │
 │    OIDC Application Client ID                                         │
 │    Example: 0oaXXXXXXXXXXXXXX                                         │
-│    Where: Applications → ProGear Sales Agent App → General tab        │
+│    Where: Applications → Sugar & Gold Treats Sales Agent App → General tab        │
 │    Your value: ___________________________________________            │
 │                                                                       │
 │  □ OKTA_CLIENT_SECRET                                                 │
 │    OIDC Application Client Secret                                     │
-│    Where: Applications → ProGear Sales Agent App → General tab        │
+│    Where: Applications → Sugar & Gold Treats Sales Agent App → General tab        │
 │    Your value: ___________________________________________            │
 │                                                                       │
 │  □ OKTA_AI_AGENT_ID                                                   │
 │    AI Agent Entity ID                                                 │
 │    Example: wlpXXXXXXXXXXXXXX                                         │
-│    Where: Applications → AI Agents → ProGear Sales Agent              │
+│    Where: Applications → AI Agents → Sugar & Gold Treats Sales Agent              │
 │    Your value: ___________________________________________            │
 │                                                                       │
 │  □ OKTA_AI_AGENT_PRIVATE_KEY                                          │
@@ -782,19 +782,19 @@ Use this checklist to track what you've collected:
 │                                                                       │
 │  □ OKTA_SALES_AUTH_SERVER_ID                                          │
 │    Example: ausXXXXXXXXXXXXXX                                         │
-│    Where: Security → API → ProGear Sales MCP → Issuer URI             │
+│    Where: Security → API → Sugar & Gold Treats Sales MCP → Issuer URI             │
 │    Your value: ___________________________________________            │
 │                                                                       │
 │  □ OKTA_INVENTORY_AUTH_SERVER_ID                                      │
-│    Where: Security → API → ProGear Inventory MCP → Issuer URI         │
+│    Where: Security → API → Sugar & Gold Treats Inventory MCP → Issuer URI         │
 │    Your value: ___________________________________________            │
 │                                                                       │
 │  □ OKTA_CUSTOMER_AUTH_SERVER_ID                                       │
-│    Where: Security → API → ProGear Customer MCP → Issuer URI          │
+│    Where: Security → API → Sugar & Gold Treats Customer MCP → Issuer URI          │
 │    Your value: ___________________________________________            │
 │                                                                       │
 │  □ OKTA_PRICING_AUTH_SERVER_ID                                        │
-│    Where: Security → API → ProGear Pricing MCP → Issuer URI           │
+│    Where: Security → API → Sugar & Gold Treats Pricing MCP → Issuer URI           │
 │    Your value: ___________________________________________            │
 │                                                                       │
 └───────────────────────────────────────────────────────────────────────┘
@@ -822,7 +822,7 @@ Use this checklist to track what you've collected:
    | Setting | Value |
    |---------|-------|
    | **Framework Preset** | Next.js |
-   | **Root Directory** | `packages/progear-sales-agent` |
+   | **Root Directory** | `packages/sugar-gold-treats-sales-agent` |
    | **Build Command** | `npm run build` |
    | **Output Directory** | `.next` |
 
@@ -870,7 +870,7 @@ Use this checklist to track what you've collected:
 
 Now that you have your real Vercel URL, go back to Okta and replace the placeholder URLs:
 
-1. Go to Okta Admin Console → **Applications** → **ProGear Sales Agent App**
+1. Go to Okta Admin Console → **Applications** → **Sugar & Gold Treats Sales Agent App**
 2. Click the **General** tab → **Edit**
 3. **Replace the placeholder redirect URIs with your actual Vercel URL:**
 
@@ -884,12 +884,12 @@ Now that you have your real Vercel URL, go back to Okta and replace the placehol
 
 4. Click **Save**
 
-> **Example:** If your Vercel project URL is `https://progear-demo-abc123.vercel.app`, your redirect URI would be `https://progear-demo-abc123.vercel.app/api/auth/callback/okta`
+> **Example:** If your Vercel project URL is `https://sugar-gold-treats-demo-abc123.vercel.app`, your redirect URI would be `https://sugar-gold-treats-demo-abc123.vercel.app/api/auth/callback/okta`
 
 ### Step 5: Verify Frontend
 
 1. Visit your Vercel URL
-2. You should see the ProGear Sales AI interface
+2. You should see the Sugar & Gold Treats Sales AI interface
 3. The chat won't work yet (backend not deployed)
 4. You should be able to click "Sign in with Okta" and authenticate
 
@@ -910,7 +910,7 @@ Now that you have your real Vercel URL, go back to Okta and replace the placehol
 
    | Setting | Value |
    |---------|-------|
-   | **Name** | `progear-backend` (or your preferred name) |
+   | **Name** | `sugar-gold-treats-backend` (or your preferred name) |
    | **Language** | Python 3 |
    | **Branch** | `main` |
    | **Region** | Oregon (US West) or closest to you |
@@ -935,13 +935,13 @@ In Render, go to **Environment** and add these variables:
 | `OKTA_AI_AGENT_PRIVATE_KEY` | Your JWK private key (entire JSON on one line) |
 | `OKTA_MAIN_AUTH_SERVER_ID` | (Optional) Can be any valid auth server ID - SDK ignores this for Step 1 |
 | `OKTA_SALES_AUTH_SERVER_ID` | Your Sales auth server ID |
-| `OKTA_SALES_AUDIENCE` | `api://progear-sales` |
+| `OKTA_SALES_AUDIENCE` | `api://sugar-gold-treats-sales` |
 | `OKTA_INVENTORY_AUTH_SERVER_ID` | Your Inventory auth server ID |
-| `OKTA_INVENTORY_AUDIENCE` | `api://progear-inventory` |
+| `OKTA_INVENTORY_AUDIENCE` | `api://sugar-gold-treats-inventory` |
 | `OKTA_CUSTOMER_AUTH_SERVER_ID` | Your Customer auth server ID |
-| `OKTA_CUSTOMER_AUDIENCE` | `api://progear-customer` |
+| `OKTA_CUSTOMER_AUDIENCE` | `api://sugar-gold-treats-customer` |
 | `OKTA_PRICING_AUTH_SERVER_ID` | Your Pricing auth server ID |
-| `OKTA_PRICING_AUDIENCE` | `api://progear-pricing` |
+| `OKTA_PRICING_AUDIENCE` | `api://sugar-gold-treats-pricing` |
 | `CORS_ORIGINS` | Your Vercel URL: `https://your-project-name.vercel.app` |
 
 ### Step 4: Deploy
@@ -963,7 +963,7 @@ Expected response:
 ```json
 {
   "status": "healthy",
-  "service": "progear-ai-api",
+  "service": "sugar-gold-treats-ai-api",
   "version": "0.2.0",
   "agents": ["sales", "inventory", "customer", "pricing"]
 }
@@ -992,7 +992,7 @@ Expected response:
 1. Visit your Vercel URL
 2. Click **Sign in with Okta**
 3. Log in as one of your demo users
-4. Try a test query: "What basketballs do we have in stock?"
+4. Try a test query: "What chocolates do we have in stock?"
 5. Verify:
    - You get a response from the AI
    - Token exchanges are shown in the security panel
@@ -1014,13 +1014,13 @@ Expected response:
 | `OKTA_AI_AGENT_PRIVATE_KEY` | Render | Yes | JWK private key (JSON string) |
 | `OKTA_MAIN_AUTH_SERVER_ID` | Render | No | (Optional) Not used by SDK - Step 1 always uses Org AS |
 | `OKTA_SALES_AUTH_SERVER_ID` | Render | Yes | Sales MCP auth server ID |
-| `OKTA_SALES_AUDIENCE` | Render | Yes | `api://progear-sales` |
+| `OKTA_SALES_AUDIENCE` | Render | Yes | `api://sugar-gold-treats-sales` |
 | `OKTA_INVENTORY_AUTH_SERVER_ID` | Render | Yes | Inventory MCP auth server ID |
-| `OKTA_INVENTORY_AUDIENCE` | Render | Yes | `api://progear-inventory` |
+| `OKTA_INVENTORY_AUDIENCE` | Render | Yes | `api://sugar-gold-treats-inventory` |
 | `OKTA_CUSTOMER_AUTH_SERVER_ID` | Render | Yes | Customer MCP auth server ID |
-| `OKTA_CUSTOMER_AUDIENCE` | Render | Yes | `api://progear-customer` |
+| `OKTA_CUSTOMER_AUDIENCE` | Render | Yes | `api://sugar-gold-treats-customer` |
 | `OKTA_PRICING_AUTH_SERVER_ID` | Render | Yes | Pricing MCP auth server ID |
-| `OKTA_PRICING_AUDIENCE` | Render | Yes | `api://progear-pricing` |
+| `OKTA_PRICING_AUDIENCE` | Render | Yes | `api://sugar-gold-treats-pricing` |
 | `NEXTAUTH_URL` | Vercel | Yes | Your Vercel URL |
 | `NEXTAUTH_SECRET` | Vercel | Yes | Generate: `openssl rand -base64 32` |
 | `NEXT_PUBLIC_API_URL` | Vercel | Yes | Your Render URL |
@@ -1039,12 +1039,12 @@ Three key scenarios to demonstrate RBAC and governance:
 
 **Login as**: Your sarah.sales user
 
-**Question**: "Can we fulfill an order of 1500 basketballs for State University at a bulk discount?"
+**Question**: "Can we fulfill an order of 1500 chocolates for State University at a bulk discount?"
 
 **What Happens**:
 1. Orchestrator routes to all 4 agents
 2. **Customer Agent** → Looks up State University (Platinum tier)
-3. **Inventory Agent** → Checks basketball stock (available)
+3. **Inventory Agent** → Checks chocolate stock (available)
 4. **Pricing Agent** → Calculates bulk discount
 5. **Sales Agent** → Generates quote
 
@@ -1061,21 +1061,21 @@ Three key scenarios to demonstrate RBAC and governance:
 
 **What Happens**:
 1. Orchestrator tries to route to all agents
-2. **Customer Agent** → ACCESS DENIED (Mike not in ProGear-Sales)
+2. **Customer Agent** → ACCESS DENIED (Mike not in Sugar & Gold Treats-Sales)
 3. **Inventory Agent** → SUCCESS: "Stock available"
-4. **Pricing Agent** → ACCESS DENIED (Mike not in ProGear-Finance)
+4. **Pricing Agent** → ACCESS DENIED (Mike not in Sugar & Gold Treats-Finance)
 5. **Sales Agent** → ACCESS DENIED
 
 **Expected Result**:
 - 1 granted, 3 denied token exchanges
-- Partial answer: "I can see we have basketballs in stock, but I don't have access to customer or pricing information."
+- Partial answer: "I can see we have chocolates in stock, but I don't have access to customer or pricing information."
 - Demonstrates governance working
 
 ### Scenario 3: Finance Only (Frank Finance)
 
 **Login as**: Your frank.finance user
 
-**Question**: "What's our profit margin on professional basketballs?"
+**Question**: "What's our profit margin on professional chocolates?"
 
 **What Happens**:
 1. Orchestrator routes to Pricing Agent only
@@ -1093,7 +1093,7 @@ Three key scenarios to demonstrate RBAC and governance:
 Use these talking points when presenting:
 
 ### Opening
-> "Let me show you how Okta AI Agent Governance secures AI access to enterprise data. We have a basketball equipment company with 4 AI agents - Sales, Inventory, Customer, and Pricing - each with different access to company resources."
+> "Let me show you how Okta AI Agent Governance secures AI access to enterprise data. We have a chocolate equipment company with 4 AI agents - Sales, Inventory, Customer, and Pricing - each with different access to company resources."
 
 ### Demo 1: Full Access (Sarah)
 > "Sarah is a sales rep. Watch what happens when she asks about fulfilling an order..."
@@ -1227,7 +1227,7 @@ Use this checklist to verify your deployment is complete:
 
 ### Vercel Deployment
 - [ ] Project imported from GitHub
-- [ ] Root directory set to `packages/progear-sales-agent`
+- [ ] Root directory set to `packages/sugar-gold-treats-sales-agent`
 - [ ] All environment variables configured
 - [ ] Okta redirect URIs updated with Vercel URL
 - [ ] Frontend loads without errors

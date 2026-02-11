@@ -6,7 +6,7 @@ import { Providers } from '@/components/Providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'ProGear Sales AI',
+  title: 'Sugar & Gold Treats Sales AI',
   description: 'AI-powered sales assistant secured by Okta and Auth0',
 };
 

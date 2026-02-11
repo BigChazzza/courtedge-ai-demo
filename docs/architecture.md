@@ -1,6 +1,6 @@
-# ProGear AI Agent Architecture
+# Sugar & Gold Treats AI Agent Architecture
 
-This document explains how the ProGear AI Agent demo works. Read this if you need to understand the system without deploying it.
+This document explains how the Sugar & Gold Treats AI Agent demo works. Read this if you need to understand the system without deploying it.
 
 For deployment instructions, see [implementation-guide.md](./implementation-guide.md).
 
@@ -8,7 +8,7 @@ For deployment instructions, see [implementation-guide.md](./implementation-guid
 
 ## System Overview
 
-ProGear is a multi-agent AI system where a single orchestrator coordinates 4 specialized agents. Each agent has its own authorization server and scopes, enabling fine-grained access control based on user roles.
+Sugar & Gold Treats is a multi-agent AI system where a single orchestrator coordinates 4 specialized agents. Each agent has its own authorization server and scopes, enabling fine-grained access control based on user roles.
 
 ```
 ┌───────────────────────────────────────────────────────────────┐
@@ -166,9 +166,9 @@ Access is controlled by Okta group membership:
 
 | Group | Sales | Inventory | Customer | Pricing |
 |-------|-------|-----------|----------|---------|
-| **ProGear-Sales** | Full | Read | Full | Full |
-| **ProGear-Warehouse** | None | Full | None | None |
-| **ProGear-Finance** | None | None | None | Full |
+| **Sugar & Gold Treats-Sales** | Full | Read | Full | Full |
+| **Sugar & Gold Treats-Warehouse** | None | Full | None | None |
+| **Sugar & Gold Treats-Finance** | None | None | None | Full |
 
 When a user queries the system:
 1. Orchestrator routes the query to relevant agents
@@ -180,9 +180,9 @@ When a user queries the system:
 
 | User | Group | What They Can Access |
 |------|-------|---------------------|
-| Sarah Sales | ProGear-Sales | All 4 agents |
-| Mike Manager | ProGear-Warehouse | Inventory only |
-| Frank Finance | ProGear-Finance | Pricing only |
+| Sarah Sales | Sugar & Gold Treats-Sales | All 4 agents |
+| Mike Manager | Sugar & Gold Treats-Warehouse | Inventory only |
+| Frank Finance | Sugar & Gold Treats-Finance | Pricing only |
 
 ---
 
@@ -221,14 +221,14 @@ Each authorization server has policies that control token issuance.
 ### Policy Structure
 
 ```
-Authorization Server: ProGear Sales MCP
+Authorization Server: Sugar & Gold Treats Sales MCP
 │
 └── Access Policy: Sales Agent Policy
     │   Assigned to: AI Agent + OIDC App
     │
     └── Rule: Sales Group Access
         IF Grant type is: Authorization Code, Token Exchange, JWT Bearer
-        AND User is member of: ProGear-Sales
+        AND User is member of: Sugar & Gold Treats-Sales
         THEN Grant scopes: sales:read, sales:quote, sales:order
 ```
 
@@ -240,8 +240,8 @@ The AI Agent entity (`wlp...`) must be added to "Assigned clients" on each polic
 
 ## Request Flow Example
 
-**User**: Sarah Sales (ProGear-Sales group)
-**Query**: "What basketballs do we have in stock?"
+**User**: Sarah Sales (Sugar & Gold Treats-Sales group)
+**Query**: "What chocolates do we have in stock?"
 
 ```
 1. Sarah logs in via Okta
@@ -261,7 +261,7 @@ The AI Agent entity (`wlp...`) must be added to "Assigned clients" on each polic
    └── Step 2: ID-JAG → Inventory Token (at Inventory Custom AS)
        └── SDK calls: POST /oauth2/{inventory_auth_server_id}/v1/token
        └── Okta checks: Is Sarah in a group that allows inventory:read?
-       └── Yes (ProGear-Sales has inventory:read)
+       └── Yes (Sugar & Gold Treats-Sales has inventory:read)
        └── Returns: Scoped access token
 
 5. Inventory Agent uses token to query inventory data
@@ -269,7 +269,7 @@ The AI Agent entity (`wlp...`) must be added to "Assigned clients" on each polic
 6. Response returned to Sarah
 ```
 
-**If Mike Manager (ProGear-Warehouse) asked about pricing:**
+**If Mike Manager (Sugar & Gold Treats-Warehouse) asked about pricing:**
 
 ```
 4. Pricing Agent requests token exchange
@@ -279,7 +279,7 @@ The AI Agent entity (`wlp...`) must be added to "Assigned clients" on each polic
    │
    └── Step 2: ID-JAG → Pricing Token (at Pricing Custom AS)
        └── Okta checks: Is Mike in a group that allows pricing:read?
-       └── No (ProGear-Warehouse has no pricing access)
+       └── No (Sugar & Gold Treats-Warehouse has no pricing access)
        └── Returns: access_denied
 
 5. Pricing Agent returns "Access denied" (not an error)

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CourtEdge ProGear - Basketball Theme */
+/* Sugar & Gold Treats - Chocolate Theme */
 body {
   background: linear-gradient(to bottom, #0d0d14, #1a1a2e);
   min-height: 100vh;
@@ -15,7 +15,7 @@ body {
   transition-timing-function: ease-in-out;
 }
 
-/* Custom scrollbar for basketball theme */
+/* Custom scrollbar for chocolate theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -26,10 +26,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff6b35;
+  background: #FFD700;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #e85d04;
+  background: #E91E63;
 }

@@ -45,7 +45,7 @@ export default function ArchitecturePage() {
   // Extract user info from session for live token display
   const userSub = (session?.user as { sub?: string })?.sub || '00u8xdeptoh4cK9pG0g7';
   const userName = session?.user?.name || 'Sarah Sales';
-  const userEmail = session?.user?.email || 'sarah.sales@progear.demo';
+  const userEmail = session?.user?.email || 'sarah.sales@sugar-gold-treats.demo';
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -53,15 +53,15 @@ export default function ArchitecturePage() {
       <header className="bg-black/30 backdrop-blur-md border-b border-white/10">
         <div className="px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <span className="text-5xl">🏀</span>
+            <span className="text-5xl">🍫</span>
             <div>
-              <h1 className="text-white text-2xl font-bold">CourtEdge ProGear</h1>
+              <h1 className="text-white text-2xl font-bold">Sugar & Gold Treats</h1>
               <p className="text-gray-400 text-sm">Architecture & Security Overview</p>
             </div>
           </div>
           <Link
             href="/"
-            className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg transition font-semibold shadow-lg"
+            className="px-5 py-2.5 bg-gradient-to-r from-candy-cyan to-candy-lime hover:from-candy-lime hover:to-candy-cyan text-white rounded-lg transition font-semibold shadow-lg"
           >
             Back to Chat
           </Link>
@@ -119,7 +119,7 @@ export default function ArchitecturePage() {
                   USER REQUEST
                 </div>
                 <div className="bg-white border-2 border-gray-200 px-5 py-3 rounded-xl shadow-sm">
-                  <div className="text-gray-700 font-medium">"Can we fulfill 1500 basketballs for State University?"</div>
+                  <div className="text-gray-700 font-medium">"Can we fulfill 1500 chocolates for State University?"</div>
                 </div>
               </div>
 
@@ -170,7 +170,7 @@ export default function ArchitecturePage() {
                 <ArrowRight className="w-5 h-5 text-gray-400 rotate-90" />
               </div>
 
-              {/* Step 4: ProGear Sales Agent + ID-JAG Exchange (Okta Governance) */}
+              {/* Step 4: Sugar & Gold Treats Sales Agent + ID-JAG Exchange (Okta Governance) */}
               <div className="mb-4">
                 <div className="flex items-center gap-2 text-xs text-okta-blue font-semibold mb-2">
                   <span className="w-5 h-5 rounded-full bg-okta-blue flex items-center justify-center text-white text-[10px]">4</span>
@@ -184,7 +184,7 @@ export default function ArchitecturePage() {
                     <div className="flex items-center gap-3">
                       <Bot className="w-7 h-7" />
                       <div>
-                        <div className="font-semibold text-lg">ProGear Sales Agent</div>
+                        <div className="font-semibold text-lg">Sugar & Gold Treats Sales Agent</div>
                         <div className="text-sm text-blue-200">Okta AI Agent • wlp8x5q7mvH86KvFJ0g7</div>
                       </div>
                     </div>
@@ -212,7 +212,7 @@ export default function ArchitecturePage() {
                     </div>
                     <div className="text-base"><span className="text-gray-500">sub:</span>       <span className="text-purple-400 font-semibold">{userSub}</span> <span className="text-gray-400 text-sm italic ml-3">← {userName}</span></div>
                     <div className="text-base"><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400 font-semibold">wlp8x5q7mvH86KvFJ0g7</span> <span className="text-gray-400 text-sm italic ml-3">← AI Agent identity</span></div>
-                    <div className="text-base"><span className="text-gray-500">aud:</span>       <span className="text-cyan-400 font-semibold">api://progear-inventory</span> <span className="text-gray-400 text-sm italic ml-3">← Target MCP</span></div>
+                    <div className="text-base"><span className="text-gray-500">aud:</span>       <span className="text-cyan-400 font-semibold">api://sugar-gold-treats-inventory</span> <span className="text-gray-400 text-sm italic ml-3">← Target MCP</span></div>
                     <div className="text-base"><span className="text-gray-500">scope:</span>     <span className="text-green-400 font-semibold">inventory:read</span> <span className="text-gray-400 text-sm italic ml-3">← Granted by Okta policy</span></div>
                     <div className="text-base"><span className="text-gray-500">iat:</span>       <span className="text-gray-300">{Math.floor(Date.now() / 1000)}</span> <span className="text-gray-400 text-sm italic ml-3">← Issued at</span></div>
                     <div className="text-base"><span className="text-gray-500">exp:</span>       <span className="text-gray-300">{Math.floor(Date.now() / 1000) + 3600}</span> <span className="text-gray-400 text-sm italic ml-3">← Expires in 1hr</span></div>
@@ -238,7 +238,7 @@ export default function ArchitecturePage() {
                     {/* Request */}
                     <div className="bg-gray-900 rounded-lg p-3 font-mono text-sm mb-3">
                       <div className="text-gray-400 text-xs mb-2">→ Request to MCP</div>
-                      <div className="text-green-400">GET /api/inventory/stock?product=basketball&qty=1500</div>
+                      <div className="text-green-400">GET /api/inventory/stock?product=chocolate&qty=1500</div>
                       <div className="text-blue-300 mt-1">Authorization: Bearer <span className="text-yellow-300">eyJhbGciOiJSUzI1...</span></div>
                       <div className="text-gray-500 text-xs mt-2 italic">↑ MCP Access Token from Step 4 (contains sub, actor.sub, scope)</div>
                     </div>
@@ -260,7 +260,7 @@ export default function ArchitecturePage() {
                       </div>
                       <div className="flex items-center gap-2 p-2 bg-gray-50 rounded">
                         <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                        <span className="text-gray-600">aud = api://progear-inventory</span>
+                        <span className="text-gray-600">aud = api://sugar-gold-treats-inventory</span>
                       </div>
                       <div className="flex items-center gap-2 p-2 bg-gray-50 rounded">
                         <CheckCircle className="w-3.5 h-3.5 text-green-500" />
@@ -358,7 +358,7 @@ export default function ArchitecturePage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-white rounded-lg p-4 border border-gray-200">
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Agent Name</div>
-                  <div className="font-semibold text-gray-800">ProGear Sales Agent</div>
+                  <div className="font-semibold text-gray-800">Sugar & Gold Treats Sales Agent</div>
                 </div>
                 <div className="bg-white rounded-lg p-4 border border-gray-200">
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Agent ID (wlp)</div>
@@ -375,10 +375,10 @@ export default function ArchitecturePage() {
               </h3>
               <div className="grid md:grid-cols-2 gap-3">
                 {[
-                  { name: "ProGear Sales MCP", id: "aus8xdftgwlTMxp3u0g7", audience: "api://progear-sales", scopes: ["sales:read", "sales:quote", "sales:order"], color: "#3b82f6" },
-                  { name: "ProGear Inventory MCP", id: "aus8xdg1oaSVfDgxa0g7", audience: "api://progear-inventory", scopes: ["inventory:read", "inventory:write", "inventory:alert"], color: "#10b981" },
-                  { name: "ProGear Customer MCP", id: "aus8xdfti92mIRSAE0g7", audience: "api://progear-customer", scopes: ["customer:read", "customer:lookup", "customer:history"], color: "#8b5cf6" },
-                  { name: "ProGear Pricing MCP", id: "aus8xdepyb5DHmTlq0g7", audience: "api://progear-pricing", scopes: ["pricing:read", "pricing:margin", "pricing:discount"], color: "#f59e0b" },
+                  { name: "Sugar & Gold Treats Sales MCP", id: "aus8xdftgwlTMxp3u0g7", audience: "api://sugar-gold-treats-sales", scopes: ["sales:read", "sales:quote", "sales:order"], color: "#3b82f6" },
+                  { name: "Sugar & Gold Treats Inventory MCP", id: "aus8xdg1oaSVfDgxa0g7", audience: "api://sugar-gold-treats-inventory", scopes: ["inventory:read", "inventory:write", "inventory:alert"], color: "#10b981" },
+                  { name: "Sugar & Gold Treats Customer MCP", id: "aus8xdfti92mIRSAE0g7", audience: "api://sugar-gold-treats-customer", scopes: ["customer:read", "customer:lookup", "customer:history"], color: "#8b5cf6" },
+                  { name: "Sugar & Gold Treats Pricing MCP", id: "aus8xdepyb5DHmTlq0g7", audience: "api://sugar-gold-treats-pricing", scopes: ["pricing:read", "pricing:margin", "pricing:discount"], color: "#f59e0b" },
                 ].map((server, idx) => (
                   <div key={idx} className="bg-white rounded-lg p-4 border-2 border-gray-100 hover:border-gray-200 transition">
                     <div className="flex items-center gap-2 mb-2">
@@ -409,9 +409,9 @@ export default function ArchitecturePage() {
               </h3>
               <div className="grid md:grid-cols-3 gap-3">
                 {[
-                  { name: "ProGear-Sales", id: "00g8xdepuhJhZ3Ecs0g7", desc: "Full agent access", access: ["Sales", "Inventory", "Customer", "Pricing"] },
-                  { name: "ProGear-Warehouse", id: "00g8xdf4j4wmXgZMe0g7", desc: "Inventory only", access: ["Inventory"] },
-                  { name: "ProGear-Finance", id: "00g8xdfshmbpjDjSA0g7", desc: "Pricing only", access: ["Pricing"] },
+                  { name: "Sugar & Gold Treats-Sales", id: "00g8xdepuhJhZ3Ecs0g7", desc: "Full agent access", access: ["Sales", "Inventory", "Customer", "Pricing"] },
+                  { name: "Sugar & Gold Treats-Warehouse", id: "00g8xdf4j4wmXgZMe0g7", desc: "Inventory only", access: ["Inventory"] },
+                  { name: "Sugar & Gold Treats-Finance", id: "00g8xdfshmbpjDjSA0g7", desc: "Pricing only", access: ["Pricing"] },
                 ].map((group, idx) => (
                   <div key={idx} className="bg-white rounded-lg p-4 border-2 border-gray-100">
                     <div className="font-semibold text-gray-800 text-sm mb-1">{group.name}</div>
@@ -463,14 +463,14 @@ export default function ArchitecturePage() {
                 <div className="p-4">
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Groups</div>
                   <div className="flex gap-1 mb-4">
-                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">ProGear-Sales</span>
+                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">Sugar & Gold Treats-Sales</span>
                   </div>
 
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">MCP Access Token Claims</div>
                   <div className="bg-gray-900 rounded-lg p-3 font-mono text-xs space-y-1.5">
-                    <div><span className="text-gray-500">sub:</span> <span className="text-purple-400">sarah.sales@progear.demo</span></div>
+                    <div><span className="text-gray-500">sub:</span> <span className="text-purple-400">sarah.sales@sugar-gold-treats.demo</span></div>
                     <div><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400">wlp8x5q7mvH86KvFJ0g7</span></div>
-                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://progear-inventory</span></div>
+                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://sugar-gold-treats-inventory</span></div>
                   </div>
 
                   <div className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-2">Granted Scopes</div>
@@ -514,15 +514,15 @@ export default function ArchitecturePage() {
                 <div className="p-4">
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Groups</div>
                   <div className="flex gap-1 mb-4">
-                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">ProGear-Sales</span>
-                    <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs">ProGear-Managers</span>
+                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">Sugar & Gold Treats-Sales</span>
+                    <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs">Sugar & Gold Treats-Managers</span>
                   </div>
 
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">MCP Access Token Claims</div>
                   <div className="bg-gray-900 rounded-lg p-3 font-mono text-xs space-y-1.5">
-                    <div><span className="text-gray-500">sub:</span> <span className="text-green-400">mike.manager@progear.demo</span></div>
+                    <div><span className="text-gray-500">sub:</span> <span className="text-green-400">mike.manager@sugar-gold-treats.demo</span></div>
                     <div><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400">wlp8x5q7mvH86KvFJ0g7</span></div>
-                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://progear-inventory</span></div>
+                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://sugar-gold-treats-inventory</span></div>
                   </div>
 
                   <div className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-2">Granted Scopes</div>
@@ -616,7 +616,7 @@ export default function ArchitecturePage() {
               <h3 className="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide">Example Query → Token Exchange</h3>
               <div className="bg-purple-50 rounded-lg p-3 mb-4 border-l-4 border-purple-500">
                 <div className="text-sm text-purple-800 font-mono">
-                  "Can we fulfill 1500 basketballs for State University at a bulk discount?"
+                  "Can we fulfill 1500 chocolates for State University at a bulk discount?"
                 </div>
               </div>
               <div className="grid md:grid-cols-4 gap-3">
@@ -806,7 +806,7 @@ export default function ArchitecturePage() {
 
         {/* Footer */}
         <div className="text-center text-gray-400 text-sm py-4">
-          CourtEdge ProGear - Powered by Okta AI Agent Governance
+          CourtEdge Sugar & Gold Treats - Powered by Okta AI Agent Governance
         </div>
       </div>
     </main>

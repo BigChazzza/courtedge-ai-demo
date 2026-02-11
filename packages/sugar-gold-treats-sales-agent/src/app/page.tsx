@@ -17,18 +17,18 @@ interface Message {
 }
 
 const exampleQuestions = [
-  { text: "Can we fulfill 1500 basketballs for State University?", icon: "🏀" },
-  { text: "What basketball hoops do we have in stock?", icon: "🏀" },
-  { text: "Look up State University's account", icon: "👥" },
-  { text: "What's our margin on pro basketballs?", icon: "💰" },
-  { text: "Show me recent bulk equipment orders", icon: "📦" },
+  { text: "Can we fulfill 2000 chocolate bars for Sweet Delights Retail?", icon: "🍫" },
+  { text: "What dark chocolate bars do we have in stock?", icon: "🍫" },
+  { text: "Look up Chocolate Dreams Boutique's account", icon: "👥" },
+  { text: "What's our margin on artisanal truffles?", icon: "💰" },
+  { text: "Show me recent bulk chocolate orders", icon: "📦" },
   { text: "Which customers have Platinum tier?", icon: "⭐" },
 ];
 
-const CHAT_STORAGE_KEY = 'progear-chat-messages';
-const AGENT_FLOW_STORAGE_KEY = 'progear-agent-flow';
-const TOKEN_EXCHANGE_STORAGE_KEY = 'progear-token-exchanges';
-const SESSION_ID_STORAGE_KEY = 'progear-session-id';
+const CHAT_STORAGE_KEY = 'sugar-gold-treats-chat-messages';
+const AGENT_FLOW_STORAGE_KEY = 'sugar-gold-treats-agent-flow';
+const TOKEN_EXCHANGE_STORAGE_KEY = 'sugar-gold-treats-token-exchanges';
+const SESSION_ID_STORAGE_KEY = 'sugar-gold-treats-session-id';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -204,10 +204,10 @@ export default function Home() {
   // Show loading screen while checking auth status
   if (isLoadingAuth || status === 'unauthenticated') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary via-primary-light to-court-brown">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary via-primary-light to-chocolate-primary">
         <div className="flex flex-col items-center space-y-4">
-          <span className="text-6xl animate-bounce">🏀</span>
-          <div className="text-white text-xl font-display">Loading CourtEdge ProGear...</div>
+          <span className="text-6xl animate-bounce">🍫</span>
+          <div className="text-white text-xl font-display">Loading Sugar & Gold Treats...</div>
         </div>
       </div>
     );
@@ -216,19 +216,19 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-neutral-bg to-primary flex flex-col">
       {/* Header */}
-      <header className="bg-gradient-to-r from-primary via-court-brown to-primary-light border-b-4 border-accent shadow-lg relative overflow-hidden">
-        {/* Court pattern */}
+      <header className="bg-gradient-to-r from-primary via-chocolate-primary to-primary-light border-b-4 border-candy-gold shadow-lg relative overflow-hidden">
+        {/* Chocolate pattern */}
         <div className="absolute inset-0 opacity-5">
           <svg className="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
-            <line x1="50" y1="0" x2="50" y2="30" stroke="#ff6b35" strokeWidth="0.5"/>
-            <circle cx="50" cy="15" r="8" fill="none" stroke="#ff6b35" strokeWidth="0.3"/>
+            <line x1="50" y1="0" x2="50" y2="30" stroke="#FFD700" strokeWidth="0.5"/>
+            <circle cx="50" cy="15" r="8" fill="none" stroke="#E91E63" strokeWidth="0.3"/>
           </svg>
         </div>
 
         <div className="px-6 py-4 flex justify-between items-center relative z-10">
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <span className="text-5xl">🏀</span>
+              <span className="text-5xl">🍫</span>
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-okta-blue rounded-full border-2 border-white flex items-center justify-center">
                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -236,8 +236,8 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <h1 className="text-white text-2xl font-bold">CourtEdge ProGear</h1>
-              <p className="text-gray-300 text-sm">AI-Powered Basketball Equipment Sales</p>
+              <h1 className="text-white text-2xl font-bold">Sugar & Gold Treats</h1>
+              <p className="text-gray-300 text-sm">AI-Powered Artisanal Chocolate Sales</p>
             </div>
           </div>
 
@@ -267,12 +267,12 @@ export default function Home() {
             {chatMessages.length === 0 && (
               <div className="text-center py-8 max-w-2xl mx-auto">
                 <div className="inline-block mb-4 relative">
-                  <div className="absolute inset-0 bg-accent/20 rounded-full blur-2xl animate-pulse"></div>
-                  <span className="text-6xl relative z-10">🏀</span>
+                  <div className="absolute inset-0 bg-candy-gold/20 rounded-full blur-2xl animate-pulse"></div>
+                  <span className="text-6xl relative z-10">🍫</span>
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-2">Welcome, {session?.user?.name || 'Team Member'}!</h2>
                 <p className="text-gray-300 mb-6">
-                  Your AI-powered basketball equipment sales assistant is ready. Ask about orders, inventory, pricing, or customers.
+                  Your AI-powered artisanal chocolate sales assistant is ready. Ask about orders, inventory, pricing, or customers.
                 </p>
 
                 {/* Example Questions */}
@@ -281,9 +281,9 @@ export default function Home() {
                     <button
                       key={idx}
                       onClick={() => handleSendMessage(question.text)}
-                      className="group p-4 bg-white/95 backdrop-blur-sm border-2 border-accent/20 hover:border-accent hover:shadow-xl rounded-xl transition-all text-left flex items-start space-x-3"
+                      className="group p-4 bg-white/95 backdrop-blur-sm border-2 border-candy-gold/20 hover:border-candy-gold hover:shadow-xl rounded-xl transition-all text-left flex items-start space-x-3"
                     >
-                      <div className="w-8 h-8 bg-gradient-to-br from-accent/20 to-court-orange/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:from-accent group-hover:to-court-orange transition-all">
+                      <div className="w-8 h-8 bg-gradient-to-br from-candy-gold/20 to-candy-pink/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:from-candy-gold group-hover:to-candy-pink transition-all">
                         <span className="text-lg group-hover:scale-110 transition-transform">{question.icon}</span>
                       </div>
                       <span className="text-sm text-gray-700 group-hover:text-primary font-medium leading-relaxed">
@@ -303,21 +303,21 @@ export default function Home() {
                 <div className={`flex items-start space-x-3 max-w-2xl ${msg.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                   <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
                     msg.role === 'user'
-                      ? 'bg-gradient-to-br from-court-orange to-accent'
-                      : 'bg-gradient-to-br from-primary to-court-brown'
+                      ? 'bg-gradient-to-br from-candy-cyan to-candy-lime'
+                      : 'bg-gradient-to-br from-primary to-chocolate-primary'
                   }`}>
                     {msg.role === 'user' ? (
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     ) : (
-                      <span className="text-xl">🏀</span>
+                      <span className="text-xl">🍫</span>
                     )}
                   </div>
 
                   <div className={`rounded-xl p-4 shadow-md ${
                     msg.role === 'user'
-                      ? 'bg-gradient-to-br from-accent to-court-orange text-white'
+                      ? 'bg-gradient-to-br from-chocolate-primary to-candy-gold text-white'
                       : 'bg-white border-2 border-neutral-border'
                   }`}>
                     <p className={`whitespace-pre-wrap ${msg.role === 'assistant' ? 'text-gray-700' : ''}`}>
@@ -334,15 +334,15 @@ export default function Home() {
             {isLoading && (
               <div className="flex justify-start">
                 <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-primary to-court-brown rounded-lg flex items-center justify-center">
-                    <span className="text-xl animate-bounce">🏀</span>
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-primary to-chocolate-primary rounded-lg flex items-center justify-center">
+                    <span className="text-xl animate-bounce">🍫</span>
                   </div>
-                  <div className="bg-white border-2 border-accent/30 rounded-xl p-4 shadow-md">
+                  <div className="bg-white border-2 border-candy-pink/30 rounded-xl p-4 shadow-md">
                     <div className="flex items-center space-x-3">
                       <div className="flex space-x-2">
-                        <div className="w-2.5 h-2.5 bg-accent rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                        <div className="w-2.5 h-2.5 bg-court-orange rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                        <div className="w-2.5 h-2.5 bg-court-brown rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                        <div className="w-2.5 h-2.5 bg-candy-pink rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2.5 h-2.5 bg-candy-gold rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2.5 h-2.5 bg-candy-cyan rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                       </div>
                       <span className="text-sm text-gray-500">Processing with AI agents...</span>
                     </div>
@@ -355,7 +355,7 @@ export default function Home() {
           </div>
 
           {/* Input Area */}
-          <div className="border-t-4 border-accent bg-gradient-to-r from-white via-accent/5 to-white px-6 py-4 shadow-2xl">
+          <div className="border-t-4 border-candy-gold bg-gradient-to-r from-white via-candy-gold/5 to-white px-6 py-4 shadow-2xl">
             <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex space-x-3 max-w-4xl mx-auto">
               <div className="flex-1 relative">
                 <input
@@ -363,17 +363,17 @@ export default function Home() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Ask about orders, inventory, pricing, or customers..."
-                  className="w-full px-5 py-3 border-2 border-neutral-border rounded-xl focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition text-gray-700 placeholder-gray-400"
+                  className="w-full px-5 py-3 border-2 border-neutral-border rounded-xl focus:outline-none focus:border-candy-gold focus:ring-2 focus:ring-candy-gold/20 transition text-gray-700 placeholder-gray-400"
                   disabled={isLoading}
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-30">
-                  🏀
+                  🍫
                 </div>
               </div>
               <button
                 type="submit"
                 disabled={isLoading || !message.trim()}
-                className="px-6 py-3 bg-gradient-to-r from-accent to-court-orange hover:from-court-orange hover:to-accent text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg hover:shadow-xl flex items-center space-x-2 border-b-4 border-court-brown/50"
+                className="px-6 py-3 bg-gradient-to-r from-candy-gold to-candy-orange hover:from-candy-orange hover:to-candy-gold text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg hover:shadow-xl flex items-center space-x-2 border-b-4 border-chocolate-primary/50"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -385,8 +385,8 @@ export default function Home() {
         </div>
 
         {/* Right Pane - Security Dashboard */}
-        <div className="w-96 bg-gradient-to-b from-gray-50 to-white border-l-4 border-accent/30 overflow-y-auto p-4 space-y-4">
-          <div className="text-center pb-4 border-b-2 border-accent/20">
+        <div className="w-96 bg-gradient-to-b from-gray-50 to-white border-l-4 border-candy-gold/30 overflow-y-auto p-4 space-y-4">
+          <div className="text-center pb-4 border-b-2 border-candy-gold/20">
             <h2 className="text-lg font-bold text-gray-800 flex items-center justify-center gap-2">
               <svg className="w-5 h-5 text-okta-blue" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
