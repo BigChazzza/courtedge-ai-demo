@@ -1,0 +1,148 @@
+{
+  "inventory": {
+    "PKG-EUR-001": {
+      "name": "European Explorer 14-Day Package",
+      "sku": "PKG-EUR-001",
+      "category": "Vacation Packages",
+      "quantity": 45,
+      "status": "good",
+      "reorder_point": 10
+    },
+    "PKG-CAR-001": {
+      "name": "Caribbean Paradise 7-Day All-Inclusive",
+      "sku": "PKG-CAR-001",
+      "category": "Vacation Packages",
+      "quantity": 89,
+      "status": "good",
+      "reorder_point": 20
+    },
+    "PKG-ASI-001": {
+      "name": "Asian Adventure 10-Day Tour",
+      "sku": "PKG-ASI-001",
+      "category": "Vacation Packages",
+      "quantity": 34,
+      "status": "good",
+      "reorder_point": 10
+    },
+    "FLT-BUS-001": {
+      "name": "Business Class Flight Credits",
+      "sku": "FLT-BUS-001",
+      "category": "Flight Credits",
+      "quantity": 523,
+      "status": "good",
+      "reorder_point": 100
+    },
+    "FLT-ECO-001": {
+      "name": "Economy Flight Credits",
+      "sku": "FLT-ECO-001",
+      "category": "Flight Credits",
+      "quantity": 1847,
+      "status": "good",
+      "reorder_point": 300
+    },
+    "HTL-LUX-001": {
+      "name": "5-Star Luxury Hotel Nights",
+      "sku": "HTL-LUX-001",
+      "category": "Hotel Accommodations",
+      "quantity": 234,
+      "status": "good",
+      "reorder_point": 50
+    },
+    "HTL-STD-001": {
+      "name": "Standard Hotel Nights",
+      "sku": "HTL-STD-001",
+      "category": "Hotel Accommodations",
+      "quantity": 892,
+      "status": "good",
+      "reorder_point": 150
+    },
+    "CRS-MED-001": {
+      "name": "Mediterranean Cruise 7-Night",
+      "sku": "CRS-MED-001",
+      "category": "Cruises",
+      "quantity": 23,
+      "status": "low",
+      "reorder_point": 25
+    },
+    "CRS-CAR-001": {
+      "name": "Caribbean Cruise 5-Night",
+      "sku": "CRS-CAR-001",
+      "category": "Cruises",
+      "quantity": 56,
+      "status": "good",
+      "reorder_point": 15
+    },
+    "INS-TRV-001": {
+      "name": "Comprehensive Travel Insurance",
+      "sku": "INS-TRV-001",
+      "category": "Travel Insurance",
+      "quantity": 2341,
+      "status": "good",
+      "reorder_point": 500
+    }
+  },
+  "pricing": {
+    "PKG-EUR-001": { "price": 4599.99, "cost": 2300.00, "margin": 50.0 },
+    "PKG-CAR-001": { "price": 2299.99, "cost": 1150.00, "margin": 50.0 },
+    "PKG-ASI-001": { "price": 3899.99, "cost": 1950.00, "margin": 50.0 },
+    "FLT-BUS-001": { "price": 1499.99, "cost": 750.00, "margin": 50.0 },
+    "FLT-ECO-001": { "price": 499.99, "cost": 250.00, "margin": 50.0 },
+    "HTL-LUX-001": { "price": 399.99, "cost": 200.00, "margin": 50.0 },
+    "HTL-STD-001": { "price": 149.99, "cost": 75.00, "margin": 50.0 },
+    "CRS-MED-001": { "price": 3299.99, "cost": 1650.00, "margin": 50.0 },
+    "CRS-CAR-001": { "price": 2499.99, "cost": 1250.00, "margin": 50.0 },
+    "INS-TRV-001": { "price": 89.99, "cost": 45.00, "margin": 50.0 }
+  },
+  "customers": {
+    "CUST-001": {
+      "id": "CUST-001",
+      "name": "Corporate Travel Unlimited",
+      "contact": "Amanda Wilson",
+      "email": "awilson@corptravel.com",
+      "tier": "Platinum",
+      "total_spent": 892000,
+      "location": "San Francisco, CA"
+    },
+    "CUST-002": {
+      "id": "CUST-002",
+      "name": "Executive Journeys Inc",
+      "contact": "Robert Taylor",
+      "email": "rtaylor@execjourneys.com",
+      "tier": "Platinum",
+      "total_spent": 675000,
+      "location": "Los Angeles, CA"
+    },
+    "CUST-003": {
+      "id": "CUST-003",
+      "name": "Adventure Seekers Group",
+      "contact": "Lisa Anderson",
+      "email": "landerson@adventureseekers.com",
+      "tier": "Gold",
+      "total_spent": 234000,
+      "location": "Denver, CO"
+    },
+    "CUST-004": {
+      "id": "CUST-004",
+      "name": "Luxury Escapes Agency",
+      "contact": "James Rodriguez",
+      "email": "jrodriguez@luxuryescapes.com",
+      "tier": "Gold",
+      "total_spent": 189000,
+      "location": "Miami, FL"
+    }
+  },
+  "discounts": {
+    "tier_discounts": {
+      "Platinum": 5,
+      "Gold": 3,
+      "Silver": 1,
+      "Bronze": 0
+    },
+    "volume_discounts": {
+      "10": 5,
+      "50": 10,
+      "100": 15,
+      "500": 20
+    }
+  }
+}

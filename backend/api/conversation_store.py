@@ -50,8 +50,8 @@ class Conversation:
         lines = []
         for msg in recent:
             prefix = "User" if msg.role == "user" else "Assistant"
-            # Truncate long messages for context
-            content = msg.content[:500] + "..." if len(msg.content) > 500 else msg.content
+            # Truncate long messages for context (reduced to avoid token limit)
+            content = msg.content[:200] + "..." if len(msg.content) > 200 else msg.content
             lines.append(f"{prefix}: {content}")
 
         return "\n".join(lines)

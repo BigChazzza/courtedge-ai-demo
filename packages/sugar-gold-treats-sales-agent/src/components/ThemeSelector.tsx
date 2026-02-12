@@ -23,6 +23,9 @@ export default function ThemeSelector() {
   const handleThemeChange = (themeId: ThemeType) => {
     setTheme(themeId);
     setIsOpen(false);
+    // Clear conversation history when switching themes
+    sessionStorage.clear();
+    localStorage.removeItem('sugar-gold-treats-session-id');
     // Reload page to apply theme changes
     window.location.reload();
   };

@@ -1,8 +1,9 @@
 """
-Demo Data Store - Manages JSON-based data for ProGear Basketball demo.
+Demo Data Store - Manages JSON-based data for multi-theme demo platform.
 
 Provides access to inventory, pricing, customers, and discounts.
 Data persists to a JSON file and can be reset to initial state.
+Supports multiple themes (chocolate, tech, travel) with separate data files.
 """
 
 import json
@@ -16,8 +17,25 @@ logger = logging.getLogger(__name__)
 
 # File paths
 DATA_DIR = Path(__file__).parent
-INITIAL_DATA_FILE = DATA_DIR / "initial_data.json"
-LIVE_DATA_FILE = DATA_DIR / "live_data.json"
+
+# Theme-specific data files
+THEME_DATA_FILES = {
+    'chocolate': {
+        'initial': DATA_DIR / "initial_data.json",
+        'live': DATA_DIR / "live_data.json"
+    },
+    'tech': {
+        'initial': DATA_DIR / "tech-data.json",
+        'live': DATA_DIR / "tech-live-data.json"
+    },
+    'travel': {
+        'initial': DATA_DIR / "travel-data.json",
+        'live': DATA_DIR / "travel-live-data.json"
+    }
+}
+
+# Default theme
+DEFAULT_THEME = 'chocolate'
 
 
 class DemoStore:
@@ -28,20 +46,39 @@ class DemoStore:
     - Load/save data to JSON file
     - Reset to initial state
     - CRUD operations for inventory, pricing, customers
+    - Multi-theme support (chocolate, tech, travel)
     - Thread-safe (single process assumption for demo)
     """
 
-    def __init__(self):
+    def __init__(self, theme: str = DEFAULT_THEME):
+        self.theme = theme
         self._data: Dict[str, Any] = {}
         self._load_data()
 
+    def set_theme(self, theme: str) -> None:
+        """Switch to a different theme and reload data."""
+        if theme not in THEME_DATA_FILES:
+            logger.warning(f"Unknown theme '{theme}', using default")
+            theme = DEFAULT_THEME
+
+        self.theme = theme
+        self._load_data()
+        logger.info(f"Switched to theme: {theme}")
+
+    def _get_theme_files(self):
+        """Get the initial and live file paths for current theme."""
+        return THEME_DATA_FILES.get(self.theme, THEME_DATA_FILES[DEFAULT_THEME])
+
     def _load_data(self) -> None:
         """Load data from live file, or initialize from initial file."""
-        if LIVE_DATA_FILE.exists():
+        files = self._get_theme_files()
+        live_file = files['live']
+
+        if live_file.exists():
             try:
-                with open(LIVE_DATA_FILE, 'r') as f:
+                with open(live_file, 'r') as f:
                     self._data = json.load(f)
-                logger.info(f"Loaded live data from {LIVE_DATA_FILE}")
+                logger.info(f"Loaded live data from {live_file} (theme: {self.theme})")
                 return
             except Exception as e:
                 logger.warning(f"Failed to load live data: {e}")
@@ -52,19 +89,23 @@ class DemoStore:
     def _save_data(self) -> None:
         """Save current data to live file."""
         try:
-            with open(LIVE_DATA_FILE, 'w') as f:
+            files = self._get_theme_files()
+            live_file = files['live']
+            with open(live_file, 'w') as f:
                 json.dump(self._data, f, indent=2)
-            logger.debug("Data saved to live file")
+            logger.debug(f"Data saved to {live_file} (theme: {self.theme})")
         except Exception as e:
             logger.error(f"Failed to save data: {e}")
 
     def reset_to_initial(self) -> None:
-        """Reset all data to initial state."""
+        """Reset all data to initial state for current theme."""
         try:
-            with open(INITIAL_DATA_FILE, 'r') as f:
+            files = self._get_theme_files()
+            initial_file = files['initial']
+            with open(initial_file, 'r') as f:
                 self._data = json.load(f)
             self._save_data()
-            logger.info("Data reset to initial state")
+            logger.info(f"Data reset to initial state (theme: {self.theme})")
         except Exception as e:
             logger.error(f"Failed to reset data: {e}")
             self._data = {"inventory": {}, "pricing": {}, "customers": {}, "discounts": {}}
@@ -409,5 +450,17 @@ class DemoStore:
         }
 
 
-# Global instance
-demo_store = DemoStore()
+# Global instances (one per theme for caching)
+_store_cache: Dict[str, DemoStore] = {}
+
+def get_demo_store(theme: str = DEFAULT_THEME) -> DemoStore:
+    """
+    Get or create a DemoStore instance for the specified theme.
+    Instances are cached for performance.
+    """
+    if theme not in _store_cache:
+        _store_cache[theme] = DemoStore(theme=theme)
+    return _store_cache[theme]
+
+# Default instance for backward compatibility
+demo_store = get_demo_store(DEFAULT_THEME)

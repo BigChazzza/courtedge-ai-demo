@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AgentFlowCard from '@/components/AgentFlowCard';
 import TokenExchangeCard from '@/components/TokenExchangeCard';
-import ThemeSelector from '@/components/ThemeSelector';
 import { useTheme } from '@/contexts/ThemeContext';
 
 interface Message {
@@ -143,6 +142,7 @@ export default function Home() {
 
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
+        'X-Theme': currentTheme.id,  // Send theme for backend data routing
       };
 
       if (idToken) {
@@ -154,7 +154,8 @@ export default function Home() {
         headers,
         body: JSON.stringify({
           message: userMessage,
-          session_id: sessionId  // Send session ID for conversation continuity
+          session_id: sessionId,  // Send session ID for conversation continuity
+          theme: currentTheme.id   // Include theme in body as well
         }),
       });
 
@@ -261,8 +262,10 @@ export default function Home() {
           </div>
 
           <div className="flex items-center space-x-3">
-            <ThemeSelector />
             <div className="flex items-center gap-3">
+              <div className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/20">
+                <span className="text-white text-xs font-semibold uppercase tracking-wide">{currentTheme.name}</span>
+              </div>
               <span className="text-gray-200 text-sm">{session?.user?.email}</span>
               <button
                 onClick={handleSignOut}

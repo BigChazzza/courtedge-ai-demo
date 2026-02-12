@@ -23,7 +23,7 @@ from auth.okta_auth import get_okta_auth
 from auth.agent_config import get_all_agent_configs, DEMO_AGENTS
 from orchestrator.orchestrator import Orchestrator
 from api.conversation_store import conversation_store
-from data.demo_store import demo_store
+from data.demo_store import get_demo_store
 
 # Load environment variables
 load_dotenv()
@@ -62,6 +62,7 @@ class ChatRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
     history: Optional[List[ChatMessage]] = []
+    theme: Optional[str] = "chocolate"  # Theme for data routing
 
 
 class AgentInfo(BaseModel):
@@ -134,18 +135,22 @@ async def root():
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(
     request: ChatRequest,
-    authorization: Optional[str] = Header(None, alias="Authorization")
+    authorization: Optional[str] = Header(None, alias="Authorization"),
+    x_theme: Optional[str] = Header(None, alias="X-Theme")
 ):
     """
     Main chat endpoint.
 
     This will:
     1. Authenticate the user (via Okta token)
-    2. Route to appropriate agent(s) via orchestrator
-    3. Perform ID-JAG token exchange for each agent
-    4. Return response with agent flow and token exchanges
+    2. Load theme-specific data (chocolate, tech, or travel)
+    3. Route to appropriate agent(s) via orchestrator
+    4. Perform ID-JAG token exchange for each agent
+    5. Return response with agent flow and token exchanges
     """
-    logger.info(f"=== Chat Request ===")
+    # Get theme from header or request body
+    theme = x_theme or request.theme or "chocolate"
+    logger.info(f"=== Chat Request (Theme: {theme}) ===")
     logger.info(f"Message: {request.message[:50]}...")
     logger.info(f"Has auth header: {authorization is not None}")
 
@@ -177,17 +182,22 @@ async def chat(
     # Get or create conversation session
     session_id = conversation_store.get_or_create_session(request.session_id)
 
-    # Get conversation context for routing
-    conversation_context = conversation_store.get_context_summary(session_id, max_messages=6)
+    # Get conversation context for routing (reduced to avoid token limit)
+    conversation_context = conversation_store.get_context_summary(session_id, max_messages=2)
 
     # Store the user's message
     conversation_store.add_message(session_id, "user", request.message)
+
+    # Get theme-specific data store
+    demo_store = get_demo_store(theme)
+    logger.info(f"Using data store for theme: {theme}")
 
     # Create orchestrator and process request with conversation context
     try:
         orchestrator = Orchestrator(
             user_token=user_token or "",
-            user_info=user_info
+            user_info=user_info,
+            demo_store=demo_store
         )
         result = await orchestrator.process(request.message, conversation_context)
 
@@ -314,9 +324,9 @@ async def agent_config():
 # --- Demo Reset Endpoint ---
 
 @app.post("/api/demo/reset")
-async def reset_demo():
+async def reset_demo(theme: Optional[str] = "chocolate"):
     """
-    Reset all demo data to initial state.
+    Reset demo data to initial state for specified theme.
 
     This resets:
     - Inventory quantities
@@ -327,7 +337,8 @@ async def reset_demo():
     Useful for demos to start fresh.
     """
     try:
-        # Reset data store
+        # Get theme-specific data store and reset it
+        demo_store = get_demo_store(theme)
         demo_store.reset_to_initial()
 
         # Clear all conversation sessions
@@ -339,7 +350,8 @@ async def reset_demo():
 
         return {
             "success": True,
-            "message": "Demo data reset to initial state",
+            "message": f"Demo data reset to initial state (theme: {theme})",
+            "theme": theme,
             "summary": {
                 "products": inv_summary['total_products'],
                 "total_items": inv_summary['total_items'],

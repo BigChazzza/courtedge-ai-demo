@@ -25,7 +25,7 @@ from auth.multi_agent_auth import (
     AGENT_SALES, AGENT_INVENTORY, AGENT_CUSTOMER, AGENT_PRICING
 )
 from auth.agent_config import get_agent_config, DEMO_AGENTS
-from data.demo_store import demo_store
+from data.demo_store import get_demo_store
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +65,7 @@ AGENT_KEYWORDS = {
         "stock", "inventory", "product", "warehouse", "supply", "available", "in stock",
         "add", "update", "increase", "decrease", "adjust", "restock", "replenish",
         "reduce", "remove", "alert", "notify", "reorder", "low stock",
-        "basketball", "tennis", "racket", "uniform", "equipment"
+        "equipment", "item", "goods", "merchandise", "units"
     ],
     AGENT_CUSTOMER: [
         "customer", "account", "client", "contact", "tier", "loyalty", "history",
@@ -160,16 +160,18 @@ class Orchestrator:
     complex multi-agent workflows with proper access control.
     """
 
-    def __init__(self, user_token: str, user_info: Optional[Dict[str, Any]] = None):
+    def __init__(self, user_token: str, user_info: Optional[Dict[str, Any]] = None, demo_store=None):
         """
         Initialize the orchestrator with user context.
 
         Args:
             user_token: User's ID token (for token exchange)
             user_info: Optional user info from token validation
+            demo_store: Optional theme-specific demo store instance
         """
         self.user_token = user_token
         self.user_info = user_info or {}
+        self.demo_store = demo_store or get_demo_store()
 
         # Get multi-agent token exchange manager
         self.token_exchange = get_multi_agent_exchange()
@@ -550,7 +552,7 @@ Return ONLY the JSON object, no other text."""
 
         # Check for low stock / alerts
         if any(kw in message for kw in ["low stock", "alert", "reorder", "warning"]):
-            low_stock = demo_store.get_low_stock_items()
+            low_stock = self.demo_store.get_low_stock_items()
             if not low_stock:
                 return "✅ No low stock alerts - all inventory levels are good!"
             lines = [f"⚠️ **Low Stock Alert - {len(low_stock)} items need attention:**\n"]
@@ -558,13 +560,14 @@ Return ONLY the JSON object, no other text."""
                 lines.append(f"- 🔴 **{item['name']}**: {item['quantity']} units (reorder point: {item['reorder_point']})")
             return "\n".join(lines)
 
-        # Check for specific product search
-        product_keywords = ["basketball", "hoop", "net", "uniform", "jersey", "shoe", "training", "backboard", "rim"]
-        for keyword in product_keywords:
-            if keyword in message:
-                results = demo_store.search_inventory(keyword)
+        # Check for specific product search - use generic search across all keywords
+        # Extract potential product or category keywords from the message
+        words = message.lower().split()
+        for word in words:
+            if len(word) > 3:  # Only search for words longer than 3 characters
+                results = self.demo_store.search_inventory(word)
                 if results:
-                    lines = [f"**{keyword.title()} Inventory:**\n"]
+                    lines = [f"**{word.title()} Inventory:**\n"]
                     total_qty = 0
                     for item in results:
                         status_icon = "🔴" if item['status'] == 'low' else "🟢"
@@ -574,9 +577,9 @@ Return ONLY the JSON object, no other text."""
                     return "\n".join(lines)
 
         # Default: return inventory summary
-        summary = demo_store.get_inventory_summary()
+        summary = self.demo_store.get_inventory_summary()
         lines = [
-            "**ProGear Basketball - Inventory Summary**\n",
+            "**Inventory Summary**\n",
             f"Total Products: {summary['total_products']}",
             f"Total Items in Stock: {summary['total_items']:,}",
             f"Total Inventory Value: ${summary['total_value']:,.2f}",
@@ -612,88 +615,36 @@ Return ONLY the JSON object, no other text."""
         else:
             operation = "set"
 
-        # Try to identify the product
-        # Check common product references
-        product_mappings = {
-            "pro arena": "Pro Arena Hoop System",
-            "arena hoop": "Pro Arena Hoop System",
-            "pro game basketball": "Pro Game Basketball",
-            "pro game": "Pro Game Basketball",
-            "composite basketball": "Pro Composite Basketball",
-            "pro composite": "Pro Composite Basketball",
-            "women's basketball": "Women's Official Basketball",
-            "women's official": "Women's Official Basketball",
-            "youth size 5": "Youth Size 5 Basketball",
-            "youth size 4": "Youth Size 4 Basketball",
-            "indoor basketball": "Indoor Premium Basketball",
-            "indoor premium": "Indoor Premium Basketball",
-            "outdoor basketball": "Outdoor Rubber Basketball",
-            "outdoor rubber": "Outdoor Rubber Basketball",
-            "training basketball": "Training Heavy Basketball",
-            "training heavy": "Training Heavy Basketball",
-            "portable hoop": "Portable Hoop System",
-            "wall mount": "Wall-Mount Hoop",
-            "wall-mount": "Wall-Mount Hoop",
-            "youth hoop": "Youth Adjustable Hoop",
-            "breakaway rim": "Breakaway Rim Pro",
-            "backboard": "Replacement Backboard 72\"",
-            "replacement backboard": "Replacement Backboard 72\"",
-            "competition net": "Pro Competition Net (White)",
-            "chain net": "Heavy Duty Chain Net",
-            "ball pump": "Ball Pump Pro",
-            "ball bag": "Ball Bag (holds 10)",
-            "ball rack": "Ball Rack (holds 16)",
-            "game jersey": "Pro Game Jersey",
-            "pro jersey": "Pro Game Jersey",
-            "game shorts": "Pro Game Shorts",
-            "pro shorts": "Pro Game Shorts",
-            "practice jersey": "Reversible Practice Jersey",
-            "reversible jersey": "Reversible Practice Jersey",
-            "warm-up jacket": "Warm-Up Jacket",
-            "warmup jacket": "Warm-Up Jacket",
-            "warm-up pants": "Warm-Up Pants",
-            "warmup pants": "Warm-Up Pants",
-            "shooting shirt": "Shooting Shirt",
-            "team hoodie": "Team Hoodie",
-            "hoodie": "Team Hoodie",
-            "practice shorts": "Practice Shorts",
-            "agility cones": "Agility Cones (set of 20)",
-            "cones": "Agility Cones (set of 20)",
-            "agility ladder": "Agility Ladder",
-            "ladder": "Agility Ladder",
-            "dribble goggles": "Dribble Goggles",
-            "goggles": "Dribble Goggles",
-            "resistance bands": "Resistance Bands Set",
-            "shot arc": "Shot Arc Trainer",
-            "arc trainer": "Shot Arc Trainer",
-            "slide trainer": "Defensive Slide Trainer",
-            "defensive slide": "Defensive Slide Trainer",
-            "court shoe": "Pro Court Basketball Shoe",
-            "basketball shoe": "Pro Court Basketball Shoe",
-            "youth shoe": "Youth Basketball Shoe",
-            "training shoe": "Training Shoe",
-            "referee shoe": "Referee Shoe",
-        }
-
+        # Try to identify the product - search dynamically from inventory
+        # First get all products and check if any product name appears in the context
+        all_inventory = self.demo_store.get_all_inventory()
         product_name = None
-        for pattern, name in product_mappings.items():
-            if pattern in context:
+
+        # Sort by name length (longest first) to match more specific names first
+        sorted_items = sorted(all_inventory.items(), key=lambda x: len(x[1]['name']), reverse=True)
+
+        for sku, item in sorted_items:
+            name = item['name']
+            if name.lower() in context:
                 product_name = name
                 break
 
+        # If no exact match, try partial matching with search
         if not product_name:
-            # Try to find from the inventory
-            results = demo_store.search_inventory("")
-            for item in results:
-                if item['name'].lower() in context:
-                    product_name = item['name']
+            # Extract meaningful words from context (longer than 3 chars)
+            words = [w for w in context.split() if len(w) > 3]
+            for word in words:
+                results = self.demo_store.search_inventory(word)
+                if results:
+                    # Use the first matching product
+                    product_name = results[0]['name']
                     break
 
         if not product_name:
             return "I couldn't identify which product to update. Please specify the product name."
 
         # Get current quantity for percentage calculation
-        item = demo_store.get_inventory_by_name(product_name)
+        item = self.demo_store.get_inventory_by_name(product_name)
         if not item:
             return f"Product not found: {product_name}"
 
@@ -703,7 +654,7 @@ Return ONLY the JSON object, no other text."""
             quantity = actual_quantity
 
         # Execute the update
-        result = demo_store.update_inventory_quantity(item['sku'], quantity, operation)
+        result = self.demo_store.update_inventory_quantity(item['sku'], quantity, operation)
 
         if "error" in result:
             return f"Error: {result['error']}"
@@ -726,7 +677,7 @@ Return ONLY the JSON object, no other text."""
         # Check for discount calculation
         if any(kw in message for kw in ["discount", "calculate", "total"]):
             # Try to find customer and quantity
-            customers = demo_store.get_all_customers()
+            customers = self.demo_store.get_all_customers()
             for customer in customers.values():
                 if customer['name'].lower() in context:
                     # Found a customer, look for quantity
@@ -734,7 +685,7 @@ Return ONLY the JSON object, no other text."""
                     qty_match = re.search(r'(\d+)\s*(?:units?)?', context)
                     quantity = int(qty_match.group(1)) if qty_match else 100
 
-                    discount_info = demo_store.calculate_total_discount(customer['tier'], quantity)
+                    discount_info = self.demo_store.calculate_total_discount(customer['tier'], quantity)
                     return (
                         f"**Discount Calculation for {customer['name']}**\n\n"
                         f"- Customer Tier: {discount_info['tier']}\n"
@@ -744,20 +695,17 @@ Return ONLY the JSON object, no other text."""
                         f"- **Total Discount: {discount_info['total_discount']}%**"
                     )
 
-        # Check for specific product pricing
-        product_keywords = ["basketball", "hoop", "net", "uniform", "jersey", "shoe", "training"]
-        for keyword in product_keywords:
-            if keyword in message:
-                pricing_list = demo_store.get_pricing_by_category(
-                    "Basketballs" if keyword == "basketball" else
-                    "Hoops & Backboards" if keyword in ["hoop", "backboard"] else
-                    "Nets & Accessories" if keyword == "net" else
-                    "Uniforms & Apparel" if keyword in ["uniform", "jersey"] else
-                    "Footwear" if keyword == "shoe" else
-                    "Training Equipment"
-                )
+        # Check for specific product pricing by searching for matching categories
+        inventory = self.demo_store.get_all_inventory()
+        categories = set(item.get("category") for item in inventory.values())
+
+        for category in categories:
+            # Check if the category name or any word in it appears in the message
+            category_words = category.lower().split()
+            if any(word in message for word in category_words) or category.lower() in message:
+                pricing_list = self.demo_store.get_pricing_by_category(category)
                 if pricing_list:
-                    lines = [f"**{keyword.title()} Pricing:**\n"]
+                    lines = [f"**{category} Pricing:**\n"]
                     has_margin_access = "pricing:margin" in scopes
                     total_margin = 0
                     for item in pricing_list:
@@ -766,7 +714,7 @@ Return ONLY the JSON object, no other text."""
                             total_margin += item['margin']
                         else:
                             lines.append(f"- {item['name']}: ${item['price']:.2f}")
-                    if has_margin_access:
+                    if has_margin_access and len(pricing_list) > 0:
                         avg_margin = total_margin / len(pricing_list)
                         lines.append(f"\n**Average margin: {avg_margin:.1f}%**")
                     return "\n".join(lines)
@@ -784,8 +732,8 @@ Return ONLY the JSON object, no other text."""
                 )
 
             # Get all pricing and calculate averages by category
-            inventory = demo_store.get_all_inventory()
-            pricing = demo_store.get_all_pricing()
+            inventory = self.demo_store.get_all_inventory()
+            pricing = self.demo_store.get_all_pricing()
 
             categories = {}
             for sku, item in inventory.items():
@@ -803,9 +751,9 @@ Return ONLY the JSON object, no other text."""
             return "\n".join(lines)
 
         # Default: return discount structure
-        discounts = demo_store.get_discount_structure()
+        discounts = self.demo_store.get_discount_structure()
         return (
-            "**ProGear Basketball - Pricing & Discounts**\n\n"
+            "**Pricing & Discounts**\n\n"
             "**Tier Discounts:**\n"
             + "\n".join(f"- {tier}: {disc}%" for tier, disc in discounts.get('tier_discounts', {}).items())
             + "\n\n**Volume Discounts:**\n"
@@ -817,7 +765,7 @@ Return ONLY the JSON object, no other text."""
         """Handle customer-related actions with real data."""
 
         # Check for specific customer lookup
-        customers = demo_store.get_all_customers()
+        customers = self.demo_store.get_all_customers()
         for customer in customers.values():
             if customer['name'].lower() in context or customer['contact'].lower() in context:
                 tier_emoji = {"Platinum": "💎", "Gold": "🥇", "Silver": "🥈", "Bronze": "🥉"}.get(customer['tier'], "")
@@ -834,7 +782,7 @@ Return ONLY the JSON object, no other text."""
         # Check for tier-based query
         for tier in ["platinum", "gold", "silver", "bronze"]:
             if tier in message:
-                tier_customers = demo_store.get_customers_by_tier(tier.title())
+                tier_customers = self.demo_store.get_customers_by_tier(tier.title())
                 if tier_customers:
                     tier_emoji = {"Platinum": "💎", "Gold": "🥇", "Silver": "🥈", "Bronze": "🥉"}.get(tier.title(), "")
                     customers_sorted = sorted(tier_customers, key=lambda x: x['total_spent'], reverse=True)
@@ -847,11 +795,11 @@ Return ONLY the JSON object, no other text."""
                     return "\n".join(lines)
 
         # Default: customer summary
-        summary = demo_store.get_customer_summary()
+        summary = self.demo_store.get_customer_summary()
         tier_emoji = {"Platinum": "💎", "Gold": "🥇", "Silver": "🥈", "Bronze": "🥉"}
 
         lines = [
-            "**ProGear Basketball - Customer Summary**\n",
+            "**Customer Summary**\n",
             f"Total Customers: {summary['total_customers']}",
             f"Total Revenue: ${summary['total_revenue']:,}",
             "\n**By Tier:**"
@@ -869,15 +817,15 @@ Return ONLY the JSON object, no other text."""
         """Handle sales-related actions."""
         # Sales data is more complex - for now return summary with real customer/inventory context
 
-        summary = demo_store.get_customer_summary()
-        inv_summary = demo_store.get_inventory_summary()
+        summary = self.demo_store.get_customer_summary()
+        inv_summary = self.demo_store.get_inventory_summary()
 
         # Get top customers for orders context
-        platinum = demo_store.get_customers_by_tier("Platinum")
+        platinum = self.demo_store.get_customers_by_tier("Platinum")
         top_customer = max(platinum, key=lambda x: x['total_spent']) if platinum else None
 
         lines = [
-            "**ProGear Basketball - Sales Overview**\n",
+            "**Sales Overview**\n",
             f"Total Customer Base: {summary['total_customers']} customers",
             f"Total Revenue: ${summary['total_revenue']:,}",
             f"Inventory Value: ${inv_summary['total_value']:,.2f}",
@@ -887,7 +835,7 @@ Return ONLY the JSON object, no other text."""
             lines.append(f"\n**Top Customer:** {top_customer['name']} (${top_customer['total_spent']:,})")
 
         # Add discount info for context
-        discounts = demo_store.get_discount_structure()
+        discounts = self.demo_store.get_discount_structure()
         lines.append("\n**Available Discounts:**")
         lines.append(f"- Tier-based: up to {max(discounts.get('tier_discounts', {}).values() or [0])}%")
         lines.append(f"- Volume-based: up to {max(discounts.get('volume_discounts', {}).values() or [0])}%")
@@ -940,7 +888,7 @@ If some agents were denied, acknowledge what information is missing but focus on
 
             try:
                 response = await self.response_llm.ainvoke([
-                    SystemMessage(content="You are a helpful AI assistant for ProGear Sporting Goods."),
+                    SystemMessage(content="You are a helpful AI sales assistant."),
                     HumanMessage(content=synthesis_prompt)
                 ])
                 final_response = response.content
