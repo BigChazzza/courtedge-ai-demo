@@ -326,7 +326,7 @@ export default function Home() {
                 <div className={`flex items-start space-x-3 max-w-2xl ${msg.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                   <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
                     msg.role === 'user'
-                      ? 'bg-gradient-to-br from-candy-cyan to-candy-lime'
+                      ? 'bg-gradient-to-br from-okta-blue to-okta-blue-light'
                       : 'bg-gradient-to-br from-primary to-chocolate-primary'
                   }`}>
                     {msg.role === 'user' ? (
@@ -340,7 +340,7 @@ export default function Home() {
 
                   <div className={`rounded-xl p-4 shadow-md ${
                     msg.role === 'user'
-                      ? 'bg-gradient-to-br from-chocolate-primary to-candy-gold text-white'
+                      ? 'bg-gradient-to-br from-okta-blue to-okta-blue-light text-white'
                       : 'bg-white border-2 border-neutral-border'
                   }`}>
                     <p className={`whitespace-pre-wrap ${msg.role === 'assistant' ? 'text-gray-700' : ''}`}>
@@ -360,12 +360,12 @@ export default function Home() {
                   <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-primary to-chocolate-primary rounded-lg flex items-center justify-center">
                     <span className="text-xl animate-bounce">{currentTheme.emoji}</span>
                   </div>
-                  <div className="bg-white border-2 border-candy-pink/30 rounded-xl p-4 shadow-md">
+                  <div className="bg-white border-2 border-okta-blue/30 rounded-xl p-4 shadow-md">
                     <div className="flex items-center space-x-3">
                       <div className="flex space-x-2">
-                        <div className="w-2.5 h-2.5 bg-candy-pink rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                        <div className="w-2.5 h-2.5 bg-candy-gold rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                        <div className="w-2.5 h-2.5 bg-candy-cyan rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                        <div className="w-2.5 h-2.5 bg-okta-blue rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2.5 h-2.5 bg-okta-blue-light rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2.5 h-2.5 bg-okta-blue rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                       </div>
                       <span className="text-sm text-gray-500">Processing with AI agents...</span>
                     </div>
