@@ -102,16 +102,16 @@ export const themes: Record<ThemeType, ThemeConfig> = {
       accentLight: '#10b981',  // Light green
     },
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 30%, #10b981 70%, #059669 100%)',
+      type: 'image',
+      value: '/images/TravelWallpaper.jpg',
       overlay: 'rgba(5, 150, 105, 0.5)', // Emerald overlay
     },
-    logo: '/images/logo.png',
+    logo: '/images/TravelLogo.png',
     emoji: '✈️',
-    companyName: 'Wanderlust Travel Co',
+    companyName: 'Paradise Travels',
     industry: 'Travel & Tourism',
     tagline: 'AI-Powered Travel Planning & Booking',
-    groupPrefix: 'Wanderlust',
+    groupPrefix: 'Paradise Travels',
     exampleQuestions: [
       { text: "Can we book 20 Caribbean Paradise packages for Corporate Travel?", icon: "✈️" },
       { text: "What cruise packages do we have available?", icon: "🚢" },

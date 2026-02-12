@@ -48,9 +48,9 @@ function SignInContent() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4 relative">
             <div className="absolute inset-0 bg-okta-blue/20 blur-xl animate-pulse"></div>
-            {currentTheme.id === 'chocolate' ? (
+            {currentTheme.id === 'chocolate' || currentTheme.id === 'travel' ? (
               <Image
-                src="/images/logo.png"
+                src={currentTheme.logo}
                 alt={currentTheme.companyName}
                 width={120}
                 height={120}
