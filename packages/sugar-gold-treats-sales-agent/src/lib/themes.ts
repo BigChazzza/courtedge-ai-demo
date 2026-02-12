@@ -72,11 +72,11 @@ export const themes: Record<ThemeType, ThemeConfig> = {
       accentLight: '#8b5cf6',  // Purple
     },
     background: {
-      type: 'gradient',
-      value: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #1e3a8a 100%)',
+      type: 'image',
+      value: '/images/TechWallpaper.jpg',
       overlay: 'rgba(30, 58, 138, 0.6)', // Deep blue overlay
     },
-    logo: '/images/logo.png',
+    logo: '/images/TechStore.png',
     emoji: '💻',
     companyName: 'TechPro Solutions',
     industry: 'Technology',
