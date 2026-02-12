@@ -3,6 +3,7 @@
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
 import ThemeSelector from '@/components/ThemeSelector';
 
@@ -47,7 +48,17 @@ function SignInContent() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4 relative">
             <div className="absolute inset-0 bg-okta-blue/20 blur-xl animate-pulse"></div>
-            <span className="text-7xl relative z-10">{currentTheme.emoji}</span>
+            {currentTheme.id === 'chocolate' ? (
+              <Image
+                src="/images/logo.png"
+                alt={currentTheme.companyName}
+                width={120}
+                height={120}
+                className="relative z-10"
+              />
+            ) : (
+              <span className="text-7xl relative z-10">{currentTheme.emoji}</span>
+            )}
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-okta-blue to-okta-blue-light bg-clip-text text-transparent mb-2">
             {currentTheme.companyName}
@@ -84,16 +95,18 @@ function SignInContent() {
           </div>
         )}
 
-        {/* Sign In Button - Chocolate Theme */}
+        {/* Sign In Button */}
         <button
           onClick={handleSignIn}
-          className="w-full bg-gradient-to-r from-chocolate-primary to-candy-gold hover:from-candy-gold hover:to-chocolate-primary text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-xl shadow-lg flex items-center justify-center space-x-3 border-b-4 border-chocolate-dark/50"
+          className="w-full bg-gradient-to-r from-okta-blue to-okta-blue-light hover:from-okta-blue-light hover:to-okta-blue text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-xl shadow-lg flex items-center justify-center space-x-3 border-b-4 border-okta-blue/50"
         >
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2"/>
-                     
-            <path d="M12 2v20M2 12h20" stroke="currentColor" strokeWidth="1.5"/>
-          </svg>
+          <Image
+            src="/images/Okta_Aura Logomark_Black_RGB.png"
+            alt="Okta"
+            width={24}
+            height={24}
+            className="brightness-0 invert"
+          />
           <span className="text-lg">Sign in with Okta</span>
         </button>
 
@@ -146,7 +159,7 @@ function SignInContent() {
         {/* Footer */}
         <div className="mt-6 pt-6 border-t-2 border-candy-gold/20">
           <div className="flex items-center justify-center text-xs text-gray-500">
-            <span>Sugar & Gold Treats - Enterprise Sales Platform</span>
+            <span>{currentTheme.companyName} - Enterprise Sales Platform</span>
           </div>
         </div>
       </div>
@@ -163,7 +176,14 @@ export default function SignIn() {
           style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #4A2C2A 100%)' }}
         />
         <div className="relative z-10 flex flex-col items-center space-y-4">
-          <span className="text-6xl animate-bounce">🍫</span>
+          <div className="animate-bounce">
+            <Image
+              src="/images/logo.png"
+              alt="Loading"
+              width={80}
+              height={80}
+            />
+          </div>
           <div className="text-white text-xl font-display">Loading...</div>
         </div>
       </div>
