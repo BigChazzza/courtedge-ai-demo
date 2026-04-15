@@ -35,7 +35,7 @@ export default function XAAPage() {
   // Extract user info
   const userName = session?.user?.name || 'Sarah Sales';
   const userEmail = session?.user?.email || `sarah.sales@${currentTheme.companyName.toLowerCase().replace(/\s+/g, '-')}.demo`;
-  const userGroups = (session?.user as any)?.groups || [];
+  const userGroups: string[] = (session?.user as any)?.groups || [];
 
   // Load last user message for context
   const [lastUserMessage, setLastUserMessage] = useState<string>('');
@@ -78,7 +78,7 @@ export default function XAAPage() {
     }
 
     // Sales group gets access to inventory, sales, customer, and pricing read
-    const allowedScopes = requestedScopes.filter(scope =>
+    const allowedScopes = requestedScopes.filter((scope: string) =>
       scope.includes('inventory') ||
       scope.includes('sales') ||
       scope.includes('customer') ||
@@ -179,7 +179,7 @@ export default function XAAPage() {
     ];
 
     // Add logs progressively with timing
-    steps.forEach((log, index) => {
+    steps.forEach((log: TokenExchangeLog, index: number) => {
       setTimeout(() => {
         setLogs(prev => {
           const updated = [...prev];
@@ -361,7 +361,7 @@ export default function XAAPage() {
                     <div className="text-xs text-gray-500 mb-2">Your Groups:</div>
                     {userGroups.length > 0 ? (
                       <div className="space-y-1">
-                        {userGroups.map((group, idx) => (
+                        {userGroups.map((group: string, idx: number) => (
                           <div key={idx} className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                             <span className="font-mono text-xs text-gray-700">{group}</span>
@@ -488,7 +488,7 @@ export default function XAAPage() {
               <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-300 -translate-y-1/2"></div>
 
               <div className="relative flex justify-between items-center">
-                {['OIDC Flow', 'ID Token', 'ID-JAG', 'Policy Check', 'Access Token', 'API Call'].map((label, idx) => (
+                {['OIDC Flow', 'ID Token', 'ID-JAG', 'Policy Check', 'Access Token', 'API Call'].map((label: string, idx: number) => (
                   <div key={idx} className="flex flex-col items-center">
                     <div
                       className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold transition-all duration-300 ${
@@ -529,7 +529,7 @@ export default function XAAPage() {
                   <p className="text-sm">Click "Start Flow" to begin token exchange simulation</p>
                 </div>
               ) : (
-                logs.map((log, idx) => {
+                logs.map((log: TokenExchangeLog, idx: number) => {
                   const colors = getStepColor(log.type, log.status);
                   const isDenied = log.status === 'denied';
                   return (
@@ -599,7 +599,7 @@ export default function XAAPage() {
                         <div className="mt-3">
                           <div className="text-xs font-semibold text-gray-600 mb-1">Requested Scopes:</div>
                           <div className="flex flex-wrap gap-1">
-                            {log.scopesRequested.map((scope, sIdx) => (
+                            {log.scopesRequested.map((scope: string, sIdx: number) => (
                               <span
                                 key={sIdx}
                                 className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded font-mono border border-blue-300"
@@ -615,7 +615,7 @@ export default function XAAPage() {
                         <div className="mt-2">
                           <div className="text-xs font-semibold text-gray-600 mb-1">Granted Scopes:</div>
                           <div className="flex flex-wrap gap-1">
-                            {log.scopesGranted.map((scope, sIdx) => (
+                            {log.scopesGranted.map((scope: string, sIdx: number) => (
                               <span
                                 key={sIdx}
                                 className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded font-mono border border-green-300"
