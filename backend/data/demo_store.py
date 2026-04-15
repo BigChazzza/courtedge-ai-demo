@@ -31,6 +31,10 @@ THEME_DATA_FILES = {
     'travel': {
         'initial': DATA_DIR / "travel-data.json",
         'live': DATA_DIR / "travel-live-data.json"
+    },
+    'modbot': {
+        'initial': DATA_DIR / "modbot-data.json",
+        'live': DATA_DIR / "modbot-live-data.json"
     }
 }
 

@@ -1,0 +1,274 @@
+{
+  "inventory": {
+    "AI-AGT-ENT": {
+      "name": "Enterprise AI Agent License",
+      "sku": "AI-AGT-ENT",
+      "category": "AI Agents",
+      "quantity": 500,
+      "status": "good",
+      "reorder_point": 100
+    },
+    "AI-AGT-PRO": {
+      "name": "Professional AI Agent License",
+      "sku": "AI-AGT-PRO",
+      "category": "AI Agents",
+      "quantity": 1200,
+      "status": "good",
+      "reorder_point": 200
+    },
+    "AI-AGT-STD": {
+      "name": "Standard AI Agent License",
+      "sku": "AI-AGT-STD",
+      "category": "AI Agents",
+      "quantity": 2500,
+      "status": "good",
+      "reorder_point": 500
+    },
+    "AI-AGT-DEV": {
+      "name": "Developer AI Agent License",
+      "sku": "AI-AGT-DEV",
+      "category": "AI Agents",
+      "quantity": 5000,
+      "status": "good",
+      "reorder_point": 1000
+    },
+    "ML-MOD-CVS": {
+      "name": "Computer Vision Model Suite",
+      "sku": "ML-MOD-CVS",
+      "category": "ML Models",
+      "quantity": 45,
+      "status": "low",
+      "reorder_point": 50
+    },
+    "ML-MOD-NLP": {
+      "name": "Natural Language Processing Model",
+      "sku": "ML-MOD-NLP",
+      "category": "ML Models",
+      "quantity": 67,
+      "status": "good",
+      "reorder_point": 30
+    },
+    "ML-MOD-PRD": {
+      "name": "Predictive Analytics Model",
+      "sku": "ML-MOD-PRD",
+      "category": "ML Models",
+      "quantity": 89,
+      "status": "good",
+      "reorder_point": 40
+    },
+    "ML-MOD-SEN": {
+      "name": "Sentiment Analysis Model",
+      "sku": "ML-MOD-SEN",
+      "category": "ML Models",
+      "quantity": 134,
+      "status": "good",
+      "reorder_point": 50
+    },
+    "AUT-WRK-ENT": {
+      "name": "Enterprise Workflow Automation",
+      "sku": "AUT-WRK-ENT",
+      "category": "Automation",
+      "quantity": 78,
+      "status": "good",
+      "reorder_point": 30
+    },
+    "AUT-RPA-STD": {
+      "name": "RPA Bot Standard Package",
+      "sku": "AUT-RPA-STD",
+      "category": "Automation",
+      "quantity": 156,
+      "status": "good",
+      "reorder_point": 50
+    },
+    "AUT-INT-API": {
+      "name": "API Integration Service",
+      "sku": "AUT-INT-API",
+      "category": "Automation",
+      "quantity": 234,
+      "status": "good",
+      "reorder_point": 75
+    },
+    "CON-IMP-FUL": {
+      "name": "Full AI Implementation Package",
+      "sku": "CON-IMP-FUL",
+      "category": "Consulting",
+      "quantity": 24,
+      "status": "low",
+      "reorder_point": 25
+    },
+    "CON-STR-ENT": {
+      "name": "AI Strategy Consulting Enterprise",
+      "sku": "CON-STR-ENT",
+      "category": "Consulting",
+      "quantity": 45,
+      "status": "good",
+      "reorder_point": 20
+    },
+    "CON-TRN-PRO": {
+      "name": "AI Training Program Professional",
+      "sku": "CON-TRN-PRO",
+      "category": "Consulting",
+      "quantity": 89,
+      "status": "good",
+      "reorder_point": 30
+    },
+    "SUP-PRE-PLT": {
+      "name": "Premium Support Platinum",
+      "sku": "SUP-PRE-PLT",
+      "category": "Support",
+      "quantity": 123,
+      "status": "good",
+      "reorder_point": 40
+    },
+    "SUP-PRE-GLD": {
+      "name": "Premium Support Gold",
+      "sku": "SUP-PRE-GLD",
+      "category": "Support",
+      "quantity": 234,
+      "status": "good",
+      "reorder_point": 75
+    },
+    "DAT-PLT-ENT": {
+      "name": "Enterprise Data Platform",
+      "sku": "DAT-PLT-ENT",
+      "category": "Data Platform",
+      "quantity": 34,
+      "status": "low",
+      "reorder_point": 35
+    },
+    "DAT-VIZ-PRO": {
+      "name": "Advanced Analytics & Visualization",
+      "sku": "DAT-VIZ-PRO",
+      "category": "Data Platform",
+      "quantity": 156,
+      "status": "good",
+      "reorder_point": 50
+    },
+    "DAT-ETL-STD": {
+      "name": "ETL Pipeline Standard",
+      "sku": "DAT-ETL-STD",
+      "category": "Data Platform",
+      "quantity": 234,
+      "status": "good",
+      "reorder_point": 75
+    },
+    "DAT-WAR-CLO": {
+      "name": "Cloud Data Warehouse",
+      "sku": "DAT-WAR-CLO",
+      "category": "Data Platform",
+      "quantity": 112,
+      "status": "good",
+      "reorder_point": 40
+    }
+  },
+  "pricing": {
+    "AI-AGT-ENT": { "price": 2499.00, "cost": 750.00, "margin": 70.0 },
+    "AI-AGT-PRO": { "price": 999.00, "cost": 300.00, "margin": 70.0 },
+    "AI-AGT-STD": { "price": 499.00, "cost": 150.00, "margin": 70.0 },
+    "AI-AGT-DEV": { "price": 199.00, "cost": 60.00, "margin": 70.0 },
+    "ML-MOD-CVS": { "price": 12999.00, "cost": 3900.00, "margin": 70.0 },
+    "ML-MOD-NLP": { "price": 9999.00, "cost": 3000.00, "margin": 70.0 },
+    "ML-MOD-PRD": { "price": 7999.00, "cost": 2400.00, "margin": 70.0 },
+    "ML-MOD-SEN": { "price": 4999.00, "cost": 1500.00, "margin": 70.0 },
+    "AUT-WRK-ENT": { "price": 15999.00, "cost": 4800.00, "margin": 70.0 },
+    "AUT-RPA-STD": { "price": 5999.00, "cost": 1800.00, "margin": 70.0 },
+    "AUT-INT-API": { "price": 3999.00, "cost": 1200.00, "margin": 70.0 },
+    "CON-IMP-FUL": { "price": 49999.00, "cost": 15000.00, "margin": 70.0 },
+    "CON-STR-ENT": { "price": 24999.00, "cost": 7500.00, "margin": 70.0 },
+    "CON-TRN-PRO": { "price": 9999.00, "cost": 3000.00, "margin": 70.0 },
+    "SUP-PRE-PLT": { "price": 7999.00, "cost": 2400.00, "margin": 70.0 },
+    "SUP-PRE-GLD": { "price": 4999.00, "cost": 1500.00, "margin": 70.0 },
+    "DAT-PLT-ENT": { "price": 19999.00, "cost": 6000.00, "margin": 70.0 },
+    "DAT-VIZ-PRO": { "price": 6999.00, "cost": 2100.00, "margin": 70.0 },
+    "DAT-ETL-STD": { "price": 4999.00, "cost": 1500.00, "margin": 70.0 },
+    "DAT-WAR-CLO": { "price": 8999.00, "cost": 2700.00, "margin": 70.0 }
+  },
+  "customers": {
+    "CUST-AI-001": {
+      "id": "CUST-AI-001",
+      "name": "Global Finance Corp",
+      "contact": "Alexandra Chen",
+      "email": "alexandra.chen@globalfinance.com",
+      "tier": "Platinum",
+      "total_spent": 487500,
+      "location": "New York, NY"
+    },
+    "CUST-AI-002": {
+      "id": "CUST-AI-002",
+      "name": "TechVentures Inc",
+      "contact": "Marcus Rodriguez",
+      "email": "marcus@techventures.io",
+      "tier": "Platinum",
+      "total_spent": 523400,
+      "location": "San Francisco, CA"
+    },
+    "CUST-AI-003": {
+      "id": "CUST-AI-003",
+      "name": "Healthcare Systems International",
+      "contact": "Dr. Sarah Mitchell",
+      "email": "smitchell@healthsys.com",
+      "tier": "Platinum",
+      "total_spent": 395800,
+      "location": "Boston, MA"
+    },
+    "CUST-AI-004": {
+      "id": "CUST-AI-004",
+      "name": "Retail Analytics Solutions",
+      "contact": "David Park",
+      "email": "dpark@retailanalytics.com",
+      "tier": "Platinum",
+      "total_spent": 421200,
+      "location": "Seattle, WA"
+    },
+    "CUST-AI-005": {
+      "id": "CUST-AI-005",
+      "name": "Manufacturing Intelligence Co",
+      "contact": "Jennifer Williams",
+      "email": "jwilliams@mfgintel.com",
+      "tier": "Gold",
+      "total_spent": 78900,
+      "location": "Detroit, MI"
+    },
+    "CUST-AI-006": {
+      "id": "CUST-AI-006",
+      "name": "E-Commerce Platform Partners",
+      "contact": "Ryan Thompson",
+      "email": "rthompson@ecomplatform.com",
+      "tier": "Gold",
+      "total_spent": 67200,
+      "location": "Austin, TX"
+    },
+    "CUST-AI-007": {
+      "id": "CUST-AI-007",
+      "name": "Smart City Infrastructure",
+      "contact": "Maria Garcia",
+      "email": "mgarcia@smartcity.gov",
+      "tier": "Gold",
+      "total_spent": 54300,
+      "location": "Phoenix, AZ"
+    },
+    "CUST-AI-008": {
+      "id": "CUST-AI-008",
+      "name": "Insurance Tech Innovations",
+      "contact": "James Anderson",
+      "email": "janderson@insuretech.com",
+      "tier": "Silver",
+      "total_spent": 28700,
+      "location": "Chicago, IL"
+    }
+  },
+  "discounts": {
+    "tier_discounts": {
+      "Platinum": 5,
+      "Gold": 3,
+      "Silver": 1,
+      "Bronze": 0
+    },
+    "volume_discounts": {
+      "10": 5,
+      "50": 10,
+      "100": 15,
+      "500": 20
+    }
+  }
+}

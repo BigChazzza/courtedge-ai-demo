@@ -66,6 +66,46 @@ const products = [
   { id: 'CG-EXE-001', name: 'Executive Gift Box Premium', category: 'Corporate Gifts', subcategory: 'Executive', price: 149.99, cost: 60.00, stock: 312, reorderPoint: 50, supplier: 'Godiva' },
   { id: 'CG-EVT-001', name: 'Event Favor Boxes (Set of 50)', category: 'Corporate Gifts', subcategory: 'Events', price: 199.99, cost: 80.00, stock: 156, reorderPoint: 30, supplier: 'Ferrero Rocher' },
   { id: 'CG-THK-001', name: 'Thank You Gift Box', category: 'Corporate Gifts', subcategory: 'Thank You', price: 54.99, cost: 22.00, stock: 1234, reorderPoint: 250, supplier: 'Lindt' },
+
+  // ============================================================================
+  // modBOT AI SOLUTIONS DATA
+  // ============================================================================
+
+  // AI Agent Licenses
+  { id: 'AI-AGT-ENT', name: 'Enterprise AI Agent License', category: 'AI Agents', subcategory: 'Enterprise', price: 2499.00, cost: 750.00, stock: 500, reorderPoint: 100, supplier: 'Anthropic' },
+  { id: 'AI-AGT-PRO', name: 'Professional AI Agent License', category: 'AI Agents', subcategory: 'Professional', price: 999.00, cost: 300.00, stock: 1200, reorderPoint: 200, supplier: 'Anthropic' },
+  { id: 'AI-AGT-STD', name: 'Standard AI Agent License', category: 'AI Agents', subcategory: 'Standard', price: 499.00, cost: 150.00, stock: 2500, reorderPoint: 500, supplier: 'Anthropic' },
+  { id: 'AI-AGT-DEV', name: 'Developer AI Agent License', category: 'AI Agents', subcategory: 'Developer', price: 199.00, cost: 60.00, stock: 5000, reorderPoint: 1000, supplier: 'Anthropic' },
+
+  // ML Models & Services
+  { id: 'ML-MOD-CVS', name: 'Computer Vision Model Suite', category: 'ML Models', subcategory: 'Computer Vision', price: 12999.00, cost: 3900.00, stock: 45, reorderPoint: 10, supplier: 'OpenAI' },
+  { id: 'ML-MOD-NLP', name: 'Natural Language Processing Model', category: 'ML Models', subcategory: 'NLP', price: 9999.00, cost: 3000.00, stock: 67, reorderPoint: 15, supplier: 'Google Cloud AI' },
+  { id: 'ML-MOD-PRD', name: 'Predictive Analytics Model', category: 'ML Models', subcategory: 'Analytics', price: 7999.00, cost: 2400.00, stock: 89, reorderPoint: 20, supplier: 'AWS SageMaker' },
+  { id: 'ML-MOD-SEN', name: 'Sentiment Analysis Model', category: 'ML Models', subcategory: 'Sentiment', price: 4999.00, cost: 1500.00, stock: 134, reorderPoint: 30, supplier: 'Azure AI' },
+
+  // Automation Services
+  { id: 'AUT-WRK-ENT', name: 'Enterprise Workflow Automation', category: 'Automation', subcategory: 'Workflow', price: 15999.00, cost: 4800.00, stock: 78, reorderPoint: 15, supplier: 'UiPath' },
+  { id: 'AUT-RPA-STD', name: 'RPA Bot Standard Package', category: 'Automation', subcategory: 'RPA', price: 5999.00, cost: 1800.00, stock: 156, reorderPoint: 30, supplier: 'Automation Anywhere' },
+  { id: 'AUT-INT-API', name: 'API Integration Service', category: 'Automation', subcategory: 'Integration', price: 3999.00, cost: 1200.00, stock: 234, reorderPoint: 50, supplier: 'MuleSoft' },
+  { id: 'AUT-SCH-PRO', name: 'Process Scheduler Pro', category: 'Automation', subcategory: 'Scheduling', price: 1999.00, cost: 600.00, stock: 445, reorderPoint: 100, supplier: 'Apache Airflow' },
+
+  // Consulting & Implementation
+  { id: 'CON-IMP-FUL', name: 'Full AI Implementation Package', category: 'Consulting', subcategory: 'Implementation', price: 49999.00, cost: 15000.00, stock: 24, reorderPoint: 5, supplier: 'Deloitte AI' },
+  { id: 'CON-STR-ENT', name: 'AI Strategy Consulting Enterprise', category: 'Consulting', subcategory: 'Strategy', price: 24999.00, cost: 7500.00, stock: 45, reorderPoint: 10, supplier: 'McKinsey Digital' },
+  { id: 'CON-TRN-PRO', name: 'AI Training Program Professional', category: 'Consulting', subcategory: 'Training', price: 9999.00, cost: 3000.00, stock: 89, reorderPoint: 20, supplier: 'Coursera Enterprise' },
+  { id: 'CON-AUD-SEC', name: 'AI Security Audit Service', category: 'Consulting', subcategory: 'Security', price: 14999.00, cost: 4500.00, stock: 67, reorderPoint: 15, supplier: 'CrowdStrike AI' },
+
+  // Support & Maintenance
+  { id: 'SUP-PRE-PLT', name: 'Premium Support Platinum', category: 'Support', subcategory: 'Premium', price: 7999.00, cost: 2400.00, stock: 123, reorderPoint: 25, supplier: 'modBOT Support' },
+  { id: 'SUP-PRE-GLD', name: 'Premium Support Gold', category: 'Support', subcategory: 'Premium', price: 4999.00, cost: 1500.00, stock: 234, reorderPoint: 50, supplier: 'modBOT Support' },
+  { id: 'SUP-STD-ANN', name: 'Standard Support Annual', category: 'Support', subcategory: 'Standard', price: 1999.00, cost: 600.00, stock: 567, reorderPoint: 100, supplier: 'modBOT Support' },
+  { id: 'SUP-MNT-ENT', name: 'Enterprise Maintenance Contract', category: 'Support', subcategory: 'Maintenance', price: 12999.00, cost: 3900.00, stock: 89, reorderPoint: 20, supplier: 'modBOT Support' },
+
+  // Data & Analytics
+  { id: 'DAT-PLT-ENT', name: 'Enterprise Data Platform', category: 'Data Platform', subcategory: 'Enterprise', price: 19999.00, cost: 6000.00, stock: 34, reorderPoint: 10, supplier: 'Snowflake' },
+  { id: 'DAT-VIZ-PRO', name: 'Advanced Analytics & Visualization', category: 'Data Platform', subcategory: 'Visualization', price: 6999.00, cost: 2100.00, stock: 156, reorderPoint: 30, supplier: 'Tableau' },
+  { id: 'DAT-ETL-STD', name: 'ETL Pipeline Standard', category: 'Data Platform', subcategory: 'ETL', price: 4999.00, cost: 1500.00, stock: 234, reorderPoint: 50, supplier: 'Fivetran' },
+  { id: 'DAT-WAR-CLO', name: 'Cloud Data Warehouse', category: 'Data Platform', subcategory: 'Warehouse', price: 8999.00, cost: 2700.00, stock: 112, reorderPoint: 25, supplier: 'BigQuery' },
 ];
 
 // CUSTOMERS - Chocolate Retailers & Business Buyers
@@ -89,6 +129,31 @@ const customers = [
   // Bronze Tier (<$8,500)
   { id: 'CUST-019', name: 'Corner Store Sweets', tier: 'Bronze', territory: 'Central', contact: 'Nancy Williams', email: 'nancy@cornerstoresweets.com', phone: '555-0119', totalOrders: 18, lifetimeValue: 4800, lastOrder: '2024-10-20', paymentTerms: 'Prepaid' },
   { id: 'CUST-020', name: 'Local Chocolate Co', tier: 'Bronze', territory: 'West', contact: 'Brian Thompson', email: 'brian@localchocolate.com', phone: '555-0120', totalOrders: 12, lifetimeValue: 4100, lastOrder: '2024-09-15', paymentTerms: 'Prepaid' },
+
+  // ============================================================================
+  // modBOT AI SOLUTIONS CUSTOMERS
+  // ============================================================================
+
+  // Platinum Tier (>$95,000 lifetime)
+  { id: 'CUST-AI-001', name: 'Global Finance Corp', tier: 'Platinum', territory: 'East', contact: 'Alexandra Chen', email: 'alexandra.chen@globalfinance.com', phone: '555-2001', totalOrders: 156, lifetimeValue: 487500, lastOrder: '2024-12-14', paymentTerms: 'Net 60' },
+  { id: 'CUST-AI-002', name: 'TechVentures Inc', tier: 'Platinum', territory: 'West', contact: 'Marcus Rodriguez', email: 'marcus@techventures.io', phone: '555-2002', totalOrders: 203, lifetimeValue: 523400, lastOrder: '2024-12-12', paymentTerms: 'Net 60' },
+  { id: 'CUST-AI-003', name: 'Healthcare Systems International', tier: 'Platinum', territory: 'Central', contact: 'Dr. Sarah Mitchell', email: 'smitchell@healthsys.com', phone: '555-2003', totalOrders: 134, lifetimeValue: 395800, lastOrder: '2024-12-10', paymentTerms: 'Net 45' },
+  { id: 'CUST-AI-004', name: 'Retail Analytics Solutions', tier: 'Platinum', territory: 'West', contact: 'David Park', email: 'dpark@retailanalytics.com', phone: '555-2004', totalOrders: 189, lifetimeValue: 421200, lastOrder: '2024-12-08', paymentTerms: 'Net 60' },
+
+  // Gold Tier ($38,000 - $95,000)
+  { id: 'CUST-AI-005', name: 'Manufacturing Intelligence Co', tier: 'Gold', territory: 'Central', contact: 'Jennifer Williams', email: 'jwilliams@mfgintel.com', phone: '555-2005', totalOrders: 87, lifetimeValue: 78900, lastOrder: '2024-12-05', paymentTerms: 'Net 45' },
+  { id: 'CUST-AI-006', name: 'E-Commerce Platform Partners', tier: 'Gold', territory: 'East', contact: 'Ryan Thompson', email: 'rthompson@ecomplatform.com', phone: '555-2006', totalOrders: 92, lifetimeValue: 67200, lastOrder: '2024-12-03', paymentTerms: 'Net 30' },
+  { id: 'CUST-AI-007', name: 'Smart City Infrastructure', tier: 'Gold', territory: 'West', contact: 'Maria Garcia', email: 'mgarcia@smartcity.gov', phone: '555-2007', totalOrders: 67, lifetimeValue: 54300, lastOrder: '2024-11-28', paymentTerms: 'Net 45' },
+  { id: 'CUST-AI-008', name: 'Insurance Tech Innovations', tier: 'Gold', territory: 'Central', contact: 'James Anderson', email: 'janderson@insuretech.com', phone: '555-2008', totalOrders: 78, lifetimeValue: 49800, lastOrder: '2024-11-25', paymentTerms: 'Net 30' },
+
+  // Silver Tier ($8,500 - $38,000)
+  { id: 'CUST-AI-011', name: 'Regional Bank Digital', tier: 'Silver', territory: 'East', contact: 'Lisa Nguyen', email: 'lnguyen@regionalbank.com', phone: '555-2011', totalOrders: 45, lifetimeValue: 28700, lastOrder: '2024-11-15', paymentTerms: 'Net 30' },
+  { id: 'CUST-AI-012', name: 'Education Tech Solutions', tier: 'Silver', territory: 'Central', contact: 'Kevin Brooks', email: 'kbrooks@edutech.com', phone: '555-2012', totalOrders: 56, lifetimeValue: 23400, lastOrder: '2024-11-12', paymentTerms: 'Net 30' },
+  { id: 'CUST-AI-013', name: 'Supply Chain Optimizer', tier: 'Silver', territory: 'West', contact: 'Emily Taylor', email: 'etaylor@supplyopt.com', phone: '555-2013', totalOrders: 34, lifetimeValue: 19800, lastOrder: '2024-11-08', paymentTerms: 'Net 15' },
+
+  // Bronze Tier (<$8,500)
+  { id: 'CUST-AI-019', name: 'Startup Hub Ventures', tier: 'Bronze', territory: 'West', contact: 'Alex Johnson', email: 'ajohnson@startuphub.io', phone: '555-2019', totalOrders: 12, lifetimeValue: 6700, lastOrder: '2024-10-20', paymentTerms: 'Prepaid' },
+  { id: 'CUST-AI-020', name: 'Local Government AI Initiative', tier: 'Bronze', territory: 'Central', contact: 'Patricia Martinez', email: 'pmartinez@localgov.org', phone: '555-2020', totalOrders: 8, lifetimeValue: 4200, lastOrder: '2024-09-15', paymentTerms: 'Net 30' },
 ];
 
 // ORDERS - Recent Orders
@@ -98,6 +163,13 @@ const orders = [
   { id: 'ORD-2024-003', customerId: 'CUST-004', customer: 'Riverside Youth chocolate League', items: [{ productId: 'BB-YTH-001', qty: 100, price: 34.99 }, { productId: 'TRN-CON-001', qty: 10, price: 29.99 }], subtotal: 3798.90, discount: 189.95, total: 3608.95, status: 'pending', orderDate: '2024-12-14', shipDate: null },
   { id: 'ORD-2024-004', customerId: 'CUST-002', customer: 'City Pro chocolate Academy', items: [{ productId: 'HP-COL-001', qty: 4, price: 899.99 }, { productId: 'BB-PRO-002', qty: 30, price: 89.99 }], subtotal: 6299.66, discount: 629.97, total: 5669.69, status: 'shipped', orderDate: '2024-12-08', shipDate: '2024-12-11' },
   { id: 'ORD-2024-005', customerId: 'CUST-006', customer: 'Eastside High School', items: [{ productId: 'UNI-WRM-001', qty: 25, price: 129.99 }], subtotal: 3249.75, discount: 324.98, total: 2924.77, status: 'delivered', orderDate: '2024-12-01', shipDate: '2024-12-03' },
+
+  // modBOT AI Solutions Orders
+  { id: 'ORD-AI-2024-001', customerId: 'CUST-AI-001', customer: 'Global Finance Corp', items: [{ productId: 'AI-AGT-ENT', qty: 50, price: 2499.00 }, { productId: 'SUP-PRE-PLT', qty: 1, price: 7999.00 }], subtotal: 132949.00, discount: 13294.90, total: 119654.10, status: 'shipped', orderDate: '2024-12-10', shipDate: '2024-12-12' },
+  { id: 'ORD-AI-2024-002', customerId: 'CUST-AI-002', customer: 'TechVentures Inc', items: [{ productId: 'ML-MOD-CVS', qty: 3, price: 12999.00 }, { productId: 'CON-TRN-PRO', qty: 2, price: 9999.00 }], subtotal: 58995.00, discount: 5899.50, total: 53095.50, status: 'processing', orderDate: '2024-12-12', shipDate: null },
+  { id: 'ORD-AI-2024-003', customerId: 'CUST-AI-003', customer: 'Healthcare Systems International', items: [{ productId: 'DAT-PLT-ENT', qty: 2, price: 19999.00 }, { productId: 'AUT-WRK-ENT', qty: 1, price: 15999.00 }], subtotal: 55997.00, discount: 5599.70, total: 50397.30, status: 'pending', orderDate: '2024-12-14', shipDate: null },
+  { id: 'ORD-AI-2024-004', customerId: 'CUST-AI-004', customer: 'Retail Analytics Solutions', items: [{ productId: 'AI-AGT-PRO', qty: 100, price: 999.00 }, { productId: 'ML-MOD-NLP', qty: 2, price: 9999.00 }], subtotal: 119898.00, discount: 17984.70, total: 101913.30, status: 'shipped', orderDate: '2024-12-08', shipDate: '2024-12-11' },
+  { id: 'ORD-AI-2024-005', customerId: 'CUST-AI-005', customer: 'Manufacturing Intelligence Co', items: [{ productId: 'AUT-RPA-STD', qty: 10, price: 5999.00 }], subtotal: 59990.00, discount: 5999.00, total: 53991.00, status: 'delivered', orderDate: '2024-12-01', shipDate: '2024-12-03' },
 ];
 
 // PRICING - Discount Tiers
