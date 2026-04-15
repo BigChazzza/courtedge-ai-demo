@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { ChevronDown, ChevronRight, Shield, Key, Users, Server, ArrowRight, CheckCircle, XCircle, Cpu, Lock, GitBranch, Database, Activity, Bot } from 'lucide-react';
 import OktaSystemLog from '@/components/OktaSystemLog';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface CollapsibleSectionProps {
   title: string;
@@ -14,7 +15,7 @@ interface CollapsibleSectionProps {
   defaultOpen?: boolean;
 }
 
-function CollapsibleSection({ title, subtitle, icon, children, defaultOpen = false }: CollapsibleSectionProps) {
+function CollapsibleSection({ title, subtitle, icon, children, defaultOpen = false, themeColors }: CollapsibleSectionProps & { themeColors: { primary: string; secondary: string } }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
@@ -24,7 +25,12 @@ function CollapsibleSection({ title, subtitle, icon, children, defaultOpen = fal
         className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/50 transition"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-okta-blue to-tech-purple flex items-center justify-center text-white">
+          <div
+            className="w-10 h-10 rounded-lg flex items-center justify-center text-white"
+            style={{
+              background: `linear-gradient(to bottom right, ${themeColors.primary}, ${themeColors.secondary})`
+            }}
+          >
             {icon}
           </div>
           <div className="text-left">
@@ -41,27 +47,51 @@ function CollapsibleSection({ title, subtitle, icon, children, defaultOpen = fal
 
 export default function ArchitecturePage() {
   const { data: session } = useSession();
+  const { currentTheme } = useTheme();
 
   // Extract user info from session for live token display
   const userSub = (session?.user as { sub?: string })?.sub || '00u8xdeptoh4cK9pG0g7';
   const userName = session?.user?.name || 'Sarah Sales';
-  const userEmail = session?.user?.email || 'sarah.sales@sugar-gold-treats.demo';
+  const userEmail = session?.user?.email || `sarah.sales@${currentTheme.companyName.toLowerCase().replace(/\s+/g, '-')}.demo`;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <main
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: currentTheme.background.type === 'gradient'
+          ? currentTheme.background.value
+          : undefined
+      }}
+    >
+      {currentTheme.background.type === 'image' && (
+        <>
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${currentTheme.background.value})` }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: currentTheme.background.overlay }}
+          />
+        </>
+      )}
+      <div className="relative z-10">
       {/* Header */}
       <header className="bg-black/30 backdrop-blur-md border-b border-white/10">
         <div className="px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <span className="text-5xl">🍫</span>
+            <span className="text-5xl">{currentTheme.emoji}</span>
             <div>
-              <h1 className="text-white text-2xl font-bold">Sugar & Gold Treats</h1>
+              <h1 className="text-white text-2xl font-bold">{currentTheme.companyName}</h1>
               <p className="text-gray-400 text-sm">Architecture & Security Overview</p>
             </div>
           </div>
           <Link
             href="/"
-            className="px-5 py-2.5 bg-gradient-to-r from-candy-cyan to-candy-lime hover:from-candy-lime hover:to-candy-cyan text-white rounded-lg transition font-semibold shadow-lg"
+            className="px-5 py-2.5 text-white rounded-lg transition font-semibold shadow-lg hover:opacity-90"
+            style={{
+              background: `linear-gradient(to right, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`
+            }}
           >
             Back to Chat
           </Link>
@@ -75,6 +105,7 @@ export default function ArchitecturePage() {
           subtitle="Sample audit logs from Okta System Log"
           icon={<Activity className="w-5 h-5" />}
           defaultOpen={true}
+          themeColors={{ primary: currentTheme.colors.primary, secondary: currentTheme.colors.secondary }}
         >
           <OktaSystemLog />
         </CollapsibleSection>
@@ -85,6 +116,7 @@ export default function ArchitecturePage() {
           subtitle="How the system works together"
           icon={<GitBranch className="w-5 h-5" />}
           defaultOpen={true}
+          themeColors={{ primary: currentTheme.colors.primary, secondary: currentTheme.colors.secondary }}
         >
           <div className="mt-4">
             {/* Redesigned Architecture Flow */}
@@ -170,22 +202,28 @@ export default function ArchitecturePage() {
                 <ArrowRight className="w-5 h-5 text-gray-400 rotate-90" />
               </div>
 
-              {/* Step 4: Sugar & Gold Treats Sales Agent + ID-JAG Exchange (Okta Governance) */}
+              {/* Step 4: Sales Agent + ID-JAG Exchange (Okta Governance) */}
               <div className="mb-4">
-                <div className="flex items-center gap-2 text-xs text-okta-blue font-semibold mb-2">
-                  <span className="w-5 h-5 rounded-full bg-okta-blue flex items-center justify-center text-white text-[10px]">4</span>
-                  PROGEAR SALES AGENT — ID-JAG TOKEN EXCHANGE
-                  <Shield className="w-4 h-4 text-okta-blue ml-1" />
-                  <span className="text-[10px] text-okta-blue font-normal">Okta Governance</span>
+                <div className="flex items-center gap-2 text-xs font-semibold mb-2" style={{ color: currentTheme.colors.primary }}>
+                  <span className="w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px]" style={{ backgroundColor: currentTheme.colors.primary }}>4</span>
+                  {currentTheme.companyName.toUpperCase()} SALES AGENT — ID-JAG TOKEN EXCHANGE
+                  <Shield className="w-4 h-4 ml-1" style={{ color: currentTheme.colors.primary }} />
+                  <span className="text-[10px] font-normal" style={{ color: currentTheme.colors.primary }}>Okta Governance</span>
                 </div>
-                <div className="bg-gradient-to-r from-okta-blue to-blue-700 text-white rounded-xl shadow-lg overflow-hidden border-2 border-okta-blue/50">
+                <div
+                  className="text-white rounded-xl shadow-lg overflow-hidden border-2"
+                  style={{
+                    background: `linear-gradient(to right, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`,
+                    borderColor: `${currentTheme.colors.primary}80`
+                  }}
+                >
                   {/* Agent Header */}
                   <div className="px-5 py-3 border-b border-white/20">
                     <div className="flex items-center gap-3">
                       <Bot className="w-7 h-7" />
                       <div>
-                        <div className="font-semibold text-lg">Sugar & Gold Treats Sales Agent</div>
-                        <div className="text-sm text-blue-200">Okta AI Agent • wlp8x5q7mvH86KvFJ0g7</div>
+                        <div className="font-semibold text-lg">{currentTheme.companyName} Sales Agent</div>
+                        <div className="text-sm opacity-80">Okta AI Agent • wlp8x5q7mvH86KvFJ0g7</div>
                       </div>
                     </div>
                   </div>
@@ -212,7 +250,7 @@ export default function ArchitecturePage() {
                     </div>
                     <div className="text-base"><span className="text-gray-500">sub:</span>       <span className="text-purple-400 font-semibold">{userSub}</span> <span className="text-gray-400 text-sm italic ml-3">← {userName}</span></div>
                     <div className="text-base"><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400 font-semibold">wlp8x5q7mvH86KvFJ0g7</span> <span className="text-gray-400 text-sm italic ml-3">← AI Agent identity</span></div>
-                    <div className="text-base"><span className="text-gray-500">aud:</span>       <span className="text-cyan-400 font-semibold">api://sugar-gold-treats-inventory</span> <span className="text-gray-400 text-sm italic ml-3">← Target MCP</span></div>
+                    <div className="text-base"><span className="text-gray-500">aud:</span>       <span className="text-cyan-400 font-semibold">api://{currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}-inventory</span> <span className="text-gray-400 text-sm italic ml-3">← Target MCP</span></div>
                     <div className="text-base"><span className="text-gray-500">scope:</span>     <span className="text-green-400 font-semibold">inventory:read</span> <span className="text-gray-400 text-sm italic ml-3">← Granted by Okta policy</span></div>
                     <div className="text-base"><span className="text-gray-500">iat:</span>       <span className="text-gray-300">{Math.floor(Date.now() / 1000)}</span> <span className="text-gray-400 text-sm italic ml-3">← Issued at</span></div>
                     <div className="text-base"><span className="text-gray-500">exp:</span>       <span className="text-gray-300">{Math.floor(Date.now() / 1000) + 3600}</span> <span className="text-gray-400 text-sm italic ml-3">← Expires in 1hr</span></div>
@@ -344,6 +382,7 @@ export default function ArchitecturePage() {
           subtitle="Actual configuration from Okta Admin Console"
           icon={<Database className="w-5 h-5" />}
           defaultOpen={true}
+          themeColors={{ primary: currentTheme.colors.primary, secondary: currentTheme.colors.secondary }}
         >
           <div className="mt-4 space-y-6">
             {/* AI Agent Identity */}
@@ -358,11 +397,11 @@ export default function ArchitecturePage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-white rounded-lg p-4 border border-gray-200">
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Agent Name</div>
-                  <div className="font-semibold text-gray-800">Sugar & Gold Treats Sales Agent</div>
+                  <div className="font-semibold text-gray-800">{currentTheme.companyName} Sales Agent</div>
                 </div>
                 <div className="bg-white rounded-lg p-4 border border-gray-200">
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Agent ID (wlp)</div>
-                  <div className="font-mono text-sm text-okta-blue">wlp8x5q7mvH86KvFJ0g7</div>
+                  <div className="font-mono text-sm" style={{ color: currentTheme.colors.primary }}>wlp8x5q7mvH86KvFJ0g7</div>
                 </div>
               </div>
             </div>
@@ -375,10 +414,10 @@ export default function ArchitecturePage() {
               </h3>
               <div className="grid md:grid-cols-2 gap-3">
                 {[
-                  { name: "Sugar & Gold Treats Sales MCP", id: "aus8xdftgwlTMxp3u0g7", audience: "api://sugar-gold-treats-sales", scopes: ["sales:read", "sales:quote", "sales:order"], color: "#3b82f6" },
-                  { name: "Sugar & Gold Treats Inventory MCP", id: "aus8xdg1oaSVfDgxa0g7", audience: "api://sugar-gold-treats-inventory", scopes: ["inventory:read", "inventory:write", "inventory:alert"], color: "#10b981" },
-                  { name: "Sugar & Gold Treats Customer MCP", id: "aus8xdfti92mIRSAE0g7", audience: "api://sugar-gold-treats-customer", scopes: ["customer:read", "customer:lookup", "customer:history"], color: "#8b5cf6" },
-                  { name: "Sugar & Gold Treats Pricing MCP", id: "aus8xdepyb5DHmTlq0g7", audience: "api://sugar-gold-treats-pricing", scopes: ["pricing:read", "pricing:margin", "pricing:discount"], color: "#f59e0b" },
+                  { name: `${currentTheme.companyName} Sales MCP`, id: "aus8xdftgwlTMxp3u0g7", audience: `api://${currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}-sales`, scopes: ["sales:read", "sales:quote", "sales:order"], color: "#3b82f6" },
+                  { name: `${currentTheme.companyName} Inventory MCP`, id: "aus8xdg1oaSVfDgxa0g7", audience: `api://${currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}-inventory`, scopes: ["inventory:read", "inventory:write", "inventory:alert"], color: "#10b981" },
+                  { name: `${currentTheme.companyName} Customer MCP`, id: "aus8xdfti92mIRSAE0g7", audience: `api://${currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}-customer`, scopes: ["customer:read", "customer:lookup", "customer:history"], color: "#8b5cf6" },
+                  { name: `${currentTheme.companyName} Pricing MCP`, id: "aus8xdepyb5DHmTlq0g7", audience: `api://${currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}-pricing`, scopes: ["pricing:read", "pricing:margin", "pricing:discount"], color: "#f59e0b" },
                 ].map((server, idx) => (
                   <div key={idx} className="bg-white rounded-lg p-4 border-2 border-gray-100 hover:border-gray-200 transition">
                     <div className="flex items-center gap-2 mb-2">
@@ -409,9 +448,9 @@ export default function ArchitecturePage() {
               </h3>
               <div className="grid md:grid-cols-3 gap-3">
                 {[
-                  { name: "Sugar & Gold Treats-Sales", id: "00g8xdepuhJhZ3Ecs0g7", desc: "Full agent access", access: ["Sales", "Inventory", "Customer", "Pricing"] },
-                  { name: "Sugar & Gold Treats-Warehouse", id: "00g8xdf4j4wmXgZMe0g7", desc: "Inventory only", access: ["Inventory"] },
-                  { name: "Sugar & Gold Treats-Finance", id: "00g8xdfshmbpjDjSA0g7", desc: "Pricing only", access: ["Pricing"] },
+                  { name: `${currentTheme.groupPrefix}-Sales`, id: "00g8xdepuhJhZ3Ecs0g7", desc: "Full agent access", access: ["Sales", "Inventory", "Customer", "Pricing"] },
+                  { name: `${currentTheme.groupPrefix}-Warehouse`, id: "00g8xdf4j4wmXgZMe0g7", desc: "Inventory only", access: ["Inventory"] },
+                  { name: `${currentTheme.groupPrefix}-Finance`, id: "00g8xdfshmbpjDjSA0g7", desc: "Pricing only", access: ["Pricing"] },
                 ].map((group, idx) => (
                   <div key={idx} className="bg-white rounded-lg p-4 border-2 border-gray-100">
                     <div className="font-semibold text-gray-800 text-sm mb-1">{group.name}</div>
@@ -437,6 +476,7 @@ export default function ArchitecturePage() {
           subtitle="Same AI Agent, different user permissions"
           icon={<Key className="w-5 h-5" />}
           defaultOpen={true}
+          themeColors={{ primary: currentTheme.colors.primary, secondary: currentTheme.colors.secondary }}
         >
           <div className="mt-4">
             {/* Explanation */}
@@ -463,14 +503,14 @@ export default function ArchitecturePage() {
                 <div className="p-4">
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Groups</div>
                   <div className="flex gap-1 mb-4">
-                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">Sugar & Gold Treats-Sales</span>
+                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">{currentTheme.groupPrefix}-Sales</span>
                   </div>
 
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">MCP Access Token Claims</div>
                   <div className="bg-gray-900 rounded-lg p-3 font-mono text-xs space-y-1.5">
-                    <div><span className="text-gray-500">sub:</span> <span className="text-purple-400">sarah.sales@sugar-gold-treats.demo</span></div>
+                    <div><span className="text-gray-500">sub:</span> <span className="text-purple-400">sarah.sales@{currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}.demo</span></div>
                     <div><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400">wlp8x5q7mvH86KvFJ0g7</span></div>
-                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://sugar-gold-treats-inventory</span></div>
+                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://{currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}-inventory</span></div>
                   </div>
 
                   <div className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-2">Granted Scopes</div>
@@ -514,15 +554,15 @@ export default function ArchitecturePage() {
                 <div className="p-4">
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Groups</div>
                   <div className="flex gap-1 mb-4">
-                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">Sugar & Gold Treats-Sales</span>
-                    <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs">Sugar & Gold Treats-Managers</span>
+                    <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">{currentTheme.groupPrefix}-Sales</span>
+                    <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs">{currentTheme.groupPrefix}-Managers</span>
                   </div>
 
                   <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">MCP Access Token Claims</div>
                   <div className="bg-gray-900 rounded-lg p-3 font-mono text-xs space-y-1.5">
-                    <div><span className="text-gray-500">sub:</span> <span className="text-green-400">mike.manager@sugar-gold-treats.demo</span></div>
+                    <div><span className="text-gray-500">sub:</span> <span className="text-green-400">mike.manager@{currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}.demo</span></div>
                     <div><span className="text-gray-500">actor.sub:</span> <span className="text-blue-400">wlp8x5q7mvH86KvFJ0g7</span></div>
-                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://sugar-gold-treats-inventory</span></div>
+                    <div><span className="text-gray-500">aud:</span> <span className="text-cyan-400">api://{currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}-inventory</span></div>
                   </div>
 
                   <div className="text-xs text-gray-500 uppercase tracking-wide mt-4 mb-2">Granted Scopes</div>
@@ -576,6 +616,7 @@ export default function ArchitecturePage() {
           subtitle="LangGraph workflow with intent-based scope detection"
           icon={<Cpu className="w-5 h-5" />}
           defaultOpen={false}
+          themeColors={{ primary: currentTheme.colors.primary, secondary: currentTheme.colors.secondary }}
         >
           <div className="mt-4 space-y-6">
             {/* Workflow Pipeline */}
@@ -648,6 +689,7 @@ export default function ArchitecturePage() {
           subtitle="Zero-trust access to AI capabilities"
           icon={<Lock className="w-5 h-5" />}
           defaultOpen={false}
+          themeColors={{ primary: currentTheme.colors.primary, secondary: currentTheme.colors.secondary }}
         >
           <div className="mt-4">
             {/* Value Proposition */}
@@ -743,6 +785,7 @@ export default function ArchitecturePage() {
           subtitle="How users authorize AI agents"
           icon={<Key className="w-5 h-5" />}
           defaultOpen={false}
+          themeColors={{ primary: currentTheme.colors.primary, secondary: currentTheme.colors.secondary }}
         >
           <div className="mt-4">
             {/* Flow Diagram */}
@@ -806,8 +849,9 @@ export default function ArchitecturePage() {
 
         {/* Footer */}
         <div className="text-center text-gray-400 text-sm py-4">
-          CourtEdge Sugar & Gold Treats - Powered by Okta AI Agent Governance
+          CourtEdge {currentTheme.companyName} - Powered by Okta AI Agent Governance
         </div>
+      </div>
       </div>
     </main>
   );
