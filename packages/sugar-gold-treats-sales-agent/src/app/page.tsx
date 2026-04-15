@@ -208,7 +208,17 @@ export default function Home() {
       <div
         className="min-h-screen flex items-center justify-center relative overflow-hidden"
       >
-        {currentTheme.background.type === 'image' ? (
+        {currentTheme.background.type === 'video' ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={currentTheme.background.value} type="video/mp4" />
+          </video>
+        ) : currentTheme.background.type === 'image' ? (
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${currentTheme.background.value})` }}

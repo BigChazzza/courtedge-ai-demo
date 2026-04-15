@@ -240,6 +240,23 @@ export default function XAAPage() {
           : undefined
       }}
     >
+      {currentTheme.background.type === 'video' && (
+        <>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={currentTheme.background.value} type="video/mp4" />
+          </video>
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: currentTheme.background.overlay }}
+          />
+        </>
+      )}
       {currentTheme.background.type === 'image' && (
         <>
           <div

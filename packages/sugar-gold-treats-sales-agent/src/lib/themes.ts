@@ -1,5 +1,5 @@
 // Theme configurations for demo platform
-export type ThemeType = 'chocolate' | 'tech' | 'travel';
+export type ThemeType = 'chocolate' | 'tech' | 'travel' | 'modbot';
 
 export interface ExampleQuestion {
   text: string;
@@ -17,8 +17,8 @@ export interface ThemeConfig {
     accentLight: string;
   };
   background: {
-    type: 'gradient' | 'image';
-    value: string; // Gradient CSS or image URL
+    type: 'gradient' | 'image' | 'video';
+    value: string; // Gradient CSS, image URL, or video URL
     overlay: string; // Overlay color with opacity
   };
   logo: string;
@@ -119,6 +119,36 @@ export const themes: Record<ThemeType, ThemeConfig> = {
       { text: "What's our margin on luxury hotel nights?", icon: "💰" },
       { text: "Show me recent vacation package bookings", icon: "📦" },
       { text: "Which travel clients have Platinum tier?", icon: "⭐" },
+    ],
+  },
+  modbot: {
+    id: 'modbot',
+    name: 'AI Solutions',
+    description: 'Enterprise AI and automation services',
+    colors: {
+      primary: '#007dc1',      // Okta blue
+      secondary: '#0ea5e9',    // Light blue
+      accent: '#6366f1',       // Indigo/Purple for AI
+      accentLight: '#a855f7',  // Light purple
+    },
+    background: {
+      type: 'video',
+      value: 'https://storage.googleapis.com/ew-assets/happyrobot/happyrobot-new-hero-video-only-new-2026-02.mp4',
+      overlay: 'rgba(20, 20, 40, 0.7)', // Dark blue overlay for video
+    },
+    logo: '/images/HappyRobotLogo.png',
+    emoji: '🤖',
+    companyName: 'modBOT',
+    industry: 'Artificial Intelligence',
+    tagline: 'AI-Powered Intelligent Automation Services',
+    groupPrefix: 'modBOT',
+    exampleQuestions: [
+      { text: "Can we deliver 50 AI Agent licenses for Global Finance Corp?", icon: "🤖" },
+      { text: "What automation services do we have available?", icon: "⚡" },
+      { text: "Look up TechVentures Inc's AI implementation", icon: "👥" },
+      { text: "What's our margin on enterprise ML models?", icon: "💰" },
+      { text: "Show me recent AI consulting engagements", icon: "📦" },
+      { text: "Which AI customers have Premium support?", icon: "⭐" },
     ],
   },
 };
