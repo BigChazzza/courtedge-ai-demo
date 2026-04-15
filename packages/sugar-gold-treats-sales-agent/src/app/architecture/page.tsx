@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { ChevronDown, ChevronRight, Shield, Key, Users, Server, ArrowRight, CheckCircle, XCircle, Cpu, Lock, GitBranch, Database, Activity, Bot } from 'lucide-react';
@@ -48,11 +48,23 @@ function CollapsibleSection({ title, subtitle, icon, children, defaultOpen = fal
 export default function ArchitecturePage() {
   const { data: session } = useSession();
   const { currentTheme } = useTheme();
+  const [lastUserMessage, setLastUserMessage] = useState<string>('');
 
   // Extract user info from session for live token display
   const userSub = (session?.user as { sub?: string })?.sub || '00u8xdeptoh4cK9pG0g7';
   const userName = session?.user?.name || 'Sarah Sales';
   const userEmail = session?.user?.email || `sarah.sales@${currentTheme.companyName.toLowerCase().replace(/\s+/g, '-')}.demo`;
+
+  // Load last user message from localStorage
+  useEffect(() => {
+    const savedMessage = localStorage.getItem('last-user-message');
+    if (savedMessage) {
+      setLastUserMessage(savedMessage);
+    } else {
+      // Default example if no message exists
+      setLastUserMessage(`Can we fulfill 1500 ${currentTheme.id === 'chocolate' ? 'chocolates' : currentTheme.id === 'tech' ? 'Enterprise Laptops' : 'Caribbean Paradise packages'} for State University?`);
+    }
+  }, [currentTheme.id]);
 
   return (
     <main
@@ -151,7 +163,7 @@ export default function ArchitecturePage() {
                   USER REQUEST
                 </div>
                 <div className="bg-white border-2 border-gray-200 px-5 py-3 rounded-xl shadow-sm">
-                  <div className="text-gray-700 font-medium">"Can we fulfill 1500 chocolates for State University?"</div>
+                  <div className="text-gray-700 font-medium">"{lastUserMessage}"</div>
                 </div>
               </div>
 
@@ -657,7 +669,7 @@ export default function ArchitecturePage() {
               <h3 className="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide">Example Query → Token Exchange</h3>
               <div className="bg-purple-50 rounded-lg p-3 mb-4 border-l-4 border-purple-500">
                 <div className="text-sm text-purple-800 font-mono">
-                  "Can we fulfill 1500 chocolates for State University at a bulk discount?"
+                  "{lastUserMessage}"
                 </div>
               </div>
               <div className="grid md:grid-cols-4 gap-3">

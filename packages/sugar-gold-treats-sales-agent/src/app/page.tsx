@@ -132,6 +132,10 @@ export default function Home() {
       timestamp: Date.now(),
     };
     setChatMessages((prev) => [...prev, newUserMessage]);
+
+    // Store last user message for architecture page
+    localStorage.setItem('last-user-message', userMessage);
+
     setIsLoading(true);
     setCurrentAgentFlow([{ step: 'router', action: 'Processing request...', status: 'processing' }]);
     setCurrentTokenExchanges([]);
