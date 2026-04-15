@@ -428,21 +428,40 @@ export default function Home() {
           {/* Token Exchanges */}
           <TokenExchangeCard exchanges={currentTokenExchanges} />
 
-          {/* Architecture Link */}
-          <Link
-            href="/architecture"
-            className="block p-4 bg-gradient-to-r from-okta-blue to-okta-blue-light text-white rounded-xl hover:shadow-lg transition hover:scale-[1.02]"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="font-semibold">Learn More</div>
-                <div className="text-sm text-white/80">View Architecture Details</div>
+          {/* Action Buttons */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {/* Learn More */}
+            <Link
+              href="/architecture"
+              className="block p-4 bg-gradient-to-r from-okta-blue to-okta-blue-light text-white rounded-xl hover:shadow-lg transition hover:scale-[1.02]"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold">Learn More</div>
+                  <div className="text-sm text-white/80">View Architecture Details</div>
+                </div>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </div>
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
+            </Link>
+
+            {/* XAA Token Flow */}
+            <Link
+              href="/xaa"
+              className="block p-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transition hover:scale-[1.02]"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold">XAA Token Flow</div>
+                  <div className="text-sm text-white/80">Live Token Exchange Logs</div>
+                </div>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </main>
