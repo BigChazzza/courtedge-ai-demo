@@ -65,8 +65,9 @@ export default function XAAPage() {
   };
 
   // Check if user has required groups for the scopes
+  // Note: Groups are consistent across all themes (ProGear-Sales, ProGear-Warehouse, ProGear-Finance)
   const evaluatePolicy = (requestedScopes: string[]): { allowed: boolean; reason: string; grantedScopes: string[] } => {
-    const requiredGroup = `${currentTheme.groupPrefix}-Sales`;
+    const requiredGroup = 'ProGear-Sales';
     const hasRequiredGroup = userGroups.includes(requiredGroup);
 
     if (!hasRequiredGroup) {
@@ -103,7 +104,7 @@ export default function XAAPage() {
     // Determine what scopes are needed for the query
     const requestedScopes = getRequiredScopes(lastUserMessage);
     const policyEval = evaluatePolicy(requestedScopes);
-    const requiredGroup = `${currentTheme.groupPrefix}-Sales`;
+    const requiredGroup = 'ProGear-Sales';
 
     const steps: TokenExchangeLog[] = [
       {
@@ -158,7 +159,7 @@ export default function XAAPage() {
         type: 'access',
         from: `${currentTheme.companyName} Sales Agent`,
         to: 'MCP OAuth Server',
-        token: policyEval.allowed ? `Access Token: api://${currentTheme.groupPrefix.toLowerCase().replace(/\s+/g, '-')}-inventory` : undefined,
+        token: policyEval.allowed ? `Access Token: api://progear-inventory` : undefined,
         status: 'pending',
         details: policyEval.allowed
           ? `ID-JAG exchanged for MCP-scoped access token with scopes: ${policyEval.grantedScopes.join(', ')}`
@@ -327,7 +328,7 @@ export default function XAAPage() {
                 <div className="space-y-2 text-sm">
                   <div className="bg-white rounded p-2 border border-blue-200">
                     <div className="font-mono text-xs text-blue-700 mb-1">
-                      Group: <strong>{currentTheme.groupPrefix}-Sales</strong>
+                      Group: <strong>ProGear-Sales</strong>
                     </div>
                     <div className="text-xs text-gray-600">
                       Scopes: <code className="bg-green-100 text-green-700 px-1 rounded">inventory:read</code>{' '}
@@ -338,7 +339,7 @@ export default function XAAPage() {
                   </div>
                   <div className="bg-white rounded p-2 border border-blue-200">
                     <div className="font-mono text-xs text-blue-700 mb-1">
-                      Group: <strong>{currentTheme.groupPrefix}-Warehouse</strong>
+                      Group: <strong>ProGear-Warehouse</strong>
                     </div>
                     <div className="text-xs text-gray-600">
                       Scopes: <code className="bg-green-100 text-green-700 px-1 rounded">inventory:read</code>{' '}
@@ -347,7 +348,7 @@ export default function XAAPage() {
                   </div>
                   <div className="bg-white rounded p-2 border border-blue-200">
                     <div className="font-mono text-xs text-blue-700 mb-1">
-                      Group: <strong>{currentTheme.groupPrefix}-Finance</strong>
+                      Group: <strong>ProGear-Finance</strong>
                     </div>
                     <div className="text-xs text-gray-600">
                       Scopes: <code className="bg-green-100 text-green-700 px-1 rounded">pricing:read</code>{' '}
@@ -359,14 +360,14 @@ export default function XAAPage() {
 
               {/* Current User Status */}
               <div className={`border-2 rounded-lg p-4 ${
-                userGroups.includes(`${currentTheme.groupPrefix}-Sales`)
+                userGroups.includes('ProGear-Sales')
                   ? 'border-green-200 bg-green-50'
                   : 'border-red-200 bg-red-50'
               }`}>
                 <div className={`font-semibold mb-3 flex items-center gap-2 ${
-                  userGroups.includes(`${currentTheme.groupPrefix}-Sales`) ? 'text-green-900' : 'text-red-900'
+                  userGroups.includes('ProGear-Sales') ? 'text-green-900' : 'text-red-900'
                 }`}>
-                  {userGroups.includes(`${currentTheme.groupPrefix}-Sales`) ? (
+                  {userGroups.includes('ProGear-Sales') ? (
                     <CheckCircle className="w-4 h-4" />
                   ) : (
                     <AlertTriangle className="w-4 h-4" />
@@ -390,7 +391,7 @@ export default function XAAPage() {
                     )}
                   </div>
 
-                  {userGroups.includes(`${currentTheme.groupPrefix}-Sales`) ? (
+                  {userGroups.includes('ProGear-Sales') ? (
                     <div className="bg-green-100 rounded p-3 border-2 border-green-300">
                       <div className="text-xs text-green-800 font-semibold mb-1">✓ Access Granted</div>
                       <div className="text-xs text-green-700">
@@ -404,7 +405,7 @@ export default function XAAPage() {
                         Access Denied
                       </div>
                       <div className="text-xs text-red-700">
-                        You need <strong>{currentTheme.groupPrefix}-Sales</strong> group membership
+                        You need <strong>ProGear-Sales</strong> group membership
                       </div>
                     </div>
                   )}
