@@ -35,7 +35,7 @@ export default function XAAPage() {
   // Extract user info
   const userName = session?.user?.name || 'Sarah Sales';
   const userEmail = session?.user?.email || `sarah.sales@${currentTheme.companyName.toLowerCase().replace(/\s+/g, '-')}.demo`;
-  const userGroups: string[] = (session?.user as any)?.groups || [];
+  const userGroups: string[] = session?.user?.groups || [];
 
   // Load last user message for context
   const [lastUserMessage, setLastUserMessage] = useState<string>('');
